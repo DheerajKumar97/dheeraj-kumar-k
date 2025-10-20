@@ -1,7 +1,7 @@
 import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBackground from "@/assets/hero-bg.jpg";
-import profilePhoto from "@/assets/profile-photo.jpg";
+import profilePhoto from "@/assets/dheeraj-profile.jpg";
 
 const Hero = () => {
   const scrollToContact = () => {
