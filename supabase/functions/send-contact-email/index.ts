@@ -35,12 +35,12 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Dheeraj Portfolio <onboarding@resend.dev>",
         to: [email],
-        subject: "Thank you for contacting me!",
+        subject: "Thank you for contacting us!",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #333;">Thank you for reaching out, ${name}!</h2>
-            <p style="color: #666; line-height: 1.6;">
-              I have received your message and will get back to you as soon as possible.
+            <h2 style="color: #333;">Thank you for reaching out!</h2>
+            <p style="color: #666; line-height: 1.6; font-size: 16px;">
+              Request sent to Dheeraj through the form you filled. Dheeraj and team will get back to you ASAP.
             </p>
             <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #333; margin-top: 0;">Your Message:</h3>
@@ -49,7 +49,7 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
             <p style="color: #666;">
               Best regards,<br>
-              <strong>Dheeraj</strong>
+              <strong>Dheeraj and Team</strong>
             </p>
           </div>
         `,
