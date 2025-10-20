@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
@@ -31,12 +32,16 @@ const Contact = () => {
     try {
       const validatedData = contactSchema.parse(formData);
       
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Send email via edge function
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: validatedData,
+      });
+
+      if (error) throw error;
 
       toast({
         title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+        description: "Thank you for reaching out. I'll get back to you soon. A confirmation email has been sent to your inbox.",
       });
 
       setFormData({ name: "", email: "", subject: "", message: "" });
@@ -50,7 +55,7 @@ const Contact = () => {
       } else {
         toast({
           title: "Error",
-          description: "Something went wrong. Please try again.",
+          description: "Failed to send message. Please try again or email me directly.",
           variant: "destructive",
         });
       }
