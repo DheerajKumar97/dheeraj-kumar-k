@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Send, User, MessageSquare } from "lucide-react";
+import { Phone, Send, User, MessageSquare, Mail } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -179,10 +179,11 @@ const Contact = () => {
             <div className="mt-8 pt-8 border-t border-border text-center">
               <p className="text-muted-foreground mb-2">Or reach me directly at:</p>
               <a
-                href="mailto:engineerdheeraj97@example.com"
-                className="text-primary hover:text-primary/80 font-medium transition-smooth"
+                href="tel:+919080883289"
+                className="text-primary hover:text-primary/80 font-medium transition-smooth inline-flex items-center gap-2"
               >
-                engineerdheeraj97@example.com
+                <Phone className="h-4 w-4" />
+                (+91) - 9080883289
               </a>
             </div>
           </Card>

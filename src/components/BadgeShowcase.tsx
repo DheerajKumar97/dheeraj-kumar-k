@@ -8,16 +8,19 @@ const BadgeShowcase = () => {
       name: "Power BI Data Analyst Associate",
       image: powerBiBadge,
       issuer: "Microsoft",
+      url: "https://learn.microsoft.com/en-us/users/dheerajkkumar-9723/credentials/363632b34f222fac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
     },
     {
       name: "Tableau Data Analyst",
       image: tableauAnalystBadge,
       issuer: "Tableau",
+      url: "https://www.credly.com/badges/035dd9c9-138d-4ee7-9581-300333cca64a/public_url",
     },
     {
       name: "Tableau Desktop Specialist",
       image: tableauSpecialistBadge,
       issuer: "Tableau",
+      url: "https://www.credly.com/badges/39cb7a53-aead-4007-af98-f068777a6fd6/public_url",
     },
   ];
 
@@ -35,8 +38,11 @@ const BadgeShowcase = () => {
         
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 lg:gap-16">
           {badges.map((badge, index) => (
-            <div
+            <a
               key={index}
+              href={badge.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group animate-fade-in"
               style={{ animationDelay: `${index * 150}ms` }}
             >
@@ -49,7 +55,7 @@ const BadgeShowcase = () => {
                   title={badge.name}
                 />
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
