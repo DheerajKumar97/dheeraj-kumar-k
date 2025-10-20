@@ -1,33 +1,66 @@
 import { Code2, Database, TrendingUp, Cloud, BarChart } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 const Skills = () => {
   const skillCategories = [
     {
       category: "Technology",
       icon: TrendingUp,
-      skills: ["Data Analytics", "Business Intelligence", "Data Modeling", "Statistical Modeling", "Data Engineering"],
+      skills: [
+        { name: "Data Analytics", level: 95 },
+        { name: "Business Intelligence", level: 95 },
+        { name: "Data Modeling", level: 90 },
+        { name: "Statistical Modeling", level: 88 },
+        { name: "Data Engineering", level: 85 },
+      ],
     },
     {
       category: "BI Tools",
       icon: BarChart,
-      skills: ["Tableau Desktop", "Tableau Prep", "Tableau Cloud", "Power BI Desktop", "Power BI Service", "Power BI Report Builder", "Power Automate"],
+      skills: [
+        { name: "Tableau Desktop", level: 92 },
+        { name: "Tableau Prep", level: 88 },
+        { name: "Tableau Cloud", level: 85 },
+        { name: "Power BI Desktop", level: 95 },
+        { name: "Power BI Service", level: 92 },
+        { name: "Power BI Report Builder", level: 88 },
+        { name: "Power Automate", level: 85 },
+      ],
     },
     {
       category: "DB / DW / DE Platforms",
       icon: Database,
-      skills: ["MS SQL Server (T SQL)", "MySQL", "PostgreSQL", "Databricks", "Snowflake", "Azure Synapse"],
+      skills: [
+        { name: "MS SQL Server (T SQL)", level: 95 },
+        { name: "MySQL", level: 88 },
+        { name: "PostgreSQL", level: 85 },
+        { name: "Databricks", level: 85 },
+        { name: "Snowflake", level: 82 },
+        { name: "Azure Synapse", level: 80 },
+      ],
     },
     {
       category: "Programming (Model / Technique) & SDLC",
       icon: Code2,
-      skills: ["Python (3.7– 3.11)", "OOP's", "ORM (SQL Alchemy)", "PySpark", "Agile Methodology (JIRA)", "Azure Devops"],
+      skills: [
+        { name: "Python (3.7– 3.11)", level: 90 },
+        { name: "OOP's", level: 88 },
+        { name: "ORM (SQL Alchemy)", level: 85 },
+        { name: "PySpark", level: 88 },
+        { name: "Agile Methodology (JIRA)", level: 90 },
+        { name: "Azure Devops", level: 85 },
+      ],
     },
     {
       category: "Cloud Platforms & DevOps",
       icon: Cloud,
-      skills: ["Microsoft Fabric (OneLake, ADF, Notebooks)", "Azure", "Databricks", "VCS- GIT (GitHub, GitLab, Bitbucket)"],
+      skills: [
+        { name: "Microsoft Fabric (OneLake, ADF, Notebooks)", level: 88 },
+        { name: "Azure", level: 85 },
+        { name: "Databricks", level: 85 },
+        { name: "VCS- GIT (GitHub, GitLab, Bitbucket)", level: 90 },
+      ],
     },
   ];
 
@@ -60,14 +93,19 @@ const Skills = () => {
                 </h3>
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="space-y-5">
                 {category.skills.map((skill, skillIndex) => (
-                  <Badge
-                    key={skillIndex}
-                    className="bg-blue-600 text-white font-bold hover:bg-blue-700"
-                  >
-                    {skill}
-                  </Badge>
+                  <div key={skillIndex}>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium text-foreground">
+                        {skill.name}
+                      </span>
+                      <span className="text-sm font-semibold text-primary">
+                        {skill.level}%
+                      </span>
+                    </div>
+                    <Progress value={skill.level} className="h-2" />
+                  </div>
                 ))}
               </div>
             </Card>
