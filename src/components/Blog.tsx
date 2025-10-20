@@ -8,7 +8,7 @@ const Blog = () => {
     {
       title: "Mastering DAX: Advanced Calculations in Power BI",
       excerpt: "Deep dive into advanced DAX formulas and optimization techniques for high-performance Power BI dashboards.",
-      date: "2024-03-15",
+      date: "2025-10-20",
       category: "Power BI",
       readTime: "8 min read",
       link: "https://medium.com/@engineerdheeraj97/mastering-dax-advanced-calculations-in-power-bi-fd30ff2a6a5b",
