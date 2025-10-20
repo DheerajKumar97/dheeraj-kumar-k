@@ -16,12 +16,18 @@ const Skills = () => {
       ],
     },
     {
-      category: "BI Tools",
+      category: "Tableau Tools",
       icon: BarChart,
       skills: [
         { name: "Tableau Desktop", level: 92 },
         { name: "Tableau Prep", level: 88 },
         { name: "Tableau Cloud", level: 85 },
+      ],
+    },
+    {
+      category: "Power BI & Automation",
+      icon: BarChart,
+      skills: [
         { name: "Power BI Desktop", level: 95 },
         { name: "Power BI Service", level: 92 },
         { name: "Power BI Report Builder", level: 88 },
