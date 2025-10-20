@@ -11,6 +11,7 @@ const Blog = () => {
       date: "2024-03-15",
       category: "Power BI",
       readTime: "8 min read",
+      link: "https://medium.com/@engineerdheeraj97/mastering-dax-advanced-calculations-in-power-bi-fd30ff2a6a5b",
     },
     {
       title: "Data Storytelling: Making Numbers Speak",
@@ -18,6 +19,7 @@ const Blog = () => {
       date: "2024-02-28",
       category: "Analytics",
       readTime: "6 min read",
+      link: "https://medium.com/@engineerdheeraj97",
     },
     {
       title: "Building Scalable Data Pipelines with PySpark",
@@ -25,6 +27,7 @@ const Blog = () => {
       date: "2024-02-10",
       category: "Data Engineering",
       readTime: "10 min read",
+      link: "https://medium.com/@engineerdheeraj97",
     },
   ];
 
@@ -78,7 +81,7 @@ const Blog = () => {
                 className="text-primary hover:text-primary/80 hover:bg-primary/5 transition-smooth group/btn p-0"
                 asChild
               >
-                <a href="https://medium.com/@engineerdheeraj97" target="_blank" rel="noopener noreferrer">
+                <a href={post.link} target="_blank" rel="noopener noreferrer">
                   Read More
                   <ExternalLink className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                 </a>
