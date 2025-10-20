@@ -11,10 +11,6 @@ const Hero = () => {
     }
   };
 
-  const downloadResume = () => {
-    window.open("https://drive.google.com/uc?export=download&id=1fjIRkyfJ2UpnxTMygMSV9a-S5pgGMlox", "_blank");
-  };
-
   return (
     <section
       className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
@@ -57,10 +53,12 @@ const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="border-primary text-primary hover:bg-primary/10 transition-smooth"
-                onClick={downloadResume}
+                asChild
               >
-                Download Resume
-                <Download className="ml-2 h-5 w-5" />
+                <a href="https://drive.google.com/uc?export=download&id=1fjIRkyfJ2UpnxTMygMSV9a-S5pgGMlox">
+                  Download Resume
+                  <Download className="ml-2 h-5 w-5" />
+                </a>
               </Button>
             </div>
           </div>
