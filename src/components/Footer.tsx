@@ -53,7 +53,7 @@ const Footer = () => {
           <div className="text-center space-y-8">
             <div>
               <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-3">
-                Services I Provide
+                Services we Provide
               </h3>
               <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
             </div>
