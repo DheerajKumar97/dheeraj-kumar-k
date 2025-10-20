@@ -88,8 +88,7 @@ const Projects = () => {
                   {project.tools.map((tool, toolIndex) => (
                     <Badge
                       key={toolIndex}
-                      variant="secondary"
-                      className="bg-muted hover:bg-muted/80"
+                      className="bg-blue-600 text-white font-bold hover:bg-blue-700"
                     >
                       {tool}
                     </Badge>
