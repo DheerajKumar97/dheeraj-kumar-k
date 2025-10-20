@@ -1,7 +1,6 @@
-import { ExternalLink, TrendingUp, Users, DollarSign, BarChart3 } from "lucide-react";
+import { TrendingUp, Users, DollarSign, BarChart3 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 
 const Projects = () => {
   const projects = [
@@ -85,7 +84,7 @@ const Projects = () => {
                   <span className="font-semibold text-foreground">{project.impact}</span>
                 </div>
 
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-2">
                   {project.tools.map((tool, toolIndex) => (
                     <Badge
                       key={toolIndex}
@@ -96,14 +95,6 @@ const Projects = () => {
                     </Badge>
                   ))}
                 </div>
-
-                <Button
-                  variant="outline"
-                  className="border-primary text-primary hover:bg-primary/10 transition-smooth group/btn"
-                >
-                  View Details
-                  <ExternalLink className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
               </div>
             </Card>
           ))}

@@ -7,19 +7,19 @@ const Certifications = () => {
     {
       name: "Tableau Desktop Specialist",
       issuer: "Tableau",
-      link: "#",
+      link: "https://www.credly.com/badges/39cb7a53-aead-4007-af98-f068777a6fd6/public_url",
       color: "from-blue-500 to-blue-600",
     },
     {
       name: "Tableau Data Analyst",
       issuer: "Tableau",
-      link: "#",
+      link: "https://www.credly.com/badges/035dd9c9-138d-4ee7-9581-300333cca64a/public_url",
       color: "from-blue-600 to-indigo-600",
     },
     {
       name: "Power BI Data Analyst Associate",
       issuer: "Microsoft",
-      link: "#",
+      link: "https://learn.microsoft.com/en-us/users/dheerajkkumar-9723/credentials/363632b34f222fac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
       color: "from-yellow-500 to-orange-500",
     },
   ];
