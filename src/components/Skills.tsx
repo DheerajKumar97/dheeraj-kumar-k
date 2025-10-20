@@ -1,62 +1,33 @@
-import { Code2, Database, TrendingUp, Cloud, BarChart, LineChart } from "lucide-react";
+import { Code2, Database, TrendingUp, Cloud, BarChart } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 
 const Skills = () => {
   const skillCategories = [
     {
-      category: "Business Intelligence",
-      icon: BarChart,
-      skills: [
-        { name: "Power BI", level: 95 },
-        { name: "Tableau", level: 90 },
-        { name: "Microsoft Fabric", level: 85 },
-      ],
-    },
-    {
-      category: "Data Analytics",
-      icon: LineChart,
-      skills: [
-        { name: "Data Storytelling", level: 95 },
-        { name: "Predictive Analytics", level: 88 },
-        { name: "Statistical Analysis", level: 85 },
-      ],
-    },
-    {
-      category: "Database & Query",
-      icon: Database,
-      skills: [
-        { name: "SQL Server", level: 92 },
-        { name: "PySpark", level: 85 },
-        { name: "Data Modeling", level: 90 },
-      ],
-    },
-    {
-      category: "Programming",
-      icon: Code2,
-      skills: [
-        { name: "Python", level: 88 },
-        { name: "DAX", level: 92 },
-        { name: "SQL", level: 95 },
-      ],
-    },
-    {
-      category: "Cloud Platforms",
-      icon: Cloud,
-      skills: [
-        { name: "Azure", level: 85 },
-        { name: "AWS", level: 75 },
-        { name: "Data Engineering", level: 82 },
-      ],
-    },
-    {
-      category: "Visualization",
+      category: "Technology",
       icon: TrendingUp,
-      skills: [
-        { name: "Dashboard Design", level: 95 },
-        { name: "Interactive Reports", level: 92 },
-        { name: "KPI Development", level: 90 },
-      ],
+      skills: ["Data Analytics", "Business Intelligence", "Data Modeling", "Statistical Modeling", "Data Engineering"],
+    },
+    {
+      category: "BI Tools",
+      icon: BarChart,
+      skills: ["Tableau Desktop", "Tableau Prep", "Tableau Cloud", "Power BI Desktop", "Power BI Service", "Power BI Report Builder", "Power Automate"],
+    },
+    {
+      category: "DB / DW / DE Platforms",
+      icon: Database,
+      skills: ["MS SQL Server (T SQL)", "MySQL", "PostgreSQL", "Databricks", "Snowflake", "Azure Synapse"],
+    },
+    {
+      category: "Programming (Model / Technique) & SDLC",
+      icon: Code2,
+      skills: ["Python (3.7– 3.11)", "OOP's", "ORM (SQL Alchemy)", "PySpark", "Agile Methodology (JIRA)", "Azure Devops"],
+    },
+    {
+      category: "Cloud Platforms & DevOps",
+      icon: Cloud,
+      skills: ["Microsoft Fabric (OneLake, ADF, Notebooks)", "Azure", "Databricks", "VCS- GIT (GitHub, GitLab, Bitbucket)"],
     },
   ];
 
@@ -89,19 +60,14 @@ const Skills = () => {
                 </h3>
               </div>
 
-              <div className="space-y-5">
+              <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-foreground">
-                        {skill.name}
-                      </span>
-                      <span className="text-sm font-semibold text-primary">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <Progress value={skill.level} className="h-2" />
-                  </div>
+                  <Badge
+                    key={skillIndex}
+                    className="bg-blue-600 text-white font-bold hover:bg-blue-700"
+                  >
+                    {skill}
+                  </Badge>
                 ))}
               </div>
             </Card>
