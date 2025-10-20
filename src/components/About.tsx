@@ -38,7 +38,7 @@ const About = () => {
         <div className="max-w-4xl mx-auto mb-12 animate-fade-in">
           <Card className="p-8 shadow-card hover:shadow-hover transition-smooth">
             <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-              With over <strong className="text-primary">5+ years of experience</strong> in Business Intelligence and Data Analytics, I specialize in transforming raw data into strategic business insights that drive decision-making and operational excellence.
+              With over <strong className="text-primary">6+ years of experience</strong> in Business Intelligence and Data Analytics, I specialize in transforming raw data into strategic business insights that drive decision-making and operational excellence.
             </p>
             <p className="text-lg text-foreground/80 leading-relaxed mb-6">
               My expertise spans across industry-leading tools including{" "}

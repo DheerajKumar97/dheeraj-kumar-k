@@ -76,9 +76,12 @@ const Blog = () => {
               <Button
                 variant="ghost"
                 className="text-primary hover:text-primary/80 hover:bg-primary/5 transition-smooth group/btn p-0"
+                asChild
               >
-                Read More
-                <ExternalLink className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                <a href="https://medium.com/@engineerdheeraj97" target="_blank" rel="noopener noreferrer">
+                  Read More
+                  <ExternalLink className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </Card>
           ))}
