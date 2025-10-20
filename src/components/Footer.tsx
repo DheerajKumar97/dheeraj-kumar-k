@@ -1,4 +1,4 @@
-import { Linkedin, Github, PenTool, Code, Heart, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
+import { Linkedin, Github, PenTool, Code, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -106,9 +106,7 @@ const Footer = () => {
             <div className="w-full max-w-xs h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
 
             <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground">
-              <p className="flex items-center gap-2">
-                Made with <Heart className="h-4 w-4 text-destructive fill-destructive" /> by Dheeraj Kumar K
-              </p>
+              <p>Made by Dheeraj Kumar K</p>
               <p>© {currentYear} All rights reserved</p>
             </div>
           </div>
