@@ -46,7 +46,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-card/95 backdrop-blur-md border-t border-border py-16">
+    <footer className="bg-muted/50 backdrop-blur-md border-t border-border py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col space-y-12">
           {/* Services Section */}
