@@ -37,8 +37,10 @@ const Hero = () => {
               with Visual Brilliance
             </p>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto lg:mx-0">
-              Business Intelligence Developer & Data Analyst with 6+ years of
-              expertise in Power BI, Tableau, SQL, and Advanced Analytics
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">
+                Business Intelligence Developer & Data Analyst
+              </span>{" "}
+              with 6+ years of expertise in Power BI, Tableau, SQL, and Advanced Analytics
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
               <Button
