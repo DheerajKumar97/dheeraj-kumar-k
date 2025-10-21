@@ -8,7 +8,8 @@ const corsHeaders = {
 };
 
 interface ContactEmailRequest {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   businessType: string;
@@ -23,7 +24,7 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, phone, businessType, subject, message }: ContactEmailRequest = await req.json();
+    const { firstName, lastName, email, phone, businessType, subject, message }: ContactEmailRequest = await req.json();
     
     console.log("Processing contact form submission from:", email);
 
@@ -42,7 +43,7 @@ const handler = async (req: Request): Promise<Response> => {
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #333;">New Contact Form Submission</h2>
             <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p style="color: #666;"><strong>Name:</strong> ${name}</p>
+              <p style="color: #666;"><strong>Name:</strong> ${firstName} ${lastName}</p>
               <p style="color: #666;"><strong>Email:</strong> ${email}</p>
               <p style="color: #666;"><strong>Phone:</strong> ${phone}</p>
               <p style="color: #666;"><strong>Business Type:</strong> ${businessType}</p>

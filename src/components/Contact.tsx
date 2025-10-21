@@ -14,7 +14,8 @@ import "react-phone-number-input/style.css";
 const allowedEmailDomains = ['gmail.com', 'outlook.com', 'yahoo.com', 'zohomail.com', 'protonmail.com', 'titan.email'];
 
 const contactSchema = z.object({
-  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  firstName: z.string().trim().min(2, "First name must be at least 2 characters").max(50, "First name must be less than 50 characters"),
+  lastName: z.string().trim().min(2, "Last name must be at least 2 characters").max(50, "Last name must be less than 50 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters").refine((email) => {
     const domain = email.split('@')[1]?.toLowerCase();
     return allowedEmailDomains.includes(domain);
@@ -51,7 +52,8 @@ const businessTypes = [
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     businessType: "",
@@ -79,7 +81,7 @@ const Contact = () => {
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
 
-      setFormData({ name: "", email: "", phone: "", businessType: "", subject: "", message: "" });
+      setFormData({ firstName: "", lastName: "", email: "", phone: "", businessType: "", subject: "", message: "" });
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast({
@@ -124,25 +126,47 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
-                    Name *
+                  <label htmlFor="firstName" className="block text-sm font-medium mb-2 text-foreground">
+                    First Name *
                   </label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                     <Input
-                      id="name"
-                      name="name"
+                      id="firstName"
+                      name="firstName"
                       type="text"
-                      placeholder="Your Name"
-                      value={formData.name}
+                      placeholder="First Name"
+                      value={formData.firstName}
                       onChange={handleChange}
                       className="pl-10"
                       required
-                      maxLength={100}
+                      maxLength={50}
                     />
                   </div>
                 </div>
 
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-medium mb-2 text-foreground">
+                    Last Name *
+                  </label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                    <Input
+                      id="lastName"
+                      name="lastName"
+                      type="text"
+                      placeholder="Last Name"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className="pl-10"
+                      required
+                      maxLength={50}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
                     Email *
@@ -162,20 +186,20 @@ const Contact = () => {
                     />
                   </div>
                 </div>
-              </div>
 
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium mb-2 text-foreground">
-                  Phone Number *
-                </label>
-                <PhoneInput
-                  international
-                  defaultCountry="IN"
-                  value={formData.phone}
-                  onChange={(value) => setFormData(prev => ({ ...prev, phone: value || "" }))}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                  required
-                />
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium mb-2 text-foreground">
+                    Phone Number *
+                  </label>
+                  <PhoneInput
+                    international
+                    defaultCountry="IN"
+                    value={formData.phone}
+                    onChange={(value) => setFormData(prev => ({ ...prev, phone: value || "" }))}
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    required
+                  />
+                </div>
               </div>
 
               <div>
