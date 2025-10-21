@@ -27,7 +27,7 @@ const Blog = () => {
       date: "2025-10-21",
       category: "Data Engineering",
       readTime: "10 min read",
-      link: "https://medium.com/@engineerdheeraj97",
+      link: "https://medium.com/@engineerdheeraj97/building-a-robust-data-quality-check-pipeline-with-snowpark-e7cb6ee4f4ea",
     },
   ];
 
