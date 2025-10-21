@@ -42,6 +42,7 @@ const Skills = () => {
         { name: "MS SQL Server (T SQL)", level: 95 },
         { name: "MySQL", level: 88 },
         { name: "PostgreSQL", level: 85 },
+        { name: "Azure SQL Database", level: 82 },
         { name: "Azure Synapse", level: 80 },
       ],
     },
@@ -54,7 +55,6 @@ const Skills = () => {
         { name: "ORM (SQL Alchemy)", level: 85 },
         { name: "PySpark", level: 88 },
         { name: "Agile Methodology (JIRA)", level: 90 },
-        { name: "Azure Devops", level: 85 },
       ],
     },
     {
@@ -62,7 +62,6 @@ const Skills = () => {
       icon: Cloud,
       skills: [
         { name: "Microsoft Fabric (OneLake, ADF, Notebooks)", level: 88 },
-        { name: "Azure", level: 85 },
         { name: "Databricks", level: 85 },
         { name: "Snowflake", level: 82 },
         { name: "VCS- GIT (GitHub, GitLab, Bitbucket)", level: 90 },
