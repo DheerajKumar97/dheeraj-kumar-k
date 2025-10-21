@@ -77,15 +77,8 @@ const Footer = () => {
 
           {/* Main Footer Content */}
           <div className="flex flex-col items-center space-y-6">
-            <button
-              onClick={scrollToTop}
-              className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:scale-105 transition-transform"
-            >
-              Dheeraj Kumar K
-            </button>
-
-            <p className="text-muted-foreground text-center max-w-md">
-              Transforming data into insights, one dashboard at a time
+            <p className="text-lg font-semibold text-foreground">
+              Connect with Us
             </p>
 
             <div className="flex items-center gap-4">
@@ -107,7 +100,7 @@ const Footer = () => {
 
             <div className="flex flex-col items-center gap-2 text-sm text-muted-foreground">
               <p>Made by Dheeraj Kumar K</p>
-              <p>© {currentYear} All rights reserved</p>
+              <p>Copyright © {currentYear} All rights reserved</p>
             </div>
           </div>
         </div>
