@@ -22,9 +22,9 @@ const Blog = () => {
       link: "https://medium.com/@engineerdheeraj97",
     },
     {
-      title: "Building Scalable Data Pipelines with PySpark",
+      title: "Building Scalable Data quality check Pipelines with Snowpark",
       excerpt: "Best practices and patterns for creating efficient, scalable data processing pipelines using PySpark.",
-      date: "2024-02-10",
+      date: "2025-10-21",
       category: "Data Engineering",
       readTime: "10 min read",
       link: "https://medium.com/@engineerdheeraj97",
