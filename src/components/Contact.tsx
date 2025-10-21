@@ -7,12 +7,17 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  phone: z.string().refine((val) => isValidPhoneNumber(val), {
+    message: "Invalid phone number",
+  }),
   subject: z.string().trim().min(5, "Subject must be at least 5 characters").max(200, "Subject must be less than 200 characters"),
-  message: z.string().trim().min(10, "Message must be at least 10 characters").max(1000, "Message must be less than 1000 characters"),
+  message: z.string().trim().min(60, "Message must be at least 60 characters").max(1000, "Message must be less than 1000 characters"),
 });
 
 const Contact = () => {
@@ -20,6 +25,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -44,7 +50,7 @@ const Contact = () => {
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
 
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast({
@@ -130,6 +136,20 @@ const Contact = () => {
               </div>
 
               <div>
+                <label htmlFor="phone" className="block text-sm font-medium mb-2 text-foreground">
+                  Phone Number *
+                </label>
+                <PhoneInput
+                  international
+                  defaultCountry="IN"
+                  value={formData.phone}
+                  onChange={(value) => setFormData(prev => ({ ...prev, phone: value || "" }))}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  required
+                />
+              </div>
+
+              <div>
                 <label htmlFor="subject" className="block text-sm font-medium mb-2 text-foreground">
                   Subject *
                 </label>
@@ -151,16 +171,17 @@ const Contact = () => {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
-                  Message *
+                  Message * (minimum 60 characters)
                 </label>
                 <Textarea
                   id="message"
                   name="message"
-                  placeholder="Tell me about your project or inquiry..."
+                  placeholder="Tell me about your project or inquiry... (minimum 60 characters)"
                   value={formData.message}
                   onChange={handleChange}
                   className="min-h-[150px] resize-none"
                   required
+                  minLength={60}
                   maxLength={1000}
                 />
               </div>
