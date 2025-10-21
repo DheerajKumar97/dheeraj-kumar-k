@@ -1,24 +1,52 @@
 import { useState } from "react";
-import { Phone, Send, User, MessageSquare, Mail } from "lucide-react";
+import { Phone, Send, User, MessageSquare, Mail, Building2 } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
+const allowedEmailDomains = ['gmail.com', 'outlook.com', 'yahoo.com', 'zohomail.com', 'protonmail.com', 'titan.email'];
+
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
-  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters").refine((email) => {
+    const domain = email.split('@')[1]?.toLowerCase();
+    return allowedEmailDomains.includes(domain);
+  }, {
+    message: "Email must be from Gmail, Outlook, Yahoo, Zohomail, ProtonMail, or Titan",
+  }),
   phone: z.string().refine((val) => isValidPhoneNumber(val), {
     message: "Invalid phone number",
   }),
+  businessType: z.string().min(1, "Please select a business type"),
   subject: z.string().trim().min(5, "Subject must be at least 5 characters").max(200, "Subject must be less than 200 characters"),
   message: z.string().trim().min(60, "Message must be at least 60 characters").max(1000, "Message must be less than 1000 characters"),
 });
+
+const businessTypes = [
+  "Telecom Industry",
+  "E-commerce",
+  "IT Industry",
+  "Sales & Marketing",
+  "Media & Entertainment",
+  "Travel & Tourism",
+  "Finance and Banking",
+  "Supply Chain Logistics & Inventory & Order Management",
+  "Health Care",
+  "Fitness & Recreation",
+  "Gaming Industry",
+  "Education Industry",
+  "Manufacturing",
+  "Procurement Management Solution",
+  "Social Media and Social Media Analysis",
+  "Other"
+];
 
 const Contact = () => {
   const { toast } = useToast();
@@ -26,6 +54,7 @@ const Contact = () => {
     name: "",
     email: "",
     phone: "",
+    businessType: "",
     subject: "",
     message: "",
   });
@@ -50,7 +79,7 @@ const Contact = () => {
         description: "Thank you for reaching out. I'll get back to you soon.",
       });
 
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", businessType: "", subject: "", message: "" });
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast({
@@ -147,6 +176,25 @@ const Contact = () => {
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   required
                 />
+              </div>
+
+              <div>
+                <label htmlFor="businessType" className="block text-sm font-medium mb-2 text-foreground">
+                  Business Type *
+                </label>
+                <Select value={formData.businessType} onValueChange={(value) => setFormData(prev => ({ ...prev, businessType: value }))}>
+                  <SelectTrigger className="w-full">
+                    <Building2 className="absolute left-3 h-5 w-5 text-muted-foreground" />
+                    <SelectValue placeholder="Select your business type" className="pl-10" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {businessTypes.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
               <div>
