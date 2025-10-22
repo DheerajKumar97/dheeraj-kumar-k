@@ -1,4 +1,7 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { Resend } from "https://esm.sh/resend@4.0.0";
+
+const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -31,35 +34,31 @@ serve(async (req) => {
       );
     }
 
-    // Format message for WhatsApp
-    const whatsappMessage = `*New Contact from Website Chatbot*
+    // Send email using Resend
+    const emailResponse = await resend.emails.send({
+      from: "Website Chatbot <onboarding@resend.dev>",
+      to: ["engineerdheeraj97@gmail.com"], // Your email
+      subject: `New Contact from ${contactInfo.firstName} ${contactInfo.lastName}`,
+      html: `
+        <h2>New Contact from Website Chatbot</h2>
+        <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <p><strong>Name:</strong> ${contactInfo.firstName} ${contactInfo.lastName}</p>
+          <p><strong>Email:</strong> ${contactInfo.email}</p>
+          <p><strong>Phone:</strong> ${contactInfo.phone}</p>
+          <p><strong>Business Type:</strong> ${contactInfo.businessType}</p>
+          <p><strong>Subject:</strong> ${contactInfo.subject}</p>
+          <p><strong>Message:</strong></p>
+          <p style="white-space: pre-wrap;">${contactInfo.message}</p>
+        </div>
+      `,
+    });
 
-*Name:* ${contactInfo.firstName} ${contactInfo.lastName}
-*Email:* ${contactInfo.email}
-*Phone:* ${contactInfo.phone}
-*Business Type:* ${contactInfo.businessType}
-*Subject:* ${contactInfo.subject}
-
-*Message:*
-${contactInfo.message}`;
-
-    // WhatsApp number (remove + and any spaces/dashes)
-    const whatsappNumber = "919080883289";
-    
-    // Encode message for URL
-    const encodedMessage = encodeURIComponent(whatsappMessage);
-    
-    // Create WhatsApp link
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-    console.log("Contact info received:", contactInfo);
-    console.log("WhatsApp URL:", whatsappUrl);
+    console.log("Email sent successfully:", emailResponse);
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        whatsappUrl,
-        message: "Contact information processed successfully" 
+        message: "Email sent successfully"
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

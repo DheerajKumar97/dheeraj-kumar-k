@@ -65,30 +65,25 @@ const ChatBot = () => {
           const contactInfo = JSON.parse(toolCall.function.arguments);
           console.log("Contact info extracted:", contactInfo);
 
-          // Send to WhatsApp
-          const { data: whatsappData, error: whatsappError } = await supabase.functions.invoke(
+          // Send email
+          const { data: emailData, error: emailError } = await supabase.functions.invoke(
             "send-to-whatsapp",
             { body: contactInfo }
           );
 
-          if (whatsappError) throw whatsappError;
-
-          // Open WhatsApp in new tab
-          if (whatsappData?.whatsappUrl) {
-            window.open(whatsappData.whatsappUrl, "_blank");
-          }
+          if (emailError) throw emailError;
 
           setMessages([
             ...newMessages,
             {
               role: "assistant",
-              content: "Perfect! I've collected all your information and opened WhatsApp for you. Your message will be sent to Dheeraj directly. Thank you for reaching out!",
+              content: "Perfect! I've sent your information to Dheeraj via email. He'll get back to you soon. Thank you for reaching out!",
             },
           ]);
 
           toast({
-            title: "Information Collected",
-            description: "Opening WhatsApp to send your message to Dheeraj.",
+            title: "Message Sent",
+            description: "Your information has been sent to Dheeraj via email.",
           });
         }
       } else {
