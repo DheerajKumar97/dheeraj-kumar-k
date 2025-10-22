@@ -1,6 +1,9 @@
-import { ExternalLink, Award } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import tableauSpecialistBadge from "@/assets/tableau-specialist-badge.png";
+import tableauAnalystBadge from "@/assets/tableau-analyst-badge.png";
+import powerBIBadge from "@/assets/power-bi-badge.png";
 
 const Certifications = () => {
   const certifications = [
@@ -8,19 +11,19 @@ const Certifications = () => {
       name: "Tableau Desktop Specialist",
       issuer: "Tableau",
       link: "https://www.credly.com/badges/39cb7a53-aead-4007-af98-f068777a6fd6/public_url",
-      color: "from-blue-500 to-blue-600",
+      badge: tableauSpecialistBadge,
     },
     {
       name: "Tableau Data Analyst",
       issuer: "Tableau",
       link: "https://www.credly.com/badges/035dd9c9-138d-4ee7-9581-300333cca64a/public_url",
-      color: "from-blue-600 to-indigo-600",
+      badge: tableauAnalystBadge,
     },
     {
       name: "Power BI Data Analyst Associate",
       issuer: "Microsoft",
       link: "https://learn.microsoft.com/en-us/users/dheerajkkumar-9723/credentials/363632b34f222fac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
-      color: "from-yellow-500 to-orange-500",
+      badge: powerBIBadge,
     },
   ];
 
@@ -44,8 +47,12 @@ const Certifications = () => {
               className="p-8 shadow-card hover:shadow-hover transition-smooth group text-center animate-fade-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className={`bg-gradient-to-br ${cert.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                <Award className="h-10 w-10 text-white" />
+              <div className="w-32 h-32 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                <img 
+                  src={cert.badge} 
+                  alt={`${cert.name} Badge`}
+                  className="w-full h-full object-contain"
+                />
               </div>
 
               <h3 className="text-xl font-bold mb-2 text-foreground">
