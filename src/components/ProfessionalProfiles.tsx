@@ -63,7 +63,7 @@ const ProfessionalProfiles = () => {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <Card className="p-6 shadow-card hover:shadow-hover transition-smooth group cursor-pointer h-full">
-                <div className={`bg-gradient-to-br ${profile.color} w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md mx-auto`}>
+                <div className={`${profile.name === "Medium Blog" ? "bg-transparent" : `bg-gradient-to-br ${profile.color}`} w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${profile.name === "Medium Blog" ? "" : "shadow-md"} mx-auto`}>
                   {profile.type === "icon" && profile.icon && (
                     <profile.icon className="h-8 w-8 text-white" />
                   )}
@@ -71,7 +71,7 @@ const ProfessionalProfiles = () => {
                     <img 
                       src={profile.logo} 
                       alt={`${profile.name} logo`}
-                      className="w-10 h-10 object-contain"
+                      className={profile.name === "HackerRank" ? "w-14 h-14 object-contain" : "w-12 h-12 object-contain"}
                     />
                   )}
                 </div>
