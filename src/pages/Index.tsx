@@ -9,6 +9,7 @@ import ProfessionalProfiles from "@/components/ProfessionalProfiles";
 import Blog from "@/components/Blog";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ChatBot from "@/components/ChatBot";
 
 const Index = () => {
   return (
@@ -26,6 +27,7 @@ const Index = () => {
         <Contact />
       </main>
       <Footer />
+      <ChatBot />
     </div>
   );
 };
