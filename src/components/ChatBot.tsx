@@ -24,11 +24,11 @@ const ChatBot = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  // Auto-open chatbot after 10 seconds
+  // Auto-open chatbot after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpen(true);
-    }, 10000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
