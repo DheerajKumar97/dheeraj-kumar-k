@@ -1,5 +1,7 @@
-import { Linkedin, Github, PenTool, Code } from "lucide-react";
+import { Linkedin, Github } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import mediumLogo from "@/assets/medium-logo.jpg";
+import hackerrankLogo from "@/assets/hackerrank-logo.png";
 
 const ProfessionalProfiles = () => {
   const profiles = [
@@ -9,6 +11,7 @@ const ProfessionalProfiles = () => {
       url: "https://www.linkedin.com/in/dheerajkumar1997/",
       color: "from-blue-600 to-blue-700",
       description: "Connect professionally",
+      type: "icon",
     },
     {
       name: "GitHub",
@@ -16,20 +19,23 @@ const ProfessionalProfiles = () => {
       url: "https://github.com/DheerajKumar97/",
       color: "from-gray-700 to-gray-900",
       description: "Explore my code",
+      type: "icon",
     },
     {
       name: "Medium Blog",
-      icon: PenTool,
+      logo: mediumLogo,
       url: "https://medium.com/@engineerdheeraj97",
       color: "from-green-600 to-green-700",
       description: "Read my insights",
+      type: "logo",
     },
     {
       name: "HackerRank",
-      icon: Code,
+      logo: hackerrankLogo,
       url: "https://www.hackerrank.com/profile/engineerdheeraj1",
       color: "from-emerald-600 to-emerald-700",
       description: "Check my skills",
+      type: "logo",
     },
   ];
 
@@ -58,7 +64,16 @@ const ProfessionalProfiles = () => {
             >
               <Card className="p-6 shadow-card hover:shadow-hover transition-smooth group cursor-pointer h-full">
                 <div className={`bg-gradient-to-br ${profile.color} w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md mx-auto`}>
-                  <profile.icon className="h-8 w-8 text-white" />
+                  {profile.type === "icon" && profile.icon && (
+                    <profile.icon className="h-8 w-8 text-white" />
+                  )}
+                  {profile.type === "logo" && profile.logo && (
+                    <img 
+                      src={profile.logo} 
+                      alt={`${profile.name} logo`}
+                      className="w-10 h-10 object-contain"
+                    />
+                  )}
                 </div>
                 <h3 className="text-lg font-bold text-center mb-2 text-foreground group-hover:text-primary transition-smooth">
                   {profile.name}
