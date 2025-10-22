@@ -23,7 +23,7 @@ const Blog = () => {
     },
     {
       title: "Building Scalable Data quality check Pipelines with Snowpark",
-      excerpt: "Best practices and patterns for creating efficient, scalable data processing pipelines using PySpark.",
+      excerpt: "Best practices and patterns for creating efficient, scalable data processing pipelines using Snowpark.",
       date: "2025-10-21",
       category: "Data Engineering",
       readTime: "10 min read",
