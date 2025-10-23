@@ -23,7 +23,7 @@ const Blog = () => {
     {
       title: "Mastering the Art and Science of BI Dashboards Design Principles With Supply Chain Domain",
       excerpt: "Learn the art of transforming complex data into compelling narratives that drive business decisions.",
-      date: "2024-02-28",
+      date: "2025-10-23",
       category: "Analytics",
       readTime: "6 min read",
       link: "https://medium.com/datadriveninvestor/mastering-the-art-and-science-of-bi-dashboards-design-principles-with-supply-chain-domain-5e52b7f8f79f",
