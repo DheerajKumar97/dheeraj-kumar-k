@@ -18,7 +18,22 @@ const Projects = () => {
     {
       title: "Enterprise Sales Analytics Dashboard",
       description: "An Enterprise Sales Analytics Dashboard in Power BI helps the business by showing clear and easy-to-understand sales information across different products, regions, and teams.",
-      fullDescription: "An Enterprise Sales Analytics Dashboard in Power BI helps the business by showing clear and easy-to-understand sales information across different products, regions, and teams. It allows decision-makers to see how much revenue is being generated, recognize sales trends over time, identify which products or markets are doing well or need improvement, and assess how well salespeople are performing. This insight supports better planning, helps focus sales efforts where they are most needed, and ultimately drives higher sales and profitability by making data simple and actionable without using complex terms or jargon.",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> The client faced challenges accessing consolidated sales data, making it hard to track revenue, monitor team and manager performance, and quickly identify opportunities or issues across different teams and regions.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> We developed a Power BI Sales Analytics Dashboard that provides a complete view of sales data at different levels—team-wise, manager-wise, and overall business performance. The dashboard incorporates Role-Level Security (RLS), ensuring users only see the data relevant to their role, which enhances data privacy and accuracy. This allows sales managers and team leaders to monitor their specific team's performance, assess targets vs. actuals, and focus on improvement areas, all through intuitive visual reports updated in real time.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Integrating diverse data sources into a unified model and maintaining data accuracy with real-time updates were key challenges. Implementing RLS required careful role definition and testing to ensure proper data access without leakage. Designing an easy-to-use interface for different user groups while avoiding information overload was also addressed through user-centered design and feedback loops.
+          </p>
+          <p>
+            This solution enables your client to have transparent, actionable insights by team and manager, fostering accountability, improving decision-making, and ultimately driving sales growth while safeguarding sensitive data.
+          </p>
+        </>
+      ),
       impact: "35% improvement in sales forecast accuracy",
       tools: ["Power BI", "SQL Server", "DAX"],
       icon: DollarSign,
@@ -105,9 +120,9 @@ const Projects = () => {
                       <DialogHeader>
                         <DialogTitle>{project.title}</DialogTitle>
                       </DialogHeader>
-                      <p className="text-foreground/80 leading-relaxed">
+                      <div className="text-foreground/80 leading-relaxed">
                         {project.fullDescription}
-                      </p>
+                      </div>
                     </DialogContent>
                   </Dialog>
                 )}
