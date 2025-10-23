@@ -95,10 +95,23 @@ const Projects = () => {
       color: "from-primary to-secondary",
     },
     {
-      title: "Financial Performance Analytics",
-      description: "Designed executive-level financial dashboards with predictive analytics for revenue forecasting and budget optimization.",
+      title: "Labor Budget and Workforce Utilization Report",
+      description: "We developed a comprehensive Labor Report dashboard in Power BI, sourcing data from Microsoft Fabric with SQL Server as the base validation layer. Using PySpark, we transformed raw data and created a semantic model optimized for the report's needs. The report tracks KPIs such as regular, overtime, benefit, and temporary labor hours and costs, comparing current vs prior year and budget.",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> The key challenge was that HR, Finance, and Operations teams lacked a consolidated, clear view of labor costs, workforce efficiency, and utilization across multiple regions and divisions. Without timely insights comparing current year versus prior year labor metrics and budget alignment, decision-makers struggled to optimize labor costs, control overtime, manage temporary labor spending, and ensure budget compliance effectively.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> We developed a comprehensive Labor Report dashboard in Power BI, sourcing data from Microsoft Fabric with SQL Server as the base validation layer. Using PySpark, we transformed raw data and created a semantic model optimized for the report's needs. The report tracks KPIs such as regular, overtime, benefit, and temporary labor hours and costs, comparing current vs prior year and budget. Advanced DAX calculations dynamically determine the latest pay period and aggregate metrics with filters by region, division, and department. Interactive visuals include matrix tables with conditional formatting to highlight variances and trends, empowering Finance, HR, and Operations to monitor labor costs, utilization, and staffing in real-time.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Building dynamic DAX measures for accurately calculating pay periods and aggregating labor metrics over complex timeframes. Transforming and modeling large datasets in PySpark and Microsoft Fabric to create an efficient, reusable semantic layer. Ensuring data accuracy and consistency across source SQL Server and transformed data in Power BI. Designing a report intuitive for diverse stakeholder needs—from detailed labor hours to high-level budget variance summaries. Optimizing report performance to provide fast, real-time updates despite extensive calculations and large data volume.
+          </p>
+        </>
+      ),
       impact: "50% faster executive reporting",
-      tools: ["Power BI", "SQL", "Python"],
+      tools: ["Power BI Desktop", "Power BI Service", "Power Query", "Microsoft Fabric", "SQL Server"],
       icon: BarChart3,
       metric: "+50%",
       color: "from-secondary/70 to-primary",
