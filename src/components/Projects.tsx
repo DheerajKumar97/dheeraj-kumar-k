@@ -73,10 +73,23 @@ const Projects = () => {
       color: "from-secondary to-secondary/70",
     },
     {
-      title: "Supply Chain Optimization System",
-      description: "Created data pipeline using PySpark and Microsoft Fabric to optimize inventory management and reduce operational costs.",
+      title: "Fully Filled Orders Report",
+      description: "We have implemented a Power BI report called \"Fully Filled Orders,\" using data sourced from Microsoft Fabric with SQL Server for validation. The report employs advanced DAX logic to classify orders into four fulfillment states—Fully Filled, Able to be Fully Filled, Awaiting ALL Stock, and Awaiting SOME Stock—by aggregating item-level fulfillment and stock data into order-level insights.",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> The client lacked visibility into the fulfillment status of complete customer orders. They could not easily determine if all items in an order were shipped, in stock, or delayed due to scheduling or stock issues. This made it difficult to prioritize operations, track overdue or unscheduled orders, and provide accurate status updates to customers, leading to inefficiencies and delays.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> We have implemented a Power BI report called "Fully Filled Orders," using data sourced from Microsoft Fabric with SQL Server for validation. The report employs advanced DAX logic to classify orders into four fulfillment states—Fully Filled, Able to be Fully Filled, Awaiting ALL Stock, and Awaiting SOME Stock—by aggregating item-level fulfillment and stock data into order-level insights. The solution includes interactive visuals like KPI cards, region and product family breakdowns, and SKU lists of pending items, enabling real-time visibility and focused action to improve supply chain fulfillment.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Developing complex grouped logic across multiple line items in an order using DAX functions while ensuring accuracy. Optimizing performance for heavy DAX calculations on large datasets. Making the fulfillment classification logic understandable and actionable for business users. Ensuring data consistency and validation between SQL Server and Microsoft Fabric. Presenting detailed insights without overwhelming users, maintaining clarity and usability.
+          </p>
+        </>
+      ),
       impact: "42% reduction in inventory costs",
-      tools: ["PySpark", "Microsoft Fabric", "Azure"],
+      tools: ["Power BI Desktop", "Power BI Service", "Power Query", "Microsoft Fabric", "SQL Server"],
       icon: TrendingUp,
       metric: "-42%",
       color: "from-primary to-secondary",
