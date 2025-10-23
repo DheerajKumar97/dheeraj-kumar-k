@@ -1,12 +1,24 @@
-import { TrendingUp, Users, DollarSign, BarChart3 } from "lucide-react";
+import { TrendingUp, Users, DollarSign, BarChart3, ExternalLink } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 const Projects = () => {
+  const [openDialog, setOpenDialog] = useState<number | null>(null);
+
   const projects = [
     {
       title: "Enterprise Sales Analytics Dashboard",
-      description: "Developed comprehensive Power BI dashboard tracking sales performance across 50+ regions, enabling real-time decision making and forecasting.",
+      description: "An Enterprise Sales Analytics Dashboard in Power BI helps the business by showing clear and easy-to-understand sales information across different products, regions, and teams.",
+      fullDescription: "An Enterprise Sales Analytics Dashboard in Power BI helps the business by showing clear and easy-to-understand sales information across different products, regions, and teams. It allows decision-makers to see how much revenue is being generated, recognize sales trends over time, identify which products or markets are doing well or need improvement, and assess how well salespeople are performing. This insight supports better planning, helps focus sales efforts where they are most needed, and ultimately drives higher sales and profitability by making data simple and actionable without using complex terms or jargon.",
       impact: "35% improvement in sales forecast accuracy",
       tools: ["Power BI", "SQL Server", "DAX"],
       icon: DollarSign,
@@ -78,6 +90,27 @@ const Projects = () => {
                 <p className="text-foreground/70 mb-4 leading-relaxed">
                   {project.description}
                 </p>
+
+                {project.fullDescription && (
+                  <Dialog open={openDialog === index} onOpenChange={(open) => setOpenDialog(open ? index : null)}>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="link"
+                        className="p-0 h-auto mb-4 text-primary hover:text-primary/80"
+                      >
+                        Read More <ExternalLink className="ml-1 h-4 w-4" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>{project.title}</DialogTitle>
+                      </DialogHeader>
+                      <p className="text-foreground/80 leading-relaxed">
+                        {project.fullDescription}
+                      </p>
+                    </DialogContent>
+                  </Dialog>
+                )}
 
                 <div className="flex items-center gap-2 mb-4 p-3 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/10">
                   <TrendingUp className="h-5 w-5 text-secondary" />
