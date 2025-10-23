@@ -54,7 +54,7 @@ const ChatBot = () => {
 
     try {
       // Check if we should try to collect info (after several exchanges)
-      const shouldCollectInfo = newMessages.length > 8;
+      const shouldCollectInfo = newMessages.length > 12;
 
       const { data, error } = await supabase.functions.invoke("chat-bot", {
         body: { 
