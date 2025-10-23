@@ -16,7 +16,7 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "Enterprise level product performance daily metrics",
+      title: "Enterprise Level Product Performance Daily Metrics",
       description: "We developed a Power BI Sales Analytics Dashboard that provides a complete view of sales data at different levels—team-wise, manager-wise, and overall business performance. The dashboard incorporates Role-Level Security (RLS), ensuring users only see the data relevant to their role, which enhances data privacy and accuracy.",
       fullDescription: (
         <>
