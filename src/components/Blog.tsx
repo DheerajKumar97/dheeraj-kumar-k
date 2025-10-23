@@ -21,12 +21,12 @@ const Blog = () => {
       link: "https://medium.com/@engineerdheeraj97/mastering-dax-advanced-calculations-in-power-bi-fd30ff2a6a5b",
     },
     {
-      title: "Data Storytelling: Making Numbers Speak",
+      title: "Mastering the Art and Science of BI Dashboards Design Principles With Supply Chain Domain",
       excerpt: "Learn the art of transforming complex data into compelling narratives that drive business decisions.",
       date: "2024-02-28",
       category: "Analytics",
       readTime: "6 min read",
-      link: "https://medium.com/@engineerdheeraj97",
+      link: "https://medium.com/datadriveninvestor/mastering-the-art-and-science-of-bi-dashboards-design-principles-with-supply-chain-domain-5e52b7f8f79f",
     },
     {
       title: "Building Scalable Data quality check Pipelines with Snowpark",
