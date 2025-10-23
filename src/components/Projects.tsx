@@ -41,8 +41,24 @@ const Projects = () => {
       color: "from-primary to-primary/70",
     },
     {
-      title: "Customer Behavior Analytics Platform",
-      description: "Built interactive Tableau dashboards analyzing customer journey and behavior patterns across multiple touchpoints.",
+      title: "Customer Behavior Analysis Report",
+      description: "We have implemented a solution by directly connecting Tableau to the customer data stored in AWS Redshift. Redshift's cloud data warehouse enables efficient handling of large datasets with fast SQL querying, while Tableau provides interactive dashboards to visualize key customer behavior metrics such as buying patterns, customer segments, and engagement trends.",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> The client wants to understand customer interactions and behaviors across different channels to optimize marketing, improve customer retention, and boost sales. Without clear insights into purchase patterns, preferences, and engagement triggers, business strategies may lack focus and effectiveness, affecting revenue growth and customer satisfaction.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> We have implemented a solution by directly connecting Tableau to the customer data stored in AWS Redshift. Redshift's cloud data warehouse enables efficient handling of large datasets with fast SQL querying, while Tableau provides interactive dashboards to visualize key customer behavior metrics such as buying patterns, customer segments, and engagement trends. This integration allows the client to explore data dynamically, gain actionable insights, and make data-driven decisions quickly. The solution ensures performance optimization on Redshift and delivers rich visualization and interactivity through Tableau.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Combining and cleansing data from multiple sources into Redshift to ensure accuracy and consistency. Optimizing queries and schema design in Redshift to enable real-time dashboard responsiveness. Ensuring compliance with data privacy regulations when handling sensitive customer information. Translating complex customer behavior data into clear, practical insights without losing context. Training client users to effectively use Tableau dashboards for strategic decision-making.
+          </p>
+          <p>
+            This explanation clearly highlights the problem, the technical and analytical solution using Tableau and AWS Redshift, and the challenges tackled to deliver a high-value customer behavior analysis report.
+          </p>
+        </>
+      ),
       impact: "28% increase in customer retention",
       tools: ["Tableau", "Python", "AWS"],
       icon: Users,
