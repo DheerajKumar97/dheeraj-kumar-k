@@ -16,7 +16,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hi! I'm Dheeraj's AI assistant. I'd love to help you get in touch with him. What's your first name?",
+      content: "Hi! I'm Dheeraj's AI assistant.\n\nDheeraj helps businesses grow by turning your data into clear insights that guide better decisions through powerful and easy-to-understand Power BI dashboards. He helps you find opportunities to increase profits, improve efficiency, and track what truly matters for business success. Dheeraj also helps maintain and organize your data, set up the right data systems to collect, clean, and analyze it, and provide insights that guide you to make confident and smarter business decisions.\n\nAre you interested to connect with Dheeraj?",
     },
   ]);
   const [input, setInput] = useState("");
