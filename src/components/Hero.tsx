@@ -1,9 +1,19 @@
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 import heroBackground from "@/assets/hero-bg.jpg";
 import profilePhoto from "@/assets/dheeraj-profile.jpg";
 
 const Hero = () => {
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
     if (element) {
@@ -63,6 +73,31 @@ const Hero = () => {
                   <Download className="ml-2 h-5 w-5" />
                 </a>
               </Button>
+              <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+                <DialogTrigger asChild>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-primary text-primary hover:bg-primary/10 transition-smooth"
+                  >
+                    Video Introduction
+                    <PlayCircle className="ml-2 h-5 w-5" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl w-full">
+                  <DialogHeader>
+                    <DialogTitle>Video Introduction</DialogTitle>
+                  </DialogHeader>
+                  <div className="relative w-full pt-[56.25%]">
+                    <iframe
+                      src="https://drive.google.com/file/d/1z__4LBCKqUMhy5hfODPArHHXTvU2naFt/preview"
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      allow="autoplay"
+                      allowFullScreen
+                    />
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
 
