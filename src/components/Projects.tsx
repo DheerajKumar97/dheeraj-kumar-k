@@ -35,7 +35,7 @@ const Projects = () => {
         </>
       ),
       impact: "35% improvement in sales forecast accuracy",
-      tools: ["Power BI", "SQL Server", "DAX", "Power Query", "Power Automate"],
+      tools: ["Power BI Desktop", "Power BI Service", "Power Query", "SQL Server", "Power Automate"],
       icon: DollarSign,
       metric: "+35%",
       color: "from-primary to-primary/70",
