@@ -9,6 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import { useState } from "react";
 
 const Projects = () => {
@@ -98,70 +105,81 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="p-8 shadow-card hover:shadow-hover transition-smooth group animate-fade-in overflow-hidden relative"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
-                <project.icon className="w-full h-full" />
-              </div>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-7xl mx-auto"
+        >
+          <CarouselContent className="-ml-4">
+            {projects.map((project, index) => (
+              <CarouselItem key={index} className="pl-4 lg:basis-1/2">
+                <Card
+                  className="p-8 shadow-card hover:shadow-hover transition-smooth group animate-fade-in overflow-hidden relative h-full"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
+                    <project.icon className="w-full h-full" />
+                  </div>
 
-              <div className="relative">
-                <div className={`bg-gradient-to-r ${project.color} w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <project.icon className="h-8 w-8 text-white" />
-                </div>
+                  <div className="relative">
+                    <div className={`bg-gradient-to-r ${project.color} w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                      <project.icon className="h-8 w-8 text-white" />
+                    </div>
 
-                <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-smooth">
-                  {project.title}
-                </h3>
+                    <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-smooth">
+                      {project.title}
+                    </h3>
 
-                <p className="text-foreground/70 mb-4 leading-relaxed">
-                  {project.description}
-                </p>
+                    <p className="text-foreground/70 mb-4 leading-relaxed">
+                      {project.description}
+                    </p>
 
-                {project.fullDescription && (
-                  <Dialog open={openDialog === index} onOpenChange={(open) => setOpenDialog(open ? index : null)}>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="link"
-                        className="p-0 h-auto mb-4 text-primary hover:text-primary/80"
-                      >
-                        Read More <ExternalLink className="ml-1 h-4 w-4" />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-2xl">
-                      <DialogHeader>
-                        <DialogTitle>{project.title}</DialogTitle>
-                      </DialogHeader>
-                      <div className="text-foreground/80 leading-relaxed">
-                        {project.fullDescription}
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                )}
+                    {project.fullDescription && (
+                      <Dialog open={openDialog === index} onOpenChange={(open) => setOpenDialog(open ? index : null)}>
+                        <DialogTrigger asChild>
+                          <Button
+                            variant="link"
+                            className="p-0 h-auto mb-4 text-primary hover:text-primary/80"
+                          >
+                            Read More <ExternalLink className="ml-1 h-4 w-4" />
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-2xl">
+                          <DialogHeader>
+                            <DialogTitle>{project.title}</DialogTitle>
+                          </DialogHeader>
+                          <div className="text-foreground/80 leading-relaxed">
+                            {project.fullDescription}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    )}
 
-                <div className="flex items-center gap-2 mb-4 p-3 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/10">
-                  <TrendingUp className="h-5 w-5 text-secondary" />
-                  <span className="font-semibold text-foreground">{project.impact}</span>
-                </div>
+                    <div className="flex items-center gap-2 mb-4 p-3 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/10">
+                      <TrendingUp className="h-5 w-5 text-secondary" />
+                      <span className="font-semibold text-foreground">{project.impact}</span>
+                    </div>
 
-                <div className="flex flex-wrap gap-2">
-                  {project.tools.map((tool, toolIndex) => (
-                    <Badge
-                      key={toolIndex}
-                      className="bg-blue-600 text-white font-bold hover:bg-blue-700"
-                    >
-                      {tool}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tools.map((tool, toolIndex) => (
+                        <Badge
+                          key={toolIndex}
+                          className="bg-blue-600 text-white font-bold hover:bg-blue-700"
+                        >
+                          {tool}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-0 -translate-x-12" />
+          <CarouselNext className="right-0 translate-x-12" />
+        </Carousel>
       </div>
     </section>
   );
