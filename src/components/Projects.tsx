@@ -17,7 +17,7 @@ const Projects = () => {
   const projects = [
     {
       title: "Enterprise Sales Analytics Dashboard",
-      description: "An Enterprise Sales Analytics Dashboard in Power BI helps the business by showing clear and easy-to-understand sales information across different products, regions, and teams.",
+      description: "We developed a Power BI Sales Analytics Dashboard that provides a complete view of sales data at different levels—team-wise, manager-wise, and overall business performance. The dashboard incorporates Role-Level Security (RLS), ensuring users only see the data relevant to their role, which enhances data privacy and accuracy.",
       fullDescription: (
         <>
           <p className="mb-4">
