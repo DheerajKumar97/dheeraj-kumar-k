@@ -60,7 +60,7 @@ const Projects = () => {
         </>
       ),
       impact: "28% increase in customer retention",
-      tools: ["Tableau", "Python", "AWS"],
+      tools: ["Tableau Desktop", "Tableau Prep", "Tableau Cloud", "AWS Redshift", "Python"],
       icon: Users,
       metric: "+28%",
       color: "from-secondary to-secondary/70",
