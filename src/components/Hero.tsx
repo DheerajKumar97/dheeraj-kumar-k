@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import heroBackground from "@/assets/hero-bg.jpg";
 import profilePhoto from "@/assets/dheeraj-profile.jpg";
+import videoThumbnail from "@/assets/video-thumbnail.png";
 
 const Hero = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -88,13 +89,20 @@ const Hero = () => {
                   <DialogHeader>
                     <DialogTitle>Video Introduction</DialogTitle>
                   </DialogHeader>
-                  <div className="relative w-full pt-[56.25%]">
-                    <iframe
-                      src="https://drive.google.com/file/d/1z__4LBCKqUMhy5hfODPArHHXTvU2naFt/preview"
-                      className="absolute top-0 left-0 w-full h-full rounded-lg"
-                      allow="autoplay"
-                      allowFullScreen
+                  <div className="space-y-4">
+                    <img
+                      src={videoThumbnail}
+                      alt="Dheeraj Kumar K - Video Introduction Thumbnail"
+                      className="w-full rounded-lg"
                     />
+                    <div className="relative w-full pt-[56.25%]">
+                      <iframe
+                        src="https://drive.google.com/file/d/1z__4LBCKqUMhy5hfODPArHHXTvU2naFt/preview"
+                        className="absolute top-0 left-0 w-full h-full rounded-lg"
+                        allow="autoplay"
+                        allowFullScreen
+                      />
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
