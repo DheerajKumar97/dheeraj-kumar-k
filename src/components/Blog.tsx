@@ -37,12 +37,12 @@ const Blog = () => {
       link: "https://medium.com/@engineerdheeraj97/building-a-robust-data-quality-check-pipeline-with-snowpark-e7cb6ee4f4ea",
     },
     {
-      title: "Power BI Performance Optimization Techniques",
+      title: "Mastering Advanced Power BI Performance Optimization Techniques",
       excerpt: "Learn advanced strategies to optimize your Power BI reports for faster load times and better user experience.",
-      date: "2025-09-15",
+      date: "2025-10-24",
       category: "Power BI",
       readTime: "7 min read",
-      link: "https://medium.com/@engineerdheeraj97",
+      link: "https://medium.com/@engineerdheeraj97/mastering-advanced-power-bi-performance-optimization-techniques-47e0ec6c5c3a",
     },
     {
       title: "Data Warehouse Design Best Practices",
