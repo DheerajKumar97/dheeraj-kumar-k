@@ -1,4 +1,4 @@
-import { TrendingUp, Users, DollarSign, BarChart3, ExternalLink } from "lucide-react";
+import { TrendingUp, Users, DollarSign, BarChart3, ExternalLink, Star } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -145,13 +145,10 @@ const Projects = () => {
                   className="p-8 shadow-card hover:shadow-hover transition-smooth group animate-fade-in overflow-hidden relative h-full"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
-                    <project.icon className="w-full h-full" />
-                  </div>
-
                   <div className="relative">
-                    <div className={`bg-gradient-to-r ${project.color} w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                      <project.icon className="h-8 w-8 text-white" />
+                    <div className="flex items-center gap-2 mb-4 bg-blue-600 text-white px-3 py-1.5 rounded-md w-fit">
+                      <Star className="h-4 w-4 fill-white" />
+                      <span className="text-sm font-semibold">Previous Organization Project</span>
                     </div>
 
                     <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-smooth">
