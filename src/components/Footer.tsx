@@ -1,7 +1,5 @@
-import { Linkedin, Github, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
+import { Linkedin, Github, Feather, Code2, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import mediumLogo from "@/assets/medium-logo-official.png";
-import hackerrankLogo from "@/assets/hackerrank-logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,29 +9,21 @@ const Footer = () => {
       name: "LinkedIn",
       icon: Linkedin,
       url: "https://www.linkedin.com/in/dheerajkumar1997/",
-      type: "icon",
-      bgColor: "bg-blue-600 hover:bg-blue-700",
     },
     {
       name: "GitHub",
       icon: Github,
       url: "https://github.com/DheerajKumar97/",
-      type: "icon",
-      bgColor: "bg-gray-900 hover:bg-black",
     },
     {
       name: "Medium",
-      logo: mediumLogo,
+      icon: Feather,
       url: "https://medium.com/@engineerdheeraj97",
-      type: "logo",
-      bgColor: "bg-muted hover:bg-primary",
     },
     {
       name: "HackerRank",
-      logo: hackerrankLogo,
+      icon: Code2,
       url: "https://www.hackerrank.com/profile/engineerdheeraj1",
-      type: "logo",
-      bgColor: "bg-muted hover:bg-primary",
     },
   ];
 
@@ -161,19 +151,10 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`w-12 h-12 rounded-full ${link.bgColor} text-white flex items-center justify-center transition-smooth group`}
+                  className="w-12 h-12 rounded-full bg-muted/50 hover:bg-muted flex items-center justify-center transition-smooth group border border-border"
                   aria-label={link.name}
                 >
-                  {link.type === "icon" && link.icon && (
-                    <link.icon className="h-6 w-6 group-hover:scale-110 transition-transform" />
-                  )}
-                  {link.type === "logo" && link.logo && (
-                    <img 
-                      src={link.logo} 
-                      alt={`${link.name} logo`}
-                      className="w-6 h-6 object-contain rounded-sm group-hover:scale-110 transition-transform"
-                    />
-                  )}
+                  <link.icon className="h-5 w-5 text-foreground group-hover:scale-110 transition-transform" />
                 </a>
               ))}
             </div>
