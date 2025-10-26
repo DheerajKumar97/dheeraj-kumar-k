@@ -150,6 +150,29 @@ const Projects = () => {
       color: "from-secondary/70 to-primary",
       projectType: "organization",
     },
+    {
+      title: "LoginPulse Analytics Dashboard",
+      description: "A comprehensive BI dashboard was developed to centralize and visualize key metrics on user logins, registrations, and MAU trends with fine segmentation by OS and biometric adoption. The dashboard enables users to filter by year and month, immediately revealing spikes or dips in activity",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> The client struggled to gain visibility into detailed user authentication trends across mobile platforms, making it hard to monitor login volumes, registration growth, and monthly active user (MAU) activity broken down by channel. Existing reports lacked granularity around critical factors such as operating system split, biometric versus non-biometric usage, and how these patterns shifted week by week or month by month. As a result, the business was unable to proactively spot authentication issues, optimize platform resources, or adapt to evolving user behaviors on iOS and Android.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> A comprehensive BI dashboard was developed to centralize and visualize key metrics on user logins, registrations, and MAU trends with fine segmentation by OS and biometric adoption. The dashboard enables users to filter by year and month, immediately revealing spikes or dips in activity, and provides a side-by-side view of historical trends for strategic decision-making. Visual components track login volumes over time, seasonality by day of week, OS and biometric share, and present granular breakdowns of daily and weekly login activity. Performance changes from the previous month are highlighted for quick diagnosis, and critical segments like iOS biometric logins are specifically monitored.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Aggregating and harmonizing data across varied mobile OS sources posed significant challenges, particularly with inconsistencies in biometric event capture and variations in reporting standards between platforms. Designing visuals that communicated meaningful trends without overwhelming the user required careful layout planning and user feedback. Achieving real-time responsiveness while querying large activity datasets further required backend optimization and efficient dashboard design, ensuring accurate, actionable insights are always available to business stakeholders.
+          </p>
+        </>
+      ),
+      impact: "40% improvement in authentication monitoring",
+      tools: ["Tableau Desktop", "Tableau Cloud", "SQL Server", "Python"],
+      icon: Users,
+      metric: "+40%",
+      color: "from-primary to-secondary",
+      projectType: "personal",
+    },
   ];
 
   const filteredProjects = projects.filter(project => {
@@ -239,7 +262,17 @@ const Projects = () => {
                             <DialogTitle>{project.title}</DialogTitle>
                           </DialogHeader>
                           {project.title === "Udemy Course Analysis Report" ? (
-                            <TableauDashboardTabs description={project.fullDescription} />
+                            <TableauDashboardTabs 
+                              description={project.fullDescription} 
+                              title="Udemy Course Analysis Dashboard"
+                              tableauUrl="https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport?:language=en-US&:display_count=n&:origin=viz_share_link"
+                            />
+                          ) : project.title === "LoginPulse Analytics Dashboard" ? (
+                            <TableauDashboardTabs 
+                              description={project.fullDescription} 
+                              title="LoginPulse Analytics Dashboard"
+                              tableauUrl="https://public.tableau.com/app/profile/dheeraj.kumar.k3358/viz/AppHealthMetricsKPI/AppHealthMetrics"
+                            />
                           ) : (
                             <div className="text-foreground/80 leading-relaxed">
                               {project.fullDescription}
@@ -277,9 +310,7 @@ const Projects = () => {
   );
 };
 
-const TableauDashboardTabs = ({ description }: { description: React.ReactNode }) => {
-  const tableauUrl = "https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport?:language=en-US&:display_count=n&:origin=viz_share_link";
-
+const TableauDashboardTabs = ({ description, title, tableauUrl }: { description: React.ReactNode; title: string; tableauUrl: string }) => {
   return (
     <Tabs defaultValue="description" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -292,7 +323,7 @@ const TableauDashboardTabs = ({ description }: { description: React.ReactNode })
       <TabsContent value="dashboard" className="flex flex-col items-center justify-center py-12 space-y-4">
         <div className="text-center space-y-4">
           <BarChart3 className="h-16 w-16 mx-auto text-primary" />
-          <h3 className="text-xl font-semibold">Udemy Course Analysis Dashboard</h3>
+          <h3 className="text-xl font-semibold">{title}</h3>
           <p className="text-muted-foreground max-w-md">
             Click the button below to view the interactive Tableau dashboard in a new window
           </p>
