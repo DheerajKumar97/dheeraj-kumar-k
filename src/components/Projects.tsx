@@ -278,6 +278,8 @@ const Projects = () => {
 };
 
 const TableauDashboardTabs = ({ description }: { description: React.ReactNode }) => {
+  const tableauUrl = "https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport?:language=en-US&:display_count=n&:origin=viz_share_link";
+
   return (
     <Tabs defaultValue="description" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -287,16 +289,20 @@ const TableauDashboardTabs = ({ description }: { description: React.ReactNode })
       <TabsContent value="description" className="text-foreground/80 leading-relaxed">
         {description}
       </TabsContent>
-      <TabsContent value="dashboard">
-        <div className="w-full overflow-auto">
-          <iframe
-            src="https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport?:language=en-US&:display_count=n&:origin=viz_share_link"
-            width="100%"
-            height="827"
-            style={{ border: 'none' }}
-            title="Udemy Course Analysis Dashboard"
-            allowFullScreen
-          />
+      <TabsContent value="dashboard" className="flex flex-col items-center justify-center py-12 space-y-4">
+        <div className="text-center space-y-4">
+          <BarChart3 className="h-16 w-16 mx-auto text-primary" />
+          <h3 className="text-xl font-semibold">Udemy Course Analysis Dashboard</h3>
+          <p className="text-muted-foreground max-w-md">
+            Click the button below to view the interactive Tableau dashboard in a new window
+          </p>
+          <Button
+            onClick={() => window.open(tableauUrl, '_blank')}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            <ExternalLink className="mr-2 h-4 w-4" />
+            Open Dashboard in New Tab
+          </Button>
         </div>
       </TabsContent>
     </Tabs>
