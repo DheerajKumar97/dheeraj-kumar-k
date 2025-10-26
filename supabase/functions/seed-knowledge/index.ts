@@ -6,69 +6,102 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const knowledgeData = [
-  {
-    content: "Dheeraj is a Business Intelligence expert with extensive experience in data analytics, visualization, and reporting. He specializes in Power BI, Tableau, SQL, and Python for data analysis.",
-    category: "about_dheeraj"
-  },
-  {
-    content: "Dheeraj has expertise in creating interactive dashboards, data modeling, ETL processes, and data warehousing. He helps businesses make data-driven decisions through insightful analytics.",
-    category: "about_dheeraj"
-  },
-  {
-    content: "Business Intelligence (BI) is a technology-driven process for analyzing data and presenting actionable information to help executives, managers, and workers make informed business decisions.",
-    category: "business_intelligence"
-  },
-  {
-    content: "Power BI is a business analytics service by Microsoft that provides interactive visualizations and business intelligence capabilities with an interface simple enough for end users to create their own reports and dashboards.",
-    category: "business_intelligence"
-  },
-  {
-    content: "Tableau is a visual analytics platform transforming the way we use data to solve problems, empowering people and organizations to make the most of their data.",
-    category: "business_intelligence"
-  },
-  {
-    content: "Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization tools provide an accessible way to see and understand trends, outliers, and patterns in data.",
-    category: "business_intelligence"
-  },
-  {
-    content: "ETL (Extract, Transform, Load) is a data integration process that combines data from multiple sources into a single, consistent data store that is loaded into a data warehouse or other target system.",
-    category: "business_intelligence"
-  },
-  {
-    content: "A data warehouse is a central repository of integrated data from one or more disparate sources. They store current and historical data and are used for creating analytical reports for workers throughout the enterprise.",
-    category: "business_intelligence"
-  },
-  {
-    content: "KPIs (Key Performance Indicators) are measurable values that demonstrate how effectively a company is achieving key business objectives. Organizations use KPIs to evaluate their success at reaching targets.",
-    category: "business_intelligence"
-  },
-  {
-    content: "Data analytics involves examining data sets to draw conclusions about the information they contain. It is used to enable better business decision-making and includes techniques like descriptive, diagnostic, predictive, and prescriptive analytics.",
-    category: "business_intelligence"
-  }
-];
-
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
-    if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY || !LOVABLE_API_KEY) {
-      throw new Error("Missing required environment variables");
-    }
+    // Knowledge base content about Dheeraj and Business Intelligence
+    const knowledgeItems = [
+      {
+        content: "Dheeraj is a Data Analytics and Business Intelligence expert with 8+ years of experience in developing enterprise-level BI solutions, data warehousing, and advanced analytics.",
+        category: "about_dheeraj",
+        metadata: { topic: "professional_summary" }
+      },
+      {
+        content: "Dheeraj specializes in Power BI, Tableau, SQL, Python, and advanced data visualization techniques. He has expertise in building interactive dashboards, DAX calculations, and data modeling.",
+        category: "about_dheeraj",
+        metadata: { topic: "technical_skills" }
+      },
+      {
+        content: "Dheeraj has worked across various industries including Telecom, E-commerce, IT, Sales & Marketing, Finance and Banking, Healthcare, and Manufacturing, delivering data-driven solutions.",
+        category: "about_dheeraj",
+        metadata: { topic: "industry_experience" }
+      },
+      {
+        content: "Business Intelligence (BI) is a technology-driven process for analyzing data and delivering actionable information to help executives, managers, and workers make informed business decisions. BI encompasses a variety of tools, applications, and methodologies.",
+        category: "business_intelligence",
+        metadata: { topic: "bi_definition" }
+      },
+      {
+        content: "Key BI tools include Power BI, Tableau, QlikView, Looker, and SAP BusinessObjects. Power BI is Microsoft's business analytics solution for creating interactive visualizations and business intelligence capabilities. Tableau is known for its powerful data visualization and analytics capabilities.",
+        category: "business_intelligence",
+        metadata: { topic: "bi_tools" }
+      },
+      {
+        content: "Data modeling is the process of creating a data model for an information system. In BI, it involves designing star schemas, snowflake schemas, and data warehouses. Good data modeling ensures efficient queries and accurate reporting.",
+        category: "business_intelligence",
+        metadata: { topic: "data_modeling" }
+      },
+      {
+        content: "ETL (Extract, Transform, Load) is a process in data warehousing that involves extracting data from various sources, transforming it to fit operational needs, and loading it into the target database. Modern approaches also include ELT (Extract, Load, Transform).",
+        category: "business_intelligence",
+        metadata: { topic: "etl_process" }
+      },
+      {
+        content: "KPIs (Key Performance Indicators) are measurable values that demonstrate how effectively a company is achieving key business objectives. Common KPIs include revenue growth rate, customer acquisition cost, customer lifetime value, and conversion rates.",
+        category: "business_intelligence",
+        metadata: { topic: "kpis_metrics" }
+      },
+      {
+        content: "DAX (Data Analysis Expressions) is a formula language used in Power BI, Analysis Services, and Power Pivot. It includes functions for calculations, aggregations, and data manipulation. Common DAX functions include CALCULATE, FILTER, SUM, AVERAGE, and time intelligence functions.",
+        category: "business_intelligence",
+        metadata: { topic: "dax_power_bi" }
+      },
+      {
+        content: "Data visualization best practices include choosing the right chart type for your data, maintaining consistency in colors and fonts, avoiding chart junk, using clear labels, and ensuring accessibility. Bar charts for comparisons, line charts for trends, and pie charts for proportions.",
+        category: "business_intelligence",
+        metadata: { topic: "data_visualization" }
+      },
+      {
+        content: "Dheeraj holds professional certifications including Microsoft Power BI Data Analyst, Tableau Desktop Specialist, and Tableau Certified Analyst. He continuously updates his skills with the latest BI technologies.",
+        category: "about_dheeraj",
+        metadata: { topic: "certifications" }
+      },
+      {
+        content: "A data warehouse is a centralized repository that stores integrated data from multiple sources. It's designed for query and analysis rather than transaction processing. Key concepts include facts, dimensions, slowly changing dimensions (SCD), and OLAP cubes.",
+        category: "business_intelligence",
+        metadata: { topic: "data_warehouse" }
+      },
+      {
+        content: "Dheeraj can help businesses transform their data into actionable insights. Whether you need dashboard development, data pipeline creation, or advanced analytics, he provides customized BI solutions tailored to your business needs.",
+        category: "about_dheeraj",
+        metadata: { topic: "services" }
+      },
+      {
+        content: "Power BI Desktop is a free application for creating reports and dashboards. Power BI Service is the cloud-based platform for sharing and collaboration. Power BI Mobile apps allow viewing reports on mobile devices. Power BI Premium provides dedicated capacity and advanced features.",
+        category: "business_intelligence",
+        metadata: { topic: "power_bi_ecosystem" }
+      },
+      {
+        content: "Common data sources for BI include SQL databases (SQL Server, MySQL, PostgreSQL), cloud data warehouses (Snowflake, Azure Synapse, Amazon Redshift), Excel files, CSV files, APIs, and cloud services like Salesforce and Google Analytics.",
+        category: "business_intelligence",
+        metadata: { topic: "data_sources" }
+      }
+    ];
 
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+    console.log(`Starting to seed ${knowledgeItems.length} knowledge items...`);
 
-    console.log("Starting knowledge base seeding...");
-
-    for (const item of knowledgeData) {
-      console.log(`Processing: ${item.content.substring(0, 50)}...`);
-
-      // Generate embedding
+    // Generate embeddings and insert knowledge items
+    for (const item of knowledgeItems) {
+      // Generate embedding using Lovable AI
       const embeddingResponse = await fetch("https://ai.gateway.lovable.dev/v1/embeddings", {
         method: "POST",
         headers: {
@@ -82,7 +115,7 @@ serve(async (req) => {
       });
 
       if (!embeddingResponse.ok) {
-        console.error("Failed to generate embedding for:", item.content.substring(0, 50));
+        console.error(`Failed to generate embedding for: ${item.content.substring(0, 50)}...`);
         continue;
       }
 
@@ -95,19 +128,19 @@ serve(async (req) => {
         .insert({
           content: item.content,
           category: item.category,
-          embedding: JSON.stringify(embedding),
-          metadata: { source: "seed" }
+          embedding: embedding,
+          metadata: item.metadata,
         });
 
       if (error) {
-        console.error("Error inserting:", error);
+        console.error("Error inserting knowledge:", error);
       } else {
-        console.log("Successfully inserted:", item.content.substring(0, 50));
+        console.log(`✓ Inserted: ${item.content.substring(0, 50)}...`);
       }
     }
 
     return new Response(
-      JSON.stringify({ message: "Knowledge base seeded successfully", count: knowledgeData.length }),
+      JSON.stringify({ success: true, message: `Successfully seeded ${knowledgeItems.length} knowledge items` }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {
