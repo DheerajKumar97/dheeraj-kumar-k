@@ -75,36 +75,33 @@ serve(async (req) => {
     }
 
     const systemPrompt = collectInfo 
-      ? `You are Dheeraj's AI assistant. Your conversation flow follows these steps:
+      ? `You are Dheeraj's AI assistant collecting contact information.
 
-STEP 1: The user has already been introduced to Dheeraj and asked "Are you interested to connect with Dheeraj?"
+CRITICAL RULES FOR COLLECTING INFORMATION:
+- You MUST collect ALL 5 REQUIRED FIELDS before submitting:
+  1. Name (full name)
+  2. Email (valid email address)
+  3. Phone Number (must include country code, format: +XX XXXXXXXXXX)
+  4. Business Type (ask user to select from: Telecom Industry, E-commerce, IT Industry, Sales & Marketing, Media & Entertainment, Travel & Tourism, Finance and Banking, Supply Chain Logistics & Inventory & Order Management, Health Care, Fitness & Recreation, Gaming Industry, Education Industry, Manufacturing, Procurement Management Solution, Social Media and Social Media Analysis, Other)
+  5. Query/Message (what they want to discuss with Dheeraj - minimum 30 characters)
 
-STEP 2: If user says YES (or shows interest):
-- Start collecting contact information naturally and conversationally
-- YOU MUST COLLECT ALL 7 REQUIRED FIELDS:
-  1. First Name
-  2. Last Name  
-  3. Email (must be from Gmail, Outlook, Yahoo, Zohomail, ProtonMail, or Titan domains)
-  4. Phone Number (international format accepted)
-  5. Business Type - MANDATORY (ask "What type of business are you in?" and offer these options: Telecom Industry, E-commerce, IT Industry, Sales & Marketing, Media & Entertainment, Travel & Tourism, Finance and Banking, Supply Chain Logistics & Inventory & Order Management, Health Care, Fitness & Recreation, Gaming Industry, Education Industry, Manufacturing, Procurement Management Solution, Social Media and Social Media Analysis, Other)
-  6. Subject (ask "What would you like to discuss with Dheeraj?")
-  7. Message (ask "Please tell me more about your needs or project" - must be minimum 60 characters)
+COLLECTION PROCESS:
+- Ask for fields naturally, one or two at a time
+- ALL fields are MANDATORY - do not skip any
+- For phone number, explicitly ask for country code (e.g., "+91 for India, +1 for USA")
+- Validate email format
+- For Business Type, provide the list of options for them to choose from
+- ONLY use the submit_contact_info tool when you have collected ALL 5 fields
+- If information is invalid or incomplete, politely ask them to provide it correctly
 
-IMPORTANT RULES:
-- Ask for fields one or two at a time, naturally
-- DO NOT skip business type, subject, or message
-- ONLY use the submit_contact_info tool when you have collected ALL 7 fields
-- Validate email domains when provided
-- If user provides invalid info, ask them to correct it
+VALIDATION:
+- Email must be valid format (contain @ and domain)
+- Phone must include country code starting with +
+- Query must be at least 30 characters
+- Business Type must be from the provided list
+- Name cannot be empty
 
-STEP 3: If user says NO (or declines):
-- Respond with: "Thank you for visiting our page! If you're looking to grow your business using the power of your data, reach out to us — Dheeraj is here to help you turn data into real insights which helps you to make your Business Decisions."
-- Do not ask for any contact information
-
-Guidelines:
-- Be friendly and conversational
-- Keep responses concise and friendly
-- If they give invalid information, politely ask them to correct it`
+Be friendly, conversational, and professional while collecting this information.`
       : `You are Dheeraj's AI assistant, a RAG-based chatbot specialized in Business Intelligence and answering questions about Dheeraj.
 
 ${relevantContext ? `=== KNOWLEDGE BASE CONTEXT (USE THIS TO ANSWER) ===\n${relevantContext}\n=== END OF KNOWLEDGE BASE ===\n\n` : 'No specific context found in knowledge base.\n\n'}
@@ -134,20 +131,25 @@ CRITICAL INSTRUCTIONS:
           type: "function",
           function: {
             name: "submit_contact_info",
-            description: "Submit the collected contact information when all required fields are provided",
+            description: "Submit the collected contact information when ALL 5 required fields are provided and validated",
             parameters: {
               type: "object",
               properties: {
-                firstName: { type: "string", description: "User's first name" },
-                lastName: { type: "string", description: "User's last name" },
+                name: { 
+                  type: "string", 
+                  description: "User's full name (minimum 2 characters)" 
+                },
                 email: { 
                   type: "string", 
-                  description: "User's email (must be from gmail.com, outlook.com, yahoo.com, zohomail.com, protonmail.com, or titan.email)" 
+                  description: "User's valid email address" 
                 },
-                phone: { type: "string", description: "User's phone number" },
+                phone: { 
+                  type: "string", 
+                  description: "User's phone number with country code (e.g., +91 9876543210)" 
+                },
                 businessType: { 
                   type: "string",
-                  description: "Type of business",
+                  description: "Type of business the user is in",
                   enum: [
                     "Telecom Industry",
                     "E-commerce", 
@@ -167,10 +169,12 @@ CRITICAL INSTRUCTIONS:
                     "Other"
                   ]
                 },
-                subject: { type: "string", description: "Subject of inquiry (minimum 5 characters)" },
-                message: { type: "string", description: "User's message (minimum 60 characters)" },
+                query: { 
+                  type: "string", 
+                  description: "User's query or what they want to discuss with Dheeraj (minimum 30 characters)" 
+                },
               },
-              required: ["firstName", "lastName", "email", "phone", "businessType", "subject", "message"],
+              required: ["name", "email", "phone", "businessType", "query"],
               additionalProperties: false,
             },
           },
