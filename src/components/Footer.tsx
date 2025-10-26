@@ -9,21 +9,25 @@ const Footer = () => {
       name: "LinkedIn",
       icon: Linkedin,
       url: "https://www.linkedin.com/in/dheerajkumar1997/",
+      type: "icon",
     },
     {
       name: "GitHub",
       icon: Github,
       url: "https://github.com/DheerajKumar97/",
+      type: "icon",
     },
     {
       name: "Medium",
-      icon: Feather,
+      letter: "M",
       url: "https://medium.com/@engineerdheeraj97",
+      type: "letter",
     },
     {
       name: "HackerRank",
-      icon: Code2,
+      letter: "H",
       url: "https://www.hackerrank.com/profile/engineerdheeraj1",
+      type: "letter",
     },
   ];
 
@@ -154,7 +158,14 @@ const Footer = () => {
                   className="w-12 h-12 rounded-full bg-muted/50 hover:bg-muted flex items-center justify-center transition-smooth group border border-border"
                   aria-label={link.name}
                 >
-                  <link.icon className="h-5 w-5 text-foreground group-hover:scale-110 transition-transform" />
+                  {link.type === "icon" && link.icon && (
+                    <link.icon className="h-5 w-5 text-foreground group-hover:scale-110 transition-transform" />
+                  )}
+                  {link.type === "letter" && (
+                    <span className="text-lg font-bold text-foreground group-hover:scale-110 transition-transform inline-block">
+                      {link.letter}
+                    </span>
+                  )}
                 </a>
               ))}
             </div>
