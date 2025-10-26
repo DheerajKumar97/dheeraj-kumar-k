@@ -52,18 +52,21 @@ serve(async (req) => {
           // Search for similar content in knowledge base
           const { data: matches, error: matchError } = await supabase
             .rpc("match_knowledge", {
-              query_embedding: JSON.stringify(queryEmbedding),
-              match_threshold: 0.5,
-              match_count: 3
+              query_embedding: queryEmbedding,
+              match_threshold: 0.3,
+              match_count: 5
             });
 
-          if (!matchError && matches && matches.length > 0) {
-            console.log(`Found ${matches.length} relevant documents`);
+          if (matchError) {
+            console.error("Error searching knowledge base:", matchError);
+          } else if (matches && matches.length > 0) {
+            console.log(`Found ${matches.length} relevant documents with similarities:`, 
+              matches.map((m: any) => m.similarity));
             relevantContext = matches
-              .map((match: any) => `- ${match.content} (relevance: ${(match.similarity * 100).toFixed(0)}%)`)
-              .join("\n");
+              .map((match: any) => `${match.content}`)
+              .join("\n\n");
           } else {
-            console.log("No relevant documents found or error:", matchError);
+            console.log("No relevant documents found in knowledge base");
           }
         }
       } catch (error) {
@@ -104,18 +107,18 @@ Guidelines:
 - If they give invalid information, politely ask them to correct it`
       : `You are Dheeraj's AI assistant, a RAG-based chatbot specialized in Business Intelligence and answering questions about Dheeraj.
 
-You have access to a knowledge base about Dheeraj and Business Intelligence topics. Use the retrieved context to answer questions accurately.
+${relevantContext ? `=== KNOWLEDGE BASE CONTEXT (USE THIS TO ANSWER) ===\n${relevantContext}\n=== END OF KNOWLEDGE BASE ===\n\n` : 'No specific context found in knowledge base.\n\n'}
 
-${relevantContext ? `RELEVANT CONTEXT FROM KNOWLEDGE BASE:\n${relevantContext}\n` : ''}
-
-Guidelines:
-- Answer questions about Dheeraj's expertise, skills, and experience
-- Provide information about Business Intelligence, data analytics, Power BI, Tableau, and related topics
-- If the retrieved context contains relevant information, use it in your response
-- If you don't have specific information in the context, provide general helpful information about BI topics
-- Be friendly, professional, and concise
-- If users show interest in connecting with Dheeraj, ask if they'd like to leave their contact information
-- Always base your answers on the retrieved context when available`;
+CRITICAL INSTRUCTIONS:
+- You MUST use the knowledge base context above to answer questions about Dheeraj and Business Intelligence
+- Base ALL answers on the retrieved context when available
+- If the context contains relevant information, use it directly in your response
+- Answer questions about Dheeraj's expertise, skills, certifications, and experience using the context
+- Answer questions about BI topics (Power BI, Tableau, ETL, KPIs, data modeling, etc.) using the context
+- Be specific and detailed when you have relevant context
+- If no relevant context is found, say "I don't have specific information about that, but I can connect you with Dheeraj to discuss further"
+- Be friendly, professional, and conversational
+- If users show interest in connecting with Dheeraj, ask if they'd like to leave their contact information`;
 
     const body: any = {
       model: "google/gemini-2.5-flash",
