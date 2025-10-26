@@ -16,7 +16,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useState } from "react";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { useState, useEffect } from "react";
 
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
@@ -232,9 +238,13 @@ const Projects = () => {
                           <DialogHeader>
                             <DialogTitle>{project.title}</DialogTitle>
                           </DialogHeader>
-                          <div className="text-foreground/80 leading-relaxed">
-                            {project.fullDescription}
-                          </div>
+                          {project.title === "Udemy Course Analysis Report" ? (
+                            <TableauDashboardTabs description={project.fullDescription} />
+                          ) : (
+                            <div className="text-foreground/80 leading-relaxed">
+                              {project.fullDescription}
+                            </div>
+                          )}
                         </DialogContent>
                       </Dialog>
                     )}
@@ -264,6 +274,66 @@ const Projects = () => {
         </Carousel>
       </div>
     </section>
+  );
+};
+
+const TableauDashboardTabs = ({ description }: { description: React.ReactNode }) => {
+  useEffect(() => {
+    // Load Tableau script when Dashboard tab is active
+    const script = document.createElement('script');
+    script.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return (
+    <Tabs defaultValue="description" className="w-full">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="description">Description</TabsTrigger>
+        <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+      </TabsList>
+      <TabsContent value="description" className="text-foreground/80 leading-relaxed">
+        {description}
+      </TabsContent>
+      <TabsContent value="dashboard">
+        <div className="w-full overflow-auto">
+          <div 
+            className='tableauPlaceholder' 
+            id='viz1761460897875' 
+            style={{ position: 'relative' }}
+          >
+            <noscript>
+              <a href='#'>
+                <img 
+                  alt='Course and Student Analysis Report' 
+                  src='https://public.tableau.com/static/images/Ud/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport/1_rss.png' 
+                  style={{ border: 'none' }} 
+                />
+              </a>
+            </noscript>
+            <object className='tableauViz' style={{ display: 'none' }}>
+              <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+              <param name='embed_code_version' value='3' />
+              <param name='site_root' value='' />
+              <param name='name' value='UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport' />
+              <param name='tabs' value='no' />
+              <param name='toolbar' value='yes' />
+              <param name='static_image' value='https://public.tableau.com/static/images/Ud/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport/1.png' />
+              <param name='animate_transition' value='yes' />
+              <param name='display_static_image' value='yes' />
+              <param name='display_spinner' value='yes' />
+              <param name='display_overlay' value='yes' />
+              <param name='display_count' value='yes' />
+              <param name='language' value='en-US' />
+            </object>
+          </div>
+        </div>
+      </TabsContent>
+    </Tabs>
   );
 };
 
