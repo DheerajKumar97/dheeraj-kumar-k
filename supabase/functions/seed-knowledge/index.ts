@@ -20,80 +20,108 @@ serve(async (req) => {
 
     // Knowledge base content about Dheeraj and Business Intelligence
     const knowledgeItems = [
+      // About Dheeraj - Experience and Background
       {
-        content: "Dheeraj is a Data Analytics and Business Intelligence expert with 8+ years of experience in developing enterprise-level BI solutions, data warehousing, and advanced analytics.",
+        content: "Dheeraj has over 6+ years of professional experience in Business Intelligence and Data Analytics. He specializes in transforming raw data into strategic business insights that drive decision-making and operational excellence.",
         category: "about_dheeraj",
-        metadata: { topic: "professional_summary" }
+        metadata: { topic: "experience" }
       },
       {
-        content: "Dheeraj specializes in Power BI, Tableau, SQL, Python, and advanced data visualization techniques. He has expertise in building interactive dashboards, DAX calculations, and data modeling.",
+        content: "Dheeraj's expertise spans across industry-leading tools including Power BI, Tableau, Microsoft Fabric, SQL Server, PySpark, and advanced data analytics platforms. He is passionate about creating visually stunning, data-driven dashboards that tell compelling stories.",
         category: "about_dheeraj",
         metadata: { topic: "technical_skills" }
       },
       {
-        content: "Dheeraj has worked across various industries including Telecom, E-commerce, IT, Sales & Marketing, Finance and Banking, Healthcare, and Manufacturing, delivering data-driven solutions.",
+        content: "Dheeraj holds professional certifications including Tableau Desktop Specialist, Tableau Data Analyst, and Power BI Data Analyst Associate from Microsoft. These industry-recognized credentials validate his expertise in data analytics and business intelligence.",
+        category: "about_dheeraj",
+        metadata: { topic: "certifications_education" }
+      },
+      {
+        content: "Dheeraj specializes in four core competencies: Data Storytelling (crafting compelling narratives from complex datasets), Predictive Analytics (forecasting trends and business outcomes with precision), Data Engineering (building robust data pipelines and infrastructure), and Dashboard Development (creating intuitive, interactive business intelligence solutions).",
+        category: "about_dheeraj",
+        metadata: { topic: "core_competencies" }
+      },
+      {
+        content: "Dheeraj has successfully delivered multiple enterprise-level projects including: Enterprise Product Performance Daily Metrics (35% improvement in sales), Customer Behavior Analysis Report (28% increase in retention), Fully Filled Orders Report (42% reduction in inventory costs), Labor Budget and Workforce Utilization Report (50% faster executive reporting), and LoginPulse Analytics Dashboard (40% improvement in authentication monitoring).",
+        category: "about_dheeraj",
+        metadata: { topic: "projects_achievements" }
+      },
+      {
+        content: "Dheeraj has worked with diverse industries and business types including Telecom Industry, E-commerce, IT Industry, Sales & Marketing, Finance and Banking, Healthcare, Manufacturing, Supply Chain Logistics, Media & Entertainment, and Education. He delivers customized BI solutions tailored to each industry's specific needs.",
         category: "about_dheeraj",
         metadata: { topic: "industry_experience" }
       },
       {
-        content: "Business Intelligence (BI) is a technology-driven process for analyzing data and delivering actionable information to help executives, managers, and workers make informed business decisions. BI encompasses a variety of tools, applications, and methodologies.",
+        content: "Dheeraj's technical toolkit includes Power BI Desktop and Service, Tableau Desktop and Cloud, SQL Server, Microsoft Fabric, PySpark, Python, AWS Redshift, Power Query, Tableau Prep, Power Automate, and web scraping technologies. He is committed to delivering actionable business insights through innovative data solutions and optimization strategies.",
+        category: "about_dheeraj",
+        metadata: { topic: "tools_technologies" }
+      },
+      
+      // Business Intelligence Topics
+      {
+        content: "Business Intelligence (BI) is a technology-driven process for analyzing data and delivering actionable information to help executives, managers, and workers make informed business decisions. BI encompasses a variety of tools, applications, and methodologies that enable organizations to collect, store, access, and analyze data.",
         category: "business_intelligence",
         metadata: { topic: "bi_definition" }
       },
       {
-        content: "Key BI tools include Power BI, Tableau, QlikView, Looker, and SAP BusinessObjects. Power BI is Microsoft's business analytics solution for creating interactive visualizations and business intelligence capabilities. Tableau is known for its powerful data visualization and analytics capabilities.",
+        content: "Key BI tools include Power BI (Microsoft's business analytics solution), Tableau (known for powerful data visualization), QlikView, Looker, SAP BusinessObjects, and Microsoft Fabric. Each tool offers unique capabilities for creating interactive dashboards, reports, and data visualizations.",
         category: "business_intelligence",
         metadata: { topic: "bi_tools" }
       },
       {
-        content: "Data modeling is the process of creating a data model for an information system. In BI, it involves designing star schemas, snowflake schemas, and data warehouses. Good data modeling ensures efficient queries and accurate reporting.",
+        content: "Data modeling is the process of creating a data model for an information system. In BI, it involves designing star schemas, snowflake schemas, and data warehouses. Good data modeling includes fact tables (containing measurable metrics), dimension tables (containing descriptive attributes), and proper relationships that ensure efficient queries and accurate reporting.",
         category: "business_intelligence",
         metadata: { topic: "data_modeling" }
       },
       {
-        content: "ETL (Extract, Transform, Load) is a process in data warehousing that involves extracting data from various sources, transforming it to fit operational needs, and loading it into the target database. Modern approaches also include ELT (Extract, Load, Transform).",
+        content: "ETL (Extract, Transform, Load) is a process in data warehousing involving: Extract (pulling data from various sources like databases, APIs, files), Transform (cleaning, validating, and reshaping data to meet business requirements), and Load (inserting transformed data into target databases). Modern approaches also include ELT (Extract, Load, Transform) which loads raw data first then transforms it in the data warehouse.",
         category: "business_intelligence",
         metadata: { topic: "etl_process" }
       },
       {
-        content: "KPIs (Key Performance Indicators) are measurable values that demonstrate how effectively a company is achieving key business objectives. Common KPIs include revenue growth rate, customer acquisition cost, customer lifetime value, and conversion rates.",
+        content: "KPIs (Key Performance Indicators) are measurable values demonstrating how effectively a company achieves key business objectives. Common KPIs include: revenue growth rate, customer acquisition cost (CAC), customer lifetime value (CLV), conversion rates, churn rate, net promoter score (NPS), and operational efficiency metrics.",
         category: "business_intelligence",
         metadata: { topic: "kpis_metrics" }
       },
       {
-        content: "DAX (Data Analysis Expressions) is a formula language used in Power BI, Analysis Services, and Power Pivot. It includes functions for calculations, aggregations, and data manipulation. Common DAX functions include CALCULATE, FILTER, SUM, AVERAGE, and time intelligence functions.",
+        content: "DAX (Data Analysis Expressions) is a formula language used in Power BI, Analysis Services, and Power Pivot. Key DAX concepts include: calculated columns (computed row-by-row), measures (dynamic aggregations), time intelligence functions (DATEADD, TOTALYTD), filter context (CALCULATE, FILTER), and common functions like SUM, AVERAGE, COUNT, DISTINCTCOUNT, and RELATED.",
         category: "business_intelligence",
         metadata: { topic: "dax_power_bi" }
       },
       {
-        content: "Data visualization best practices include choosing the right chart type for your data, maintaining consistency in colors and fonts, avoiding chart junk, using clear labels, and ensuring accessibility. Bar charts for comparisons, line charts for trends, and pie charts for proportions.",
+        content: "Data visualization best practices include: choosing the right chart type (bar charts for comparisons, line charts for trends over time, pie charts for proportions, scatter plots for correlations), maintaining consistency in colors and fonts, avoiding chart junk and unnecessary decorations, using clear labels and titles, ensuring accessibility with color-blind friendly palettes, and providing context with annotations.",
         category: "business_intelligence",
         metadata: { topic: "data_visualization" }
       },
       {
-        content: "Dheeraj holds professional certifications including Microsoft Power BI Data Analyst, Tableau Desktop Specialist, and Tableau Certified Analyst. He continuously updates his skills with the latest BI technologies.",
-        category: "about_dheeraj",
-        metadata: { topic: "certifications" }
-      },
-      {
-        content: "A data warehouse is a centralized repository that stores integrated data from multiple sources. It's designed for query and analysis rather than transaction processing. Key concepts include facts, dimensions, slowly changing dimensions (SCD), and OLAP cubes.",
+        content: "A data warehouse is a centralized repository storing integrated data from multiple sources, designed for query and analysis rather than transaction processing. Key concepts include: Facts (measurable business metrics), Dimensions (descriptive attributes for analysis), Slowly Changing Dimensions (SCD Types 1, 2, 3 for handling historical changes), OLAP cubes (multidimensional data structures), and star/snowflake schema designs.",
         category: "business_intelligence",
         metadata: { topic: "data_warehouse" }
       },
       {
-        content: "Dheeraj can help businesses transform their data into actionable insights. Whether you need dashboard development, data pipeline creation, or advanced analytics, he provides customized BI solutions tailored to your business needs.",
-        category: "about_dheeraj",
-        metadata: { topic: "services" }
-      },
-      {
-        content: "Power BI Desktop is a free application for creating reports and dashboards. Power BI Service is the cloud-based platform for sharing and collaboration. Power BI Mobile apps allow viewing reports on mobile devices. Power BI Premium provides dedicated capacity and advanced features.",
+        content: "Power BI ecosystem includes: Power BI Desktop (free application for creating reports and dashboards), Power BI Service (cloud-based platform for sharing, collaboration, and scheduled refreshes), Power BI Mobile (apps for viewing reports on iOS/Android), Power BI Premium (dedicated capacity with advanced features), and Power BI Embedded (for embedding analytics in custom applications).",
         category: "business_intelligence",
         metadata: { topic: "power_bi_ecosystem" }
       },
       {
-        content: "Common data sources for BI include SQL databases (SQL Server, MySQL, PostgreSQL), cloud data warehouses (Snowflake, Azure Synapse, Amazon Redshift), Excel files, CSV files, APIs, and cloud services like Salesforce and Google Analytics.",
+        content: "Common data sources for BI include: relational databases (SQL Server, MySQL, PostgreSQL, Oracle), cloud data warehouses (Snowflake, Azure Synapse Analytics, Amazon Redshift, Google BigQuery), file formats (Excel, CSV, JSON, XML), cloud services and APIs (Salesforce, Google Analytics, SharePoint), and streaming data sources (Azure Event Hub, Apache Kafka).",
         category: "business_intelligence",
         metadata: { topic: "data_sources" }
+      },
+      {
+        content: "Tableau ecosystem includes: Tableau Desktop (authoring tool for creating visualizations), Tableau Server (on-premises platform for sharing), Tableau Cloud (cloud-based sharing platform), Tableau Prep (data preparation tool), Tableau Public (free platform for public visualizations), and Tableau Mobile (apps for mobile viewing).",
+        category: "business_intelligence",
+        metadata: { topic: "tableau_ecosystem" }
+      },
+      {
+        content: "Microsoft Fabric is a unified analytics platform that brings together data engineering, data science, real-time analytics, and business intelligence. It includes OneLake (unified data lake), Data Factory (data integration), Synapse Data Engineering (Spark-based transformations), Synapse Data Warehouse (SQL-based warehouse), Synapse Data Science (ML and AI), Real-Time Analytics, and Power BI integration.",
+        category: "business_intelligence",
+        metadata: { topic: "microsoft_fabric" }
+      },
+      {
+        content: "Data governance in BI involves establishing policies and procedures for data quality, security, privacy, and compliance. Key aspects include: data cataloging, metadata management, data lineage tracking, access control and Row-Level Security (RLS), data quality monitoring, regulatory compliance (GDPR, HIPAA), and master data management (MDM).",
+        category: "business_intelligence",
+        metadata: { topic: "data_governance" }
       }
     ];
 
