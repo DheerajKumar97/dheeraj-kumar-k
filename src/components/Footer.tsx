@@ -159,7 +159,7 @@ const Footer = () => {
                   aria-label={link.name}
                 >
                   {link.type === "icon" && link.icon && (
-                    <link.icon className="h-5 w-5 text-foreground group-hover:scale-110 transition-transform" />
+                    <link.icon className="h-5 w-5 text-foreground group-hover:scale-110 transition-transform" strokeWidth={2.5} />
                   )}
                   {link.type === "letter" && (
                     <span className="text-lg font-bold text-foreground group-hover:scale-110 transition-transform inline-block">
