@@ -1,4 +1,5 @@
 import { Linkedin, Github, PenTool, Code, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,18 +28,66 @@ const Footer = () => {
   ];
 
   const services = [
-    { name: "Predictive Analytics", icon: BarChart3 },
-    { name: "Dashboard Development", icon: Eye },
-    { name: "Data Modeling", icon: Database },
-    { name: "DAX Optimization", icon: Zap },
-    { name: "Data Cleansing", icon: FileCheck },
-    { name: "Scalable ETL Pipelines", icon: GitBranch },
-    { name: "Data Governance", icon: Shield },
-    { name: "Data Visualization", icon: Eye },
-    { name: "Business Insights", icon: Lightbulb },
-    { name: "BI Data Quality Checks", icon: CheckSquare },
-    { name: "Report Automation", icon: FileText },
-    { name: "Data Workflow", icon: Workflow },
+    { 
+      name: "Predictive Analytics", 
+      icon: BarChart3,
+      description: "Leverage historical data to forecast trends and identify opportunities, enabling proactive decision-making that drives growth and minimizes risks."
+    },
+    { 
+      name: "Dashboard Development", 
+      icon: Eye,
+      description: "Transform complex data into intuitive visual dashboards that provide real-time insights, empowering stakeholders to make informed decisions quickly."
+    },
+    { 
+      name: "Data Modeling", 
+      icon: Database,
+      description: "Structure your data efficiently to support scalable analytics and ensure accurate reporting that aligns with your business objectives."
+    },
+    { 
+      name: "DAX Optimization", 
+      icon: Zap,
+      description: "Optimize calculations in Power BI for faster performance and more efficient data processing, enhancing user experience and report responsiveness."
+    },
+    { 
+      name: "Data Cleansing", 
+      icon: FileCheck,
+      description: "Ensure data accuracy and consistency by removing errors and duplicates, providing a solid foundation for reliable business insights."
+    },
+    { 
+      name: "Scalable ETL Pipelines", 
+      icon: GitBranch,
+      description: "Build robust data pipelines that efficiently extract, transform, and load data at scale, supporting your growing business needs."
+    },
+    { 
+      name: "Data Governance", 
+      icon: Shield,
+      description: "Implement frameworks to ensure data quality, security, and compliance, protecting your business while maintaining stakeholder trust."
+    },
+    { 
+      name: "Data Visualization", 
+      icon: Eye,
+      description: "Create compelling visual narratives that make complex data accessible, helping teams understand key metrics and drive strategic initiatives."
+    },
+    { 
+      name: "Business Insights", 
+      icon: Lightbulb,
+      description: "Uncover actionable insights from your data that reveal opportunities for optimization, innovation, and competitive advantage."
+    },
+    { 
+      name: "BI Data Quality Checks", 
+      icon: CheckSquare,
+      description: "Implement automated quality controls to validate data integrity, ensuring your business intelligence reports are accurate and trustworthy."
+    },
+    { 
+      name: "Report Automation", 
+      icon: FileText,
+      description: "Streamline reporting processes with automation, saving time and ensuring stakeholders receive timely, consistent insights for decision-making."
+    },
+    { 
+      name: "Data Workflow", 
+      icon: Workflow,
+      description: "Design efficient data workflows that optimize how information flows through your organization, improving productivity and decision speed."
+    },
   ];
 
   const scrollToTop = () => {
@@ -60,15 +109,29 @@ const Footer = () => {
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
               {services.map((service) => (
-                <div
-                  key={service.name}
-                  className="group p-4 rounded-lg bg-muted/50 hover:bg-primary/10 border border-border hover:border-primary/50 transition-smooth"
-                >
-                  <service.icon className="h-6 w-6 mx-auto mb-2 text-primary group-hover:scale-110 transition-transform" />
-                  <p className="text-sm font-medium text-foreground/80 group-hover:text-primary transition-colors">
-                    {service.name}
-                  </p>
-                </div>
+                <HoverCard key={service.name} openDelay={200}>
+                  <HoverCardTrigger asChild>
+                    <div
+                      className="group p-4 rounded-lg bg-muted/50 hover:bg-primary/10 border border-border hover:border-primary/50 transition-smooth cursor-pointer"
+                    >
+                      <service.icon className="h-6 w-6 mx-auto mb-2 text-primary group-hover:scale-110 transition-transform" />
+                      <p className="text-sm font-medium text-foreground/80 group-hover:text-primary transition-colors">
+                        {service.name}
+                      </p>
+                    </div>
+                  </HoverCardTrigger>
+                  <HoverCardContent className="w-80">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <service.icon className="h-5 w-5 text-primary" />
+                        <h4 className="font-semibold">{service.name}</h4>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {service.description}
+                      </p>
+                    </div>
+                  </HoverCardContent>
+                </HoverCard>
               ))}
             </div>
           </div>
