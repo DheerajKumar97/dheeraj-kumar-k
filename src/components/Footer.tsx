@@ -12,24 +12,28 @@ const Footer = () => {
       icon: Linkedin,
       url: "https://www.linkedin.com/in/dheerajkumar1997/",
       type: "icon",
+      bgColor: "bg-blue-600 hover:bg-blue-700",
     },
     {
       name: "GitHub",
       icon: Github,
       url: "https://github.com/DheerajKumar97/",
       type: "icon",
+      bgColor: "bg-gray-900 hover:bg-black",
     },
     {
       name: "Medium",
       logo: mediumLogo,
       url: "https://medium.com/@engineerdheeraj97",
       type: "logo",
+      bgColor: "bg-muted hover:bg-primary",
     },
     {
       name: "HackerRank",
       logo: hackerrankLogo,
       url: "https://www.hackerrank.com/profile/engineerdheeraj1",
       type: "logo",
+      bgColor: "bg-muted hover:bg-primary",
     },
   ];
 
@@ -157,7 +161,7 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-smooth group"
+                  className={`w-12 h-12 rounded-full ${link.bgColor} text-white flex items-center justify-center transition-smooth group`}
                   aria-label={link.name}
                 >
                   {link.type === "icon" && link.icon && (
