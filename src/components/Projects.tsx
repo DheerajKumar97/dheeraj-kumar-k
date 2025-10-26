@@ -23,6 +23,29 @@ const Projects = () => {
 
   const projects = [
     {
+      title: "Udemy Course Analysis Report",
+      description: "The project began with developing Python scripts to systematically scrape extensive course-level data from the Udemy website, capturing attributes such as total students, price points, subject category, number of lectures, and user reviews. This raw information was cleaned, validated, and loaded into SQL Server to create a centralized, queryable data mart.",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> Udemy and similar online education providers faced difficulty consolidating course engagement, pricing, and popularity data in a way that enabled quick, reliable decision-making. Without unified insights, it was challenging to identify which subjects and course categories were driving student enrollments, spot revenue growth opportunities, and monitor detailed student engagement metrics such as reviews and lecture participation. This lack of consolidated analytics made it hard for the business to optimize content investments, refine pricing strategies, or react efficiently to shifting demand and trends within the online learning space.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> The project began with developing Python scripts to systematically scrape extensive course-level data from the Udemy website, capturing attributes such as total students, price points, subject category, number of lectures, and user reviews. This raw information was cleaned, validated, and loaded into SQL Server to create a centralized, queryable data mart. Tableau dashboards were then built on top of this data, providing intuitive, interactive reporting on key KPIs—enrollments, revenue distribution, review volumes, and the paid vs. free course mix. Dashboard features enabled users to filter by subject, explore price segmentation, and visually correlate how aspects like course price or lecture count influenced student engagement and sales. These dashboards empowered Udemy to drill deep into trends, benchmark courses, and make fast, data-driven content and pricing decisions.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Key challenges included overcoming the technical barriers of large-scale web scraping in the face of site restrictions and dynamic web content, which frequently required code updates to ensure data continuity. Data quality posed another hurdle, with frequent issues like incomplete records, duplicate courses, or inconsistencies that had to be addressed through comprehensive cleaning routines. The volume of data created performance bottlenecks during query execution in SQL Server and when rendering Tableau reports. Finally, the project demanded the transformation of complex, multifaceted data into business-ready insights—making it essential to design visualizations that were clear and actionable for both technical and non-technical stakeholders, without overwhelming users or masking critical trends.
+          </p>
+        </>
+      ),
+      impact: "45% improvement in course recommendation accuracy",
+      tools: ["Python", "SQL Server", "Tableau Desktop", "Tableau Prep", "Web Scraping"],
+      icon: BarChart3,
+      metric: "+45%",
+      color: "from-primary to-secondary",
+      projectType: "personal",
+    },
+    {
       title: "Enterprise Level Product Performance Daily Metrics",
       description: "We developed a Power BI Sales Analytics Dashboard that provides a complete view of sales data at different levels—team-wise, manager-wise, and overall business performance. The dashboard incorporates Role-Level Security (RLS), ensuring users only see the data relevant to their role, which enhances data privacy and accuracy.",
       fullDescription: (
@@ -46,6 +69,7 @@ const Projects = () => {
       icon: DollarSign,
       metric: "+35%",
       color: "from-primary to-primary/70",
+      projectType: "organization",
     },
     {
       title: "Customer Behavior Analysis Report",
@@ -71,6 +95,7 @@ const Projects = () => {
       icon: Users,
       metric: "+28%",
       color: "from-secondary to-secondary/70",
+      projectType: "organization",
     },
     {
       title: "Fully Filled Orders Report",
@@ -93,6 +118,7 @@ const Projects = () => {
       icon: TrendingUp,
       metric: "-42%",
       color: "from-primary to-secondary",
+      projectType: "organization",
     },
     {
       title: "Labor Budget and Workforce Utilization Report",
@@ -115,6 +141,7 @@ const Projects = () => {
       icon: BarChart3,
       metric: "+50%",
       color: "from-secondary/70 to-primary",
+      projectType: "organization",
     },
   ];
 
@@ -146,9 +173,11 @@ const Projects = () => {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="relative">
-                    <div className="flex items-center gap-2 mb-4 bg-blue-600 text-white px-3 py-1.5 rounded-md w-fit">
+                    <div className={`flex items-center gap-2 mb-4 ${project.projectType === 'personal' ? 'bg-green-600' : 'bg-blue-600'} text-white px-3 py-1.5 rounded-md w-fit`}>
                       <Star className="h-4 w-4 fill-white" />
-                      <span className="text-sm font-semibold">Previous Organization Project</span>
+                      <span className="text-sm font-semibold">
+                        {project.projectType === 'personal' ? 'Personal Project' : 'Previous Organization Project'}
+                      </span>
                     </div>
 
                     <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-smooth">
