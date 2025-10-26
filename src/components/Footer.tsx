@@ -1,6 +1,6 @@
 import { Linkedin, Github, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import mediumLogo from "@/assets/medium-logo.jpg";
+import mediumLogo from "@/assets/medium-logo-official.png";
 import hackerrankLogo from "@/assets/hackerrank-logo.png";
 
 const Footer = () => {
