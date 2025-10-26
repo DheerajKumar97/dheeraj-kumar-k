@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import LanguageSelector from "@/components/LanguageSelector";
+import { useTranslatedText } from "@/hooks/useTranslatedText";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,6 +23,23 @@ const Navbar = () => {
     { name: "Certifications", href: "#certifications" },
     { name: "Blog", href: "#blog" },
     { name: "Contact", href: "#contact" },
+  ];
+
+  // Translate navigation items
+  const translatedAbout = useTranslatedText("About");
+  const translatedSkills = useTranslatedText("Skills");
+  const translatedProjects = useTranslatedText("Projects");
+  const translatedCertifications = useTranslatedText("Certifications");
+  const translatedBlog = useTranslatedText("Blog");
+  const translatedContact = useTranslatedText("Contact");
+
+  const translatedNavItems = [
+    { name: translatedAbout, href: "#about" },
+    { name: translatedSkills, href: "#skills" },
+    { name: translatedProjects, href: "#projects" },
+    { name: translatedCertifications, href: "#certifications" },
+    { name: translatedBlog, href: "#blog" },
+    { name: translatedContact, href: "#contact" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -49,16 +68,17 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+          <div className="hidden md:flex items-center space-x-4">
+            {translatedNavItems.map((item, index) => (
               <button
-                key={item.name}
+                key={navItems[index].href}
                 onClick={() => scrollToSection(item.href)}
                 className="text-foreground/80 hover:text-primary transition-smooth font-medium"
               >
                 {item.name}
               </button>
             ))}
+            <LanguageSelector />
           </div>
 
           {/* Mobile Menu Button */}
@@ -81,15 +101,18 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-card/95 backdrop-blur-md border-t border-border">
           <div className="container mx-auto px-4 py-4 space-y-2">
-            {navItems.map((item) => (
+            {translatedNavItems.map((item, index) => (
               <button
-                key={item.name}
+                key={navItems[index].href}
                 onClick={() => scrollToSection(item.href)}
                 className="block w-full text-left px-4 py-3 rounded-lg text-foreground/80 hover:text-primary hover:bg-muted transition-smooth font-medium"
               >
                 {item.name}
               </button>
             ))}
+            <div className="px-4 pt-2">
+              <LanguageSelector />
+            </div>
           </div>
         </div>
       )}
