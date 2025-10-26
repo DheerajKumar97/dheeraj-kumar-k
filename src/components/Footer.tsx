@@ -171,7 +171,7 @@ const Footer = () => {
                     <img 
                       src={link.logo} 
                       alt={`${link.name} logo`}
-                      className={link.name === "HackerRank" ? "w-8 h-8 object-contain rounded-sm group-hover:scale-110 transition-transform" : "w-7 h-7 object-contain rounded-sm group-hover:scale-110 transition-transform"}
+                      className="w-9 h-9 object-contain rounded-sm group-hover:scale-110 transition-transform"
                     />
                   )}
                 </a>
