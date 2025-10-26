@@ -45,10 +45,10 @@ const Projects = () => {
           </p>
         </>
       ),
-      impact: "45% improvement in course recommendation accuracy",
+      impact: "47% acceleration in course demand identification for new subject trends",
       tools: ["Python", "SQL Server", "Tableau Desktop", "Tableau Prep", "Web Scraping"],
       icon: BarChart3,
-      metric: "+45%",
+      metric: "+47%",
       color: "from-primary to-secondary",
       projectType: "personal",
     },
