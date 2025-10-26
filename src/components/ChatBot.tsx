@@ -55,8 +55,18 @@ const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      // Check if we should try to collect info (after several exchanges)
-      const shouldCollectInfo = newMessages.length > 12;
+      // Check if user wants to connect - look for interest keywords in recent messages
+      const recentUserMessages = newMessages
+        .filter(m => m.role === "user")
+        .slice(-3)
+        .map(m => m.content.toLowerCase());
+      
+      const connectKeywords = ['yes', 'sure', 'connect', 'interested', 'contact', 'reach out', 'get in touch', 'talk', 'discuss'];
+      const shouldCollectInfo = recentUserMessages.some(msg => 
+        connectKeywords.some(keyword => msg.includes(keyword))
+      );
+
+      console.log("Should collect info:", shouldCollectInfo);
 
       const { data, error } = await supabase.functions.invoke("chat-bot", {
         body: { 
