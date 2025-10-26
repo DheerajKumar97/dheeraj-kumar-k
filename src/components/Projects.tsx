@@ -16,7 +16,64 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState, useEffect } from "react";
+
+const TableauDashboardTabs = ({ fullDescription }: { fullDescription: React.ReactNode }) => {
+  useEffect(() => {
+    // Load Tableau JS API
+    const script = document.createElement('script');
+    script.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return (
+    <Tabs defaultValue="description" className="w-full">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="description">Description</TabsTrigger>
+        <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+      </TabsList>
+      <TabsContent value="description" className="text-foreground/80 leading-relaxed mt-4">
+        {fullDescription}
+      </TabsContent>
+      <TabsContent value="dashboard" className="mt-4">
+        <div className="w-full min-h-[600px]">
+          <div className='tableauPlaceholder' id='viz1761455999163' style={{ position: 'relative' }}>
+            <noscript>
+              <a href='#'>
+                <img 
+                  alt='Overview' 
+                  src='https://public.tableau.com/static/images/Fi/FinancialDashboard_16880395715220/Overview/1_rss.png' 
+                  style={{ border: 'none' }} 
+                />
+              </a>
+            </noscript>
+            <object className='tableauViz' style={{ display: 'none' }}>
+              <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+              <param name='embed_code_version' value='3' />
+              <param name='site_root' value='' />
+              <param name='name' value='FinancialDashboard_16880395715220/Overview' />
+              <param name='tabs' value='no' />
+              <param name='toolbar' value='yes' />
+              <param name='static_image' value='https://public.tableau.com/static/images/Fi/FinancialDashboard_16880395715220/Overview/1.png' />
+              <param name='animate_transition' value='yes' />
+              <param name='display_static_image' value='yes' />
+              <param name='display_spinner' value='yes' />
+              <param name='display_overlay' value='yes' />
+              <param name='display_count' value='yes' />
+              <param name='language' value='en-US' />
+            </object>
+          </div>
+        </div>
+      </TabsContent>
+    </Tabs>
+  );
+};
 
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
@@ -172,13 +229,17 @@ const Projects = () => {
                             Read More <ExternalLink className="ml-1 h-4 w-4" />
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-2xl">
+                        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                           <DialogHeader>
                             <DialogTitle>{project.title}</DialogTitle>
                           </DialogHeader>
-                          <div className="text-foreground/80 leading-relaxed">
-                            {project.fullDescription}
-                          </div>
+                          {index === 1 ? (
+                            <TableauDashboardTabs fullDescription={project.fullDescription} />
+                          ) : (
+                            <div className="text-foreground/80 leading-relaxed">
+                              {project.fullDescription}
+                            </div>
+                          )}
                         </DialogContent>
                       </Dialog>
                     )}
