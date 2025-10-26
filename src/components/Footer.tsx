@@ -1,5 +1,7 @@
-import { Linkedin, Github, PenTool, Code, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
+import { Linkedin, Github, BarChart3, Database, GitBranch, Zap, Shield, Workflow, FileCheck, Eye, Lightbulb, CheckSquare, FileText } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import mediumLogo from "@/assets/medium-logo.jpg";
+import hackerrankLogo from "@/assets/hackerrank-logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,21 +11,25 @@ const Footer = () => {
       name: "LinkedIn",
       icon: Linkedin,
       url: "https://www.linkedin.com/in/dheerajkumar1997/",
+      type: "icon",
     },
     {
       name: "GitHub",
       icon: Github,
       url: "https://github.com/DheerajKumar97/",
+      type: "icon",
     },
     {
       name: "Medium",
-      icon: PenTool,
+      logo: mediumLogo,
       url: "https://medium.com/@engineerdheeraj97",
+      type: "logo",
     },
     {
       name: "HackerRank",
-      icon: Code,
+      logo: hackerrankLogo,
       url: "https://www.hackerrank.com/profile/engineerdheeraj1",
+      type: "logo",
     },
   ];
 
@@ -154,7 +160,16 @@ const Footer = () => {
                   className="w-12 h-12 rounded-full bg-muted hover:bg-primary hover:text-primary-foreground flex items-center justify-center transition-smooth group"
                   aria-label={link.name}
                 >
-                  <link.icon className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                  {link.type === "icon" && link.icon && (
+                    <link.icon className="h-5 w-5 group-hover:scale-110 transition-transform" />
+                  )}
+                  {link.type === "logo" && link.logo && (
+                    <img 
+                      src={link.logo} 
+                      alt={`${link.name} logo`}
+                      className={link.name === "HackerRank" ? "w-8 h-8 object-contain rounded-sm group-hover:scale-110 transition-transform" : "w-7 h-7 object-contain rounded-sm group-hover:scale-110 transition-transform"}
+                    />
+                  )}
                 </a>
               ))}
             </div>
