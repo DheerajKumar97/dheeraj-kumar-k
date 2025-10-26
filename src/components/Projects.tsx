@@ -20,18 +20,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState, useEffect } from "react";
 
 const TableauDashboardTabs = ({ fullDescription }: { fullDescription: React.ReactNode }) => {
-  useEffect(() => {
-    // Load Tableau JS API
-    const script = document.createElement('script');
-    script.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <Tabs defaultValue="description" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -42,33 +30,15 @@ const TableauDashboardTabs = ({ fullDescription }: { fullDescription: React.Reac
         {fullDescription}
       </TabsContent>
       <TabsContent value="dashboard" className="mt-4">
-        <div className="w-full min-h-[600px]">
-          <div className='tableauPlaceholder' id='viz1761455999163' style={{ position: 'relative' }}>
-            <noscript>
-              <a href='#'>
-                <img 
-                  alt='Overview' 
-                  src='https://public.tableau.com/static/images/Fi/FinancialDashboard_16880395715220/Overview/1_rss.png' 
-                  style={{ border: 'none' }} 
-                />
-              </a>
-            </noscript>
-            <object className='tableauViz' style={{ display: 'none' }}>
-              <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-              <param name='embed_code_version' value='3' />
-              <param name='site_root' value='' />
-              <param name='name' value='FinancialDashboard_16880395715220/Overview' />
-              <param name='tabs' value='no' />
-              <param name='toolbar' value='yes' />
-              <param name='static_image' value='https://public.tableau.com/static/images/Fi/FinancialDashboard_16880395715220/Overview/1.png' />
-              <param name='animate_transition' value='yes' />
-              <param name='display_static_image' value='yes' />
-              <param name='display_spinner' value='yes' />
-              <param name='display_overlay' value='yes' />
-              <param name='display_count' value='yes' />
-              <param name='language' value='en-US' />
-            </object>
-          </div>
+        <div className="w-full" style={{ minHeight: '800px' }}>
+          <iframe
+            src="https://public.tableau.com/views/FinancialDashboard_16880395715220/Overview?:embed=yes&:display_count=yes&:showVizHome=no"
+            width="100%"
+            height="800"
+            frameBorder="0"
+            allowFullScreen
+            className="border-0"
+          />
         </div>
       </TabsContent>
     </Tabs>
