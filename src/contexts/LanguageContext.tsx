@@ -55,7 +55,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     }
 
     try {
-      setIsTranslating(true);
       const { data, error } = await supabase.functions.invoke("translate-content", {
         body: {
           text,
@@ -65,11 +64,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
       if (error) {
         console.error("Translation error:", error);
-        toast({
-          title: "Translation Error",
-          description: "Failed to translate content. Showing original text.",
-          variant: "destructive",
-        });
         return text;
       }
 
@@ -88,8 +82,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Translation error:", error);
       return text;
-    } finally {
-      setIsTranslating(false);
     }
   };
 

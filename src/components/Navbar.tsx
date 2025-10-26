@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LanguageSelector from "@/components/LanguageSelector";
-import { useTranslatedText } from "@/hooks/useTranslatedText";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -16,31 +16,51 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
+  const { currentLanguage, translate } = useLanguage();
+  const [translatedNavItems, setTranslatedNavItems] = useState([
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
     { name: "Certifications", href: "#certifications" },
     { name: "Blog", href: "#blog" },
     { name: "Contact", href: "#contact" },
-  ];
+  ]);
 
-  // Translate navigation items
-  const translatedAbout = useTranslatedText("About");
-  const translatedSkills = useTranslatedText("Skills");
-  const translatedProjects = useTranslatedText("Projects");
-  const translatedCertifications = useTranslatedText("Certifications");
-  const translatedBlog = useTranslatedText("Blog");
-  const translatedContact = useTranslatedText("Contact");
+  useEffect(() => {
+    const translateNavItems = async () => {
+      if (currentLanguage.code === "en") {
+        setTranslatedNavItems([
+          { name: "About", href: "#about" },
+          { name: "Skills", href: "#skills" },
+          { name: "Projects", href: "#projects" },
+          { name: "Certifications", href: "#certifications" },
+          { name: "Blog", href: "#blog" },
+          { name: "Contact", href: "#contact" },
+        ]);
+        return;
+      }
 
-  const translatedNavItems = [
-    { name: translatedAbout, href: "#about" },
-    { name: translatedSkills, href: "#skills" },
-    { name: translatedProjects, href: "#projects" },
-    { name: translatedCertifications, href: "#certifications" },
-    { name: translatedBlog, href: "#blog" },
-    { name: translatedContact, href: "#contact" },
-  ];
+      const translations = await Promise.all([
+        translate("About"),
+        translate("Skills"),
+        translate("Projects"),
+        translate("Certifications"),
+        translate("Blog"),
+        translate("Contact"),
+      ]);
+
+      setTranslatedNavItems([
+        { name: translations[0], href: "#about" },
+        { name: translations[1], href: "#skills" },
+        { name: translations[2], href: "#projects" },
+        { name: translations[3], href: "#certifications" },
+        { name: translations[4], href: "#blog" },
+        { name: translations[5], href: "#contact" },
+      ]);
+    };
+
+    translateNavItems();
+  }, [currentLanguage, translate]);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -69,11 +89,11 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
-            {translatedNavItems.map((item, index) => (
+            {translatedNavItems.map((item) => (
               <button
-                key={navItems[index].href}
+                key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-foreground/80 hover:text-primary transition-smooth font-medium"
+                className="text-foreground/80 hover:text-primary transition-smooth font-medium whitespace-nowrap"
               >
                 {item.name}
               </button>
@@ -101,9 +121,9 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-card/95 backdrop-blur-md border-t border-border">
           <div className="container mx-auto px-4 py-4 space-y-2">
-            {translatedNavItems.map((item, index) => (
+            {translatedNavItems.map((item) => (
               <button
-                key={navItems[index].href}
+                key={item.href}
                 onClick={() => scrollToSection(item.href)}
                 className="block w-full text-left px-4 py-3 rounded-lg text-foreground/80 hover:text-primary hover:bg-muted transition-smooth font-medium"
               >
