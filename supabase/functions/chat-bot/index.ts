@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -11,9 +12,67 @@ serve(async (req) => {
   try {
     const { messages, collectInfo } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+    const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY");
+    
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("Supabase configuration missing");
 
-    const systemPrompt = `You are Dheeraj's AI assistant. Your conversation flow follows these steps:
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Get the last user message
+    const lastMessage = messages[messages.length - 1];
+    const userQuery = lastMessage?.content || "";
+
+    console.log("User query:", userQuery);
+
+    // Generate embedding for the user's query
+    let relevantContext = "";
+    
+    if (userQuery && !collectInfo) {
+      try {
+        const embeddingResponse = await fetch("https://ai.gateway.lovable.dev/v1/embeddings", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${LOVABLE_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: "text-embedding-004",
+            input: userQuery,
+          }),
+        });
+
+        if (embeddingResponse.ok) {
+          const embeddingData = await embeddingResponse.json();
+          const queryEmbedding = embeddingData.data[0].embedding;
+
+          console.log("Query embedding generated, searching knowledge base...");
+
+          // Search for similar content in knowledge base
+          const { data: matches, error: matchError } = await supabase
+            .rpc("match_knowledge", {
+              query_embedding: JSON.stringify(queryEmbedding),
+              match_threshold: 0.5,
+              match_count: 3
+            });
+
+          if (!matchError && matches && matches.length > 0) {
+            console.log(`Found ${matches.length} relevant documents`);
+            relevantContext = matches
+              .map((match: any) => `- ${match.content} (relevance: ${(match.similarity * 100).toFixed(0)}%)`)
+              .join("\n");
+          } else {
+            console.log("No relevant documents found or error:", matchError);
+          }
+        }
+      } catch (error) {
+        console.error("Error in RAG retrieval:", error);
+      }
+    }
+
+    const systemPrompt = collectInfo 
+      ? `You are Dheeraj's AI assistant. Your conversation flow follows these steps:
 
 STEP 1: The user has already been introduced to Dheeraj and asked "Are you interested to connect with Dheeraj?"
 
@@ -42,7 +101,21 @@ STEP 3: If user says NO (or declines):
 Guidelines:
 - Be friendly and conversational
 - Keep responses concise and friendly
-- If they give invalid information, politely ask them to correct it`;
+- If they give invalid information, politely ask them to correct it`
+      : `You are Dheeraj's AI assistant, a RAG-based chatbot specialized in Business Intelligence and answering questions about Dheeraj.
+
+You have access to a knowledge base about Dheeraj and Business Intelligence topics. Use the retrieved context to answer questions accurately.
+
+${relevantContext ? `RELEVANT CONTEXT FROM KNOWLEDGE BASE:\n${relevantContext}\n` : ''}
+
+Guidelines:
+- Answer questions about Dheeraj's expertise, skills, and experience
+- Provide information about Business Intelligence, data analytics, Power BI, Tableau, and related topics
+- If the retrieved context contains relevant information, use it in your response
+- If you don't have specific information in the context, provide general helpful information about BI topics
+- Be friendly, professional, and concise
+- If users show interest in connecting with Dheeraj, ask if they'd like to leave their contact information
+- Always base your answers on the retrieved context when available`;
 
     const body: any = {
       model: "google/gemini-2.5-flash",
