@@ -16,34 +16,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState, useEffect } from "react";
-
-const TableauDashboardTabs = ({ fullDescription }: { fullDescription: React.ReactNode }) => {
-  return (
-    <Tabs defaultValue="description" className="w-full">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="description">Description</TabsTrigger>
-        <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-      </TabsList>
-      <TabsContent value="description" className="text-foreground/80 leading-relaxed mt-4">
-        {fullDescription}
-      </TabsContent>
-      <TabsContent value="dashboard" className="mt-4">
-        <div className="w-full" style={{ minHeight: '800px' }}>
-          <iframe
-            src="https://public.tableau.com/views/FinancialDashboard_16880395715220/Overview?:embed=yes&:display_count=yes&:showVizHome=no"
-            width="100%"
-            height="800"
-            frameBorder="0"
-            allowFullScreen
-            className="border-0"
-          />
-        </div>
-      </TabsContent>
-    </Tabs>
-  );
-};
+import { useState } from "react";
 
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
@@ -203,13 +176,9 @@ const Projects = () => {
                           <DialogHeader>
                             <DialogTitle>{project.title}</DialogTitle>
                           </DialogHeader>
-                          {index === 1 ? (
-                            <TableauDashboardTabs fullDescription={project.fullDescription} />
-                          ) : (
-                            <div className="text-foreground/80 leading-relaxed">
-                              {project.fullDescription}
-                            </div>
-                          )}
+                          <div className="text-foreground/80 leading-relaxed">
+                            {project.fullDescription}
+                          </div>
                         </DialogContent>
                       </Dialog>
                     )}
