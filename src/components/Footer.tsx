@@ -171,7 +171,7 @@ const Footer = () => {
                     <img 
                       src={link.logo} 
                       alt={`${link.name} logo`}
-                      className="w-[60px] h-[60px] object-contain rounded-sm group-hover:scale-110 transition-transform"
+                      className="w-[120px] h-[120px] object-contain rounded-sm group-hover:scale-110 transition-transform"
                     />
                   )}
                 </a>
