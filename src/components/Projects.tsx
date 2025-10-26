@@ -212,7 +212,7 @@ const Projects = () => {
                     <div className="flex items-center gap-2 mb-4 bg-blue-600 text-white px-3 py-1.5 rounded-md w-fit">
                       <Star className="h-4 w-4 fill-white" />
                       <span className="text-sm font-semibold">
-                        {project.projectType === 'personal' ? 'Personal Projects' : 'Previous Organizational Projects'}
+                        {project.projectType === 'personal' ? 'Personal Project' : 'Previous Organizational Project'}
                       </span>
                     </div>
 
