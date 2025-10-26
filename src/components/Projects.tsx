@@ -22,7 +22,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
@@ -278,98 +278,32 @@ const Projects = () => {
 };
 
 const TableauDashboardTabs = ({ description }: { description: React.ReactNode }) => {
-  const vizRef = useRef<HTMLDivElement>(null);
-  const [vizLoaded, setVizLoaded] = useState(false);
-  const [showEmbedError, setShowEmbedError] = useState(false);
-
-  useEffect(() => {
-    let viz: any = null;
-    
-    const loadTableau = () => {
-      const script = document.createElement('script');
-      script.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-      script.async = true;
-      
-      script.onload = () => {
-        if (vizRef.current && (window as any).tableau) {
-          const containerDiv = vizRef.current;
-          const url = 'https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport';
-          
-          const options = {
-            hideTabs: false,
-            hideToolbar: false,
-            width: '100%',
-            height: '800px',
-            onFirstInteractive: () => {
-              setVizLoaded(true);
-            }
-          };
-
-          try {
-            viz = new (window as any).tableau.Viz(containerDiv, url, options);
-          } catch (error) {
-            console.error('Error loading Tableau viz:', error);
-            setShowEmbedError(true);
-          }
-        }
-      };
-
-      script.onerror = () => {
-        setShowEmbedError(true);
-      };
-
-      document.body.appendChild(script);
-    };
-
-    return () => {
-      if (viz) {
-        viz.dispose();
-      }
-    };
-  }, []);
-
   const tableauUrl = "https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport?:language=en-US&:display_count=n&:origin=viz_share_link";
 
   return (
     <Tabs defaultValue="description" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="description">Description</TabsTrigger>
-        <TabsTrigger value="dashboard" onClick={() => !vizLoaded && setShowEmbedError(false)}>Dashboard</TabsTrigger>
+        <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
       </TabsList>
       <TabsContent value="description" className="text-foreground/80 leading-relaxed">
         {description}
       </TabsContent>
-      <TabsContent value="dashboard">
-        {showEmbedError ? (
-          <div className="flex flex-col items-center justify-center py-12 space-y-4">
-            <div className="text-center space-y-4">
-              <BarChart3 className="h-16 w-16 mx-auto text-primary" />
-              <h3 className="text-xl font-semibold">Udemy Course Analysis Dashboard</h3>
-              <p className="text-muted-foreground max-w-md">
-                The dashboard cannot be embedded directly. Click below to view it in a new window.
-              </p>
-              <Button
-                onClick={() => window.open(tableauUrl, '_blank')}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                <ExternalLink className="mr-2 h-4 w-4" />
-                Open Dashboard in New Tab
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className="w-full">
-            <div ref={vizRef} className="w-full min-h-[800px]" />
-            {!vizLoaded && (
-              <div className="flex items-center justify-center py-8">
-                <div className="text-center space-y-2">
-                  <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto" />
-                  <p className="text-sm text-muted-foreground">Loading dashboard...</p>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+      <TabsContent value="dashboard" className="flex flex-col items-center justify-center py-12 space-y-4">
+        <div className="text-center space-y-4">
+          <BarChart3 className="h-16 w-16 mx-auto text-primary" />
+          <h3 className="text-xl font-semibold">Udemy Course Analysis Dashboard</h3>
+          <p className="text-muted-foreground max-w-md">
+            Click the button below to view the interactive Tableau dashboard in a new window
+          </p>
+          <Button
+            onClick={() => window.open(tableauUrl, '_blank')}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            <ExternalLink className="mr-2 h-4 w-4" />
+            Open Dashboard in New Tab
+          </Button>
+        </div>
       </TabsContent>
     </Tabs>
   );
