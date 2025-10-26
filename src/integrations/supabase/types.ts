@@ -14,54 +14,13 @@ export type Database = {
   }
   public: {
     Tables: {
-      knowledge_base: {
-        Row: {
-          category: string
-          content: string
-          created_at: string
-          embedding: string | null
-          id: string
-          metadata: Json | null
-          updated_at: string
-        }
-        Insert: {
-          category: string
-          content: string
-          created_at?: string
-          embedding?: string | null
-          id?: string
-          metadata?: Json | null
-          updated_at?: string
-        }
-        Update: {
-          category?: string
-          content?: string
-          created_at?: string
-          embedding?: string | null
-          id?: string
-          metadata?: Json | null
-          updated_at?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      match_knowledge: {
-        Args: {
-          match_count?: number
-          match_threshold?: number
-          query_embedding: string
-        }
-        Returns: {
-          category: string
-          content: string
-          id: string
-          similarity: number
-        }[]
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never

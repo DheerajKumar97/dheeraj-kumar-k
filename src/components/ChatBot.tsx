@@ -5,8 +5,6 @@ import { Input } from "@/components/ui/input";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 
 interface Message {
   role: "user" | "assistant";
@@ -55,18 +53,8 @@ const ChatBot = () => {
     setIsLoading(true);
 
     try {
-      // Check if user wants to connect - look for interest keywords in recent messages
-      const recentUserMessages = newMessages
-        .filter(m => m.role === "user")
-        .slice(-3)
-        .map(m => m.content.toLowerCase());
-      
-      const connectKeywords = ['yes', 'sure', 'connect', 'interested', 'contact', 'reach out', 'get in touch', 'talk', 'discuss'];
-      const shouldCollectInfo = recentUserMessages.some(msg => 
-        connectKeywords.some(keyword => msg.includes(keyword))
-      );
-
-      console.log("Should collect info:", shouldCollectInfo);
+      // Check if we should try to collect info (after several exchanges)
+      const shouldCollectInfo = newMessages.length > 12;
 
       const { data, error } = await supabase.functions.invoke("chat-bot", {
         body: { 
@@ -184,11 +172,7 @@ const ChatBot = () => {
                       : "bg-background border shadow-sm"
                   }`}
                 >
-                  <div className="prose prose-sm max-w-none dark:prose-invert prose-p:my-1 prose-ul:my-1 prose-li:my-0.5">
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                      {message.content}
-                    </ReactMarkdown>
-                  </div>
+                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                 </div>
               </div>
             ))}

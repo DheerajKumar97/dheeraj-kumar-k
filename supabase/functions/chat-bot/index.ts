@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.1";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,109 +11,38 @@ serve(async (req) => {
   try {
     const { messages, collectInfo } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-    const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY");
-    
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("Supabase configuration missing");
 
-    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const systemPrompt = `You are Dheeraj's AI assistant. Your conversation flow follows these steps:
 
-    // Get the last user message
-    const lastMessage = messages[messages.length - 1];
-    const userQuery = lastMessage?.content || "";
+STEP 1: The user has already been introduced to Dheeraj and asked "Are you interested to connect with Dheeraj?"
 
-    console.log("User query:", userQuery);
+STEP 2: If user says YES (or shows interest):
+- Start collecting contact information naturally and conversationally
+- YOU MUST COLLECT ALL 7 REQUIRED FIELDS:
+  1. First Name
+  2. Last Name  
+  3. Email (must be from Gmail, Outlook, Yahoo, Zohomail, ProtonMail, or Titan domains)
+  4. Phone Number (international format accepted)
+  5. Business Type - MANDATORY (ask "What type of business are you in?" and offer these options: Telecom Industry, E-commerce, IT Industry, Sales & Marketing, Media & Entertainment, Travel & Tourism, Finance and Banking, Supply Chain Logistics & Inventory & Order Management, Health Care, Fitness & Recreation, Gaming Industry, Education Industry, Manufacturing, Procurement Management Solution, Social Media and Social Media Analysis, Other)
+  6. Subject (ask "What would you like to discuss with Dheeraj?")
+  7. Message (ask "Please tell me more about your needs or project" - must be minimum 60 characters)
 
-    // Generate embedding for the user's query
-    let relevantContext = "";
-    
-    if (userQuery && !collectInfo) {
-      try {
-        const embeddingResponse = await fetch("https://ai.gateway.lovable.dev/v1/embeddings", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${LOVABLE_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "text-embedding-004",
-            input: userQuery,
-          }),
-        });
+IMPORTANT RULES:
+- Ask for fields one or two at a time, naturally
+- DO NOT skip business type, subject, or message
+- ONLY use the submit_contact_info tool when you have collected ALL 7 fields
+- Validate email domains when provided
+- If user provides invalid info, ask them to correct it
 
-        if (embeddingResponse.ok) {
-          const embeddingData = await embeddingResponse.json();
-          const queryEmbedding = embeddingData.data[0].embedding;
+STEP 3: If user says NO (or declines):
+- Respond with: "Thank you for visiting our page! If you're looking to grow your business using the power of your data, reach out to us — Dheeraj is here to help you turn data into real insights which helps you to make your Business Decisions."
+- Do not ask for any contact information
 
-          console.log("Query embedding generated, searching knowledge base...");
-
-          // Search for similar content in knowledge base
-          const { data: matches, error: matchError } = await supabase
-            .rpc("match_knowledge", {
-              query_embedding: queryEmbedding,
-              match_threshold: 0.3,
-              match_count: 5
-            });
-
-          if (matchError) {
-            console.error("Error searching knowledge base:", matchError);
-          } else if (matches && matches.length > 0) {
-            console.log(`Found ${matches.length} relevant documents with similarities:`, 
-              matches.map((m: any) => m.similarity));
-            relevantContext = matches
-              .map((match: any) => `${match.content}`)
-              .join("\n\n");
-          } else {
-            console.log("No relevant documents found in knowledge base");
-          }
-        }
-      } catch (error) {
-        console.error("Error in RAG retrieval:", error);
-      }
-    }
-
-    const systemPrompt = collectInfo 
-      ? `You are Dheeraj's AI assistant collecting contact information.
-
-CRITICAL RULES FOR COLLECTING INFORMATION:
-- You MUST collect ALL 5 REQUIRED FIELDS before submitting:
-  1. Name (full name)
-  2. Email (valid email address)
-  3. Phone Number (must include country code, format: +XX XXXXXXXXXX)
-  4. Business Type (ask user to select from: Telecom Industry, E-commerce, IT Industry, Sales & Marketing, Media & Entertainment, Travel & Tourism, Finance and Banking, Supply Chain Logistics & Inventory & Order Management, Health Care, Fitness & Recreation, Gaming Industry, Education Industry, Manufacturing, Procurement Management Solution, Social Media and Social Media Analysis, Other)
-  5. Query/Message (what they want to discuss with Dheeraj - minimum 30 characters)
-
-COLLECTION PROCESS:
-- Ask for fields naturally, one or two at a time
-- ALL fields are MANDATORY - do not skip any
-- For phone number, explicitly ask for country code (e.g., "+91 for India, +1 for USA")
-- Validate email format
-- For Business Type, provide the list of options for them to choose from
-- ONLY use the submit_contact_info tool when you have collected ALL 5 fields
-- If information is invalid or incomplete, politely ask them to provide it correctly
-
-VALIDATION:
-- Email must be valid format (contain @ and domain)
-- Phone must include country code starting with +
-- Query must be at least 30 characters
-- Business Type must be from the provided list
-- Name cannot be empty
-
-Be friendly, conversational, and professional while collecting this information.`
-      : `You are Dheeraj's AI assistant, a RAG-based chatbot specialized in Business Intelligence and answering questions about Dheeraj.
-
-${relevantContext ? `=== KNOWLEDGE BASE CONTEXT (USE THIS TO ANSWER) ===\n${relevantContext}\n=== END OF KNOWLEDGE BASE ===\n\n` : 'No specific context found in knowledge base.\n\n'}
-
-CRITICAL INSTRUCTIONS:
-- You MUST use the knowledge base context above to answer questions about Dheeraj and Business Intelligence
-- Base ALL answers on the retrieved context when available
-- Answer questions about Dheeraj's expertise, skills, certifications, experience, education, and companies he has worked at
-- Answer questions about BI topics (Power BI, Tableau, ETL, KPIs, data modeling, etc.) using the context
-- Be specific and detailed when you have relevant context
-- If users show interest in connecting with Dheeraj (saying yes, interested, want to connect, etc.), tell them you'll collect their details and then the system will automatically switch to collection mode
-- Be friendly, professional, and conversational
-- Keep responses concise but informative`;
+Guidelines:
+- Be friendly and conversational
+- Keep responses concise and friendly
+- If they give invalid information, politely ask them to correct it`;
 
     const body: any = {
       model: "google/gemini-2.5-flash",
@@ -130,25 +58,20 @@ CRITICAL INSTRUCTIONS:
           type: "function",
           function: {
             name: "submit_contact_info",
-            description: "Submit the collected contact information when ALL 5 required fields are provided and validated",
+            description: "Submit the collected contact information when all required fields are provided",
             parameters: {
               type: "object",
               properties: {
-                name: { 
-                  type: "string", 
-                  description: "User's full name (minimum 2 characters)" 
-                },
+                firstName: { type: "string", description: "User's first name" },
+                lastName: { type: "string", description: "User's last name" },
                 email: { 
                   type: "string", 
-                  description: "User's valid email address" 
+                  description: "User's email (must be from gmail.com, outlook.com, yahoo.com, zohomail.com, protonmail.com, or titan.email)" 
                 },
-                phone: { 
-                  type: "string", 
-                  description: "User's phone number with country code (e.g., +91 9876543210)" 
-                },
+                phone: { type: "string", description: "User's phone number" },
                 businessType: { 
                   type: "string",
-                  description: "Type of business the user is in",
+                  description: "Type of business",
                   enum: [
                     "Telecom Industry",
                     "E-commerce", 
@@ -168,12 +91,10 @@ CRITICAL INSTRUCTIONS:
                     "Other"
                   ]
                 },
-                query: { 
-                  type: "string", 
-                  description: "User's query or what they want to discuss with Dheeraj (minimum 30 characters)" 
-                },
+                subject: { type: "string", description: "Subject of inquiry (minimum 5 characters)" },
+                message: { type: "string", description: "User's message (minimum 60 characters)" },
               },
-              required: ["name", "email", "phone", "businessType", "query"],
+              required: ["firstName", "lastName", "email", "phone", "businessType", "subject", "message"],
               additionalProperties: false,
             },
           },

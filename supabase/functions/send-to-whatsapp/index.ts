@@ -9,11 +9,13 @@ const corsHeaders = {
 };
 
 interface ContactInfo {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   businessType: string;
-  query: string;
+  subject: string;
+  message: string;
 }
 
 serve(async (req) => {
@@ -23,35 +25,11 @@ serve(async (req) => {
     const contactInfo: ContactInfo = await req.json();
     
     // Validate required fields
-    if (!contactInfo.name || !contactInfo.email || 
-        !contactInfo.phone || !contactInfo.businessType || !contactInfo.query) {
+    if (!contactInfo.firstName || !contactInfo.lastName || !contactInfo.email || 
+        !contactInfo.phone || !contactInfo.businessType || !contactInfo.subject || 
+        !contactInfo.message) {
       return new Response(
         JSON.stringify({ error: "Missing required fields" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(contactInfo.email)) {
-      return new Response(
-        JSON.stringify({ error: "Invalid email format" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate phone starts with +
-    if (!contactInfo.phone.startsWith('+')) {
-      return new Response(
-        JSON.stringify({ error: "Phone number must include country code starting with +" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    // Validate query length
-    if (contactInfo.query.length < 30) {
-      return new Response(
-        JSON.stringify({ error: "Query must be at least 30 characters" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -59,17 +37,18 @@ serve(async (req) => {
     // Send email using Resend
     const emailResponse = await resend.emails.send({
       from: "Website Chatbot <onboarding@resend.dev>",
-      to: ["engineerdheeraj97@gmail.com"],
-      subject: `New Contact Request from ${contactInfo.name}`,
+      to: ["engineerdheeraj97@gmail.com"], // Your email
+      subject: `New Contact from ${contactInfo.firstName} ${contactInfo.lastName}`,
       html: `
-        <h2>New Contact Request from Website Chatbot</h2>
+        <h2>New Contact from Website Chatbot</h2>
         <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <p><strong>Name:</strong> ${contactInfo.name}</p>
+          <p><strong>Name:</strong> ${contactInfo.firstName} ${contactInfo.lastName}</p>
           <p><strong>Email:</strong> ${contactInfo.email}</p>
           <p><strong>Phone:</strong> ${contactInfo.phone}</p>
           <p><strong>Business Type:</strong> ${contactInfo.businessType}</p>
-          <p><strong>Query/Message:</strong></p>
-          <p style="white-space: pre-wrap;">${contactInfo.query}</p>
+          <p><strong>Subject:</strong> ${contactInfo.subject}</p>
+          <p><strong>Message:</strong></p>
+          <p style="white-space: pre-wrap;">${contactInfo.message}</p>
         </div>
       `,
     });
