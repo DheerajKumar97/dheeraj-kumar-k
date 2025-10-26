@@ -22,9 +22,19 @@ serve(async (req) => {
     const knowledgeItems = [
       // About Dheeraj - Experience and Background
       {
-        content: "Dheeraj has over 6+ years of professional experience in Business Intelligence and Data Analytics. He specializes in transforming raw data into strategic business insights that drive decision-making and operational excellence.",
+        content: "Dheeraj has over 6+ years of professional experience in Business Intelligence and Data Analytics. He specializes in transforming raw data into strategic business insights that drive decision-making and operational excellence. His experience spans working as a Data Analyst in both startup culture and multinational corporations (MNCs).",
         category: "about_dheeraj",
         metadata: { topic: "experience" }
+      },
+      {
+        content: "Dheeraj's highest education is B.Tech in Computer Science Engineering. This strong technical foundation in computer science provides him with deep understanding of software systems, algorithms, and data structures that he applies to his BI and analytics work.",
+        category: "about_dheeraj",
+        metadata: { topic: "education" }
+      },
+      {
+        content: "Dheeraj has worked in diverse organizational environments including startup culture as well as renowned multinational corporations (MNCs) such as Capgemini, Encora, and Exusia. This varied experience has given him versatility in adapting to different business contexts, from agile startup environments to enterprise-scale operations.",
+        category: "about_dheeraj",
+        metadata: { topic: "work_experience_companies" }
       },
       {
         content: "Dheeraj's expertise spans across industry-leading tools including Power BI, Tableau, Microsoft Fabric, SQL Server, PySpark, and advanced data analytics platforms. He is passionate about creating visually stunning, data-driven dashboards that tell compelling stories.",
