@@ -26,7 +26,7 @@ import { useState } from "react";
 
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState<"all" | "personal" | "organization">("all");
+  const [selectedFilter, setSelectedFilter] = useState<"all" | "personal" | "organization">("organization");
 
   const projects = [
     {
@@ -71,7 +71,7 @@ const Projects = () => {
           </p>
         </>
       ),
-      impact: "35% improvement in sales forecast accuracy",
+      impact: "35% improvement in Flooring and Electronics Product Sales",
       tools: ["Power BI Desktop", "Power BI Service", "Power Query", "SQL Server", "Power Automate"],
       icon: DollarSign,
       metric: "+35%",
@@ -182,14 +182,14 @@ const Projects = () => {
               onClick={() => setSelectedFilter("personal")}
               className="transition-smooth"
             >
-              Personal Project
+              Personal Projects
             </Button>
             <Button
               variant={selectedFilter === "organization" ? "default" : "outline"}
               onClick={() => setSelectedFilter("organization")}
               className="transition-smooth"
             >
-              Previous Organization Project
+              Previous Organizational Projects
             </Button>
           </div>
         </div>
@@ -212,7 +212,7 @@ const Projects = () => {
                     <div className="flex items-center gap-2 mb-4 bg-blue-600 text-white px-3 py-1.5 rounded-md w-fit">
                       <Star className="h-4 w-4 fill-white" />
                       <span className="text-sm font-semibold">
-                        {project.projectType === 'personal' ? 'Personal Project' : 'Previous Organization Project'}
+                        {project.projectType === 'personal' ? 'Personal Projects' : 'Previous Organizational Projects'}
                       </span>
                     </div>
 
