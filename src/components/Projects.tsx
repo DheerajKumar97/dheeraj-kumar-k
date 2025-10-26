@@ -20,6 +20,7 @@ import { useState } from "react";
 
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<"all" | "personal" | "organization">("all");
 
   const projects = [
     {
@@ -145,6 +146,11 @@ const Projects = () => {
     },
   ];
 
+  const filteredProjects = projects.filter(project => {
+    if (selectedFilter === "all") return true;
+    return project.projectType === selectedFilter;
+  });
+
   return (
     <section id="projects" className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,9 +159,33 @@ const Projects = () => {
             Featured Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mb-4"></div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
             Transforming business challenges into data-driven solutions with measurable impact
           </p>
+          
+          <div className="flex gap-3 justify-center">
+            <Button
+              variant={selectedFilter === "all" ? "default" : "outline"}
+              onClick={() => setSelectedFilter("all")}
+              className="transition-smooth"
+            >
+              All Projects
+            </Button>
+            <Button
+              variant={selectedFilter === "personal" ? "default" : "outline"}
+              onClick={() => setSelectedFilter("personal")}
+              className="transition-smooth"
+            >
+              Personal Project
+            </Button>
+            <Button
+              variant={selectedFilter === "organization" ? "default" : "outline"}
+              onClick={() => setSelectedFilter("organization")}
+              className="transition-smooth"
+            >
+              Previous Organization Project
+            </Button>
+          </div>
         </div>
 
         <Carousel
@@ -166,14 +196,14 @@ const Projects = () => {
           className="w-full max-w-7xl mx-auto"
         >
           <CarouselContent className="-ml-4">
-            {projects.map((project, index) => (
+            {filteredProjects.map((project, index) => (
               <CarouselItem key={index} className="pl-4 lg:basis-1/2">
                 <Card
                   className="p-8 shadow-card hover:shadow-hover transition-smooth group animate-fade-in overflow-hidden relative h-full"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="relative">
-                    <div className={`flex items-center gap-2 mb-4 ${project.projectType === 'personal' ? 'bg-green-600' : 'bg-blue-600'} text-white px-3 py-1.5 rounded-md w-fit`}>
+                    <div className="flex items-center gap-2 mb-4 bg-blue-600 text-white px-3 py-1.5 rounded-md w-fit">
                       <Star className="h-4 w-4 fill-white" />
                       <span className="text-sm font-semibold">
                         {project.projectType === 'personal' ? 'Personal Project' : 'Previous Organization Project'}
