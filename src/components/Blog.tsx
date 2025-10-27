@@ -42,7 +42,7 @@ const Blog = () => {
       date: "2025-10-24",
       category: "Power BI",
       readTime: "7 min read",
-      link: "https://medium.com/@engineerdheeraj97/mastering-advanced-power-bi-performance-optimization-techniques-47e0ec6c5c3a",
+      link: "https://medium.com/datadriveninvestor/mastering-advanced-power-bi-performance-optimization-techniques-47e0ec6c5c3a",
     },
     {
       title: "Data Warehouse Design Best Practices",
@@ -77,12 +77,12 @@ const Blog = () => {
       link: "https://medium.com/@engineerdheeraj97",
     },
     {
-      title: "Machine Learning for Business Analytics",
+      title: "Automated Exploratory Data Analysis Framework using Python and Streamlit",
       excerpt: "Practical applications of machine learning algorithms in business analytics and predictive modeling.",
-      date: "2025-04-12",
+      date: "2020-04-12",
       category: "Analytics",
       readTime: "10 min read",
-      link: "https://medium.com/@engineerdheeraj97",
+      link: "https://medium.com/datadriveninvestor/pocket-project-automated-exploratory-data-analysis-framework-using-python-and-streamlit-ee5ccea05e89",
     },
   ];
 
