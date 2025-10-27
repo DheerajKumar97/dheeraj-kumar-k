@@ -282,11 +282,20 @@ const Projects = () => {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="relative">
-                    <div className="flex items-center gap-2 mb-4 bg-blue-600 text-white px-3 py-1.5 rounded-md w-fit">
-                      <Star className="h-4 w-4 fill-white" />
-                      <span className="text-sm font-semibold">
-                        {project.projectType === 'personal' ? 'Personal Project' : 'Previous Organizational Project'}
-                      </span>
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="flex items-center gap-2 bg-blue-600 text-white px-3 py-1.5 rounded-md">
+                        <Star className="h-4 w-4 fill-white" />
+                        <span className="text-sm font-semibold">
+                          {project.projectType === 'personal' ? 'Personal Project' : 'Previous Organizational Project'}
+                        </span>
+                      </div>
+                      {project.projectType === 'personal' && project.personalCategory && (
+                        <div className="bg-white text-blue-600 border-2 border-blue-600 px-3 py-1.5 rounded-md">
+                          <span className="text-sm font-semibold">
+                            {project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project'}
+                          </span>
+                        </div>
+                      )}
                     </div>
 
                     <h3 className="text-2xl font-bold mb-3 text-foreground group-hover:text-primary transition-smooth">
