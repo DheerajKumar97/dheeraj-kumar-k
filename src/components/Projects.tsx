@@ -1,4 +1,4 @@
-import { TrendingUp, Users, DollarSign, BarChart3, ExternalLink, Star } from "lucide-react";
+import { TrendingUp, Users, DollarSign, BarChart3, ExternalLink, Star, Code2, Database } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -290,7 +290,12 @@ const Projects = () => {
                         </span>
                       </div>
                       {project.projectType === 'personal' && project.personalCategory && (
-                        <div className="bg-white text-blue-600 border border-blue-600 px-2 py-0.5 rounded-md">
+                        <div className="flex items-center gap-1.5 bg-white text-blue-600 border border-blue-600 px-2 py-0.5 rounded-md">
+                          {project.personalCategory === 'python' ? (
+                            <Code2 className="h-3 w-3" />
+                          ) : (
+                            <Database className="h-3 w-3" />
+                          )}
                           <span className="text-xs font-semibold">
                             {project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project'}
                           </span>
