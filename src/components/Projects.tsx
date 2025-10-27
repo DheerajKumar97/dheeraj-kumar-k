@@ -27,6 +27,7 @@ import { useState } from "react";
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<"all" | "personal" | "organization">("organization");
+  const [personalProjectFilter, setPersonalProjectFilter] = useState<"python" | "bi">("bi");
 
   const projects = [
     {
@@ -51,6 +52,7 @@ const Projects = () => {
       metric: "+47%",
       color: "from-primary to-secondary",
       projectType: "personal",
+      personalCategory: "bi" as const,
     },
     {
       title: "Enterprise Level Product Performance Daily Metrics",
@@ -172,11 +174,40 @@ const Projects = () => {
       metric: "+40%",
       color: "from-primary to-secondary",
       projectType: "personal",
+      personalCategory: "bi" as const,
+    },
+    {
+      title: "Automated Exploratory Data Analysis Framework using Python and Streamlit",
+      description: "This project offers a Streamlit-based web application that automates exploratory data analysis and basic machine learning model building. Users simply upload their CSV, and the app provides tools for inspecting data types, handling missing values, plotting various graphs, performing feature analysis, and running classification models (including Logistic Regression, Decision Tree, Random Forest, Naive Bayes, and XGBoost) — all from an interactive interface, without any coding required.",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> Data analysts and business users often spend excessive time on repetitive data exploration and initial model development. This manual process of cleaning data, checking types, visualizing patterns, and quickly building models increases the time to actionable insights and makes diagnostics prone to error.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> This project offers a Streamlit-based web application that automates exploratory data analysis and basic machine learning model building. Users simply upload their CSV, and the app provides tools for inspecting data types, handling missing values, plotting various graphs, performing feature analysis, and running classification models (including Logistic Regression, Decision Tree, Random Forest, Naive Bayes, and XGBoost) — all from an interactive interface, without any coding required.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Major challenges included robust type conversion for diverse data, dynamic data validation to prevent errors in plotting or modeling when columns are missing or unsuitable, and integrating matplotlib/Seaborn figures smoothly with Streamlit's interface. Additional considerations involved delivering a simple, informative user experience and clear feedback when operations couldn't be performed (such as with invalid feature selection or empty columns).
+          </p>
+        </>
+      ),
+      impact: "Automated EDA workflow reducing analysis time significantly",
+      tools: ["Python", "Streamlit", "Pandas", "Scikit-learn", "XGBoost", "Matplotlib", "Seaborn"],
+      icon: BarChart3,
+      metric: "EDA",
+      color: "from-primary to-secondary",
+      projectType: "personal",
+      personalCategory: "python" as const,
+      liveDemoUrl: "https://python-automated-eda-dheeraj-kumar-konidala.streamlit.app/",
     },
   ];
 
   const filteredProjects = projects.filter(project => {
     if (selectedFilter === "all") return true;
+    if (selectedFilter === "personal") {
+      return project.projectType === "personal" && project.personalCategory === personalProjectFilter;
+    }
     return project.projectType === selectedFilter;
   });
 
@@ -215,6 +246,25 @@ const Projects = () => {
               Previous Organizational Projects
             </Button>
           </div>
+
+          {selectedFilter === "personal" && (
+            <div className="flex gap-3 justify-center mt-4">
+              <Button
+                variant={personalProjectFilter === "python" ? "default" : "outline"}
+                onClick={() => setPersonalProjectFilter("python")}
+                className="transition-smooth"
+              >
+                Python Projects
+              </Button>
+              <Button
+                variant={personalProjectFilter === "bi" ? "default" : "outline"}
+                onClick={() => setPersonalProjectFilter("bi")}
+                className="transition-smooth"
+              >
+                Business Intelligence Projects
+              </Button>
+            </div>
+          )}
         </div>
 
         <Carousel
@@ -272,6 +322,11 @@ const Projects = () => {
                               description={project.fullDescription} 
                               title="LoginPulse Analytics Dashboard"
                               tableauUrl="https://public.tableau.com/app/profile/dheeraj.kumar.k3358/viz/AppHealthMetricsKPI/AppHealthMetrics"
+                            />
+                          ) : project.liveDemoUrl ? (
+                            <LiveDemoTabs 
+                              description={project.fullDescription} 
+                              liveDemoUrl={project.liveDemoUrl}
                             />
                           ) : (
                             <div className="text-foreground/80 leading-relaxed">
@@ -333,6 +388,36 @@ const TableauDashboardTabs = ({ description, title, tableauUrl }: { description:
           >
             <ExternalLink className="mr-2 h-4 w-4" />
             Open Dashboard in New Tab
+          </Button>
+        </div>
+      </TabsContent>
+    </Tabs>
+  );
+};
+
+const LiveDemoTabs = ({ description, liveDemoUrl }: { description: React.ReactNode; liveDemoUrl: string }) => {
+  return (
+    <Tabs defaultValue="description" className="w-full">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="description">Description</TabsTrigger>
+        <TabsTrigger value="demo">Live Demo</TabsTrigger>
+      </TabsList>
+      <TabsContent value="description" className="text-foreground/80 leading-relaxed">
+        {description}
+      </TabsContent>
+      <TabsContent value="demo" className="flex flex-col items-center justify-center py-12 space-y-4">
+        <div className="text-center space-y-4">
+          <BarChart3 className="h-16 w-16 mx-auto text-primary" />
+          <h3 className="text-xl font-semibold">Live Demo</h3>
+          <p className="text-muted-foreground max-w-md">
+            Click the button below to view the live demo in a new window
+          </p>
+          <Button
+            onClick={() => window.open(liveDemoUrl, '_blank')}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            <ExternalLink className="mr-2 h-4 w-4" />
+            Open Live Demo
           </Button>
         </div>
       </TabsContent>
