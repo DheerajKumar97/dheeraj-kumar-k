@@ -290,8 +290,8 @@ const Projects = () => {
                         </span>
                       </div>
                       {project.projectType === 'personal' && project.personalCategory && (
-                        <div className="bg-white text-blue-600 border-2 border-blue-600 px-3 py-1.5 rounded-md">
-                          <span className="text-sm font-semibold">
+                        <div className="bg-white text-blue-600 border border-blue-600 px-2 py-0.5 rounded-md">
+                          <span className="text-xs font-semibold">
                             {project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project'}
                           </span>
                         </div>
