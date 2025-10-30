@@ -69,7 +69,7 @@ const About = () => {
             <Button
               variant="link"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-0 h-auto text-primary hover:text-primary/80 underline flex items-center gap-1"
+              className="p-0 h-auto text-primary hover:text-primary/80 underline flex items-center gap-1 transition-transform duration-200 hover:scale-110"
             >
               {isExpanded ? "Read Less" : "Read More"}
               {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
