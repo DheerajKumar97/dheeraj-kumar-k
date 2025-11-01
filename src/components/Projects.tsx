@@ -29,6 +29,14 @@ const Projects = () => {
   const [selectedFilter, setSelectedFilter] = useState<"all" | "personal" | "organization">("organization");
   const [personalProjectFilter, setPersonalProjectFilter] = useState<"python" | "bi">("bi");
 
+  // Helper function to determine project category label
+  const getProjectCategoryLabel = (project: any) => {
+    if (project.title === "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)") {
+      return "Gen AI Project";
+    }
+    return project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project';
+  };
+
   const projects = [
     {
       title: "Udemy Course Analysis Report",
@@ -323,7 +331,7 @@ const Projects = () => {
                             <Database className="h-3 w-3" />
                           )}
                           <span className="text-xs font-semibold">
-                            {project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project'}
+                            {getProjectCategoryLabel(project)}
                           </span>
                         </div>
                       )}
