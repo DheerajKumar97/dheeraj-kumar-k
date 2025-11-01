@@ -226,7 +226,7 @@ const Projects = () => {
         </>
       ),
       impact: "Multi-model AI document analysis",
-      tools: ["Python", "Streamlit", "Groq", "Google Gemini", "Perplexity", "HuggingFace", "LangChain"],
+      tools: ["Python", "Streamlit", "Groq", "Google Gemini", "Perplexity", "HuggingFace", "OpenAI"],
       icon: Database,
       metric: "AI",
       color: "from-primary to-secondary",
