@@ -201,6 +201,32 @@ const Projects = () => {
       personalCategory: "python" as const,
       liveDemoUrl: "https://python-automated-eda-dheeraj-kumar-konidala.streamlit.app/",
     },
+    {
+      title: "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)",
+      description: "A Python-Streamlit-based web application was developed with a modular architecture that supports multi-model selection and on-the-fly switching. The system processes user-uploaded documents, extracts relevant content locally, and injects it into LLM prompts for context-aware responses. Integration of APIs from Groq, Gemini",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Requirement:</strong> The objective was to create an intelligent, document-aware chatbot that allows users to chat with their files across multiple formats such as PDF, DOCX, HTML, TXT, and JSON. The system needed to integrate several cutting-edge large language models (LLMs) like Groq's Llama 3.3, Google Gemini 2.0 Flash, Perplexity Sonar, and HuggingFace models to ensure speed, reasoning, and web-connected responses. The requirement focused on enabling personalized knowledge extraction and real-time information retrieval for professionals and researchers.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> A Python-Streamlit-based web application was developed with a modular architecture that supports multi-model selection and on-the-fly switching. The system processes user-uploaded documents, extracts relevant content locally, and injects it into LLM prompts for context-aware responses. Integration of APIs from Groq, Gemini, Perplexity, and HuggingFace enabled seamless model interoperability, while the UI was designed to be clean, interactive, and secure, storing keys only in session memory.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Key technical challenges included handling large documents that exceeded model context limits and optimizing response speed for open-source models prone to cold starts. Extracting accurate text from PDFs with complex layouts and maintaining chat continuity without performance degradation also required fine-tuning. Additionally, balancing API rate limits across different model providers and ensuring secure, local-only data handling posed operational and design-level complexities.
+          </p>
+        </>
+      ),
+      impact: "Multi-model AI document analysis",
+      tools: ["Python", "Streamlit", "Groq", "Google Gemini", "Perplexity", "HuggingFace", "LangChain"],
+      icon: Database,
+      metric: "AI",
+      color: "from-primary to-secondary",
+      projectType: "personal",
+      personalCategory: "python" as const,
+      githubUrl: "https://github.com/DheerajKumar97/Generative-AI-Pocket-Project-multi-model-gemini-grok-perplexity-huggingface",
+      liveDemoUrl: "https://genai-multi-model-chat-with-doc-dheeraj-kumar-k.streamlit.app/",
+    },
   ];
 
   const filteredProjects = projects.filter(project => {
@@ -254,7 +280,7 @@ const Projects = () => {
                 onClick={() => setPersonalProjectFilter("python")}
                 className="transition-smooth"
               >
-                Python Projects
+                Python & Gen AI Projects
               </Button>
               <Button
                 variant={personalProjectFilter === "bi" ? "default" : "outline"}
@@ -341,6 +367,7 @@ const Projects = () => {
                             <LiveDemoTabs 
                               description={project.fullDescription} 
                               liveDemoUrl={project.liveDemoUrl}
+                              githubUrl={project.githubUrl}
                             />
                           ) : (
                             <div className="text-foreground/80 leading-relaxed">
@@ -409,7 +436,7 @@ const TableauDashboardTabs = ({ description, title, tableauUrl }: { description:
   );
 };
 
-const LiveDemoTabs = ({ description, liveDemoUrl }: { description: React.ReactNode; liveDemoUrl: string }) => {
+const LiveDemoTabs = ({ description, liveDemoUrl, githubUrl }: { description: React.ReactNode; liveDemoUrl: string; githubUrl?: string }) => {
   return (
     <Tabs defaultValue="description" className="w-full">
       <TabsList className="grid w-full grid-cols-2">
@@ -420,19 +447,31 @@ const LiveDemoTabs = ({ description, liveDemoUrl }: { description: React.ReactNo
         {description}
       </TabsContent>
       <TabsContent value="demo" className="flex flex-col items-center justify-center py-12 space-y-4">
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-6">
           <BarChart3 className="h-16 w-16 mx-auto text-primary" />
           <h3 className="text-xl font-semibold">Live Demo</h3>
           <p className="text-muted-foreground max-w-md">
-            Click the button below to view the live demo in a new window
+            Access the live application and source code
           </p>
-          <Button
-            onClick={() => window.open(liveDemoUrl, '_blank')}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            <ExternalLink className="mr-2 h-4 w-4" />
-            Open Live Demo
-          </Button>
+          <div className="flex flex-col gap-3">
+            <Button
+              onClick={() => window.open(liveDemoUrl, '_blank')}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              <ExternalLink className="mr-2 h-4 w-4" />
+              Open Live Demo
+            </Button>
+            {githubUrl && (
+              <Button
+                onClick={() => window.open(githubUrl, '_blank')}
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              >
+                <Code2 className="mr-2 h-4 w-4" />
+                View GitHub Repository
+              </Button>
+            )}
+          </div>
         </div>
       </TabsContent>
     </Tabs>
