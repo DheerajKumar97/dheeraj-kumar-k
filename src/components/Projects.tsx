@@ -355,7 +355,8 @@ const Projects = () => {
                             Read More <ExternalLink className="ml-1 h-4 w-4" />
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+                          <div className="overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                           <DialogHeader>
                             <DialogTitle>{project.title}</DialogTitle>
                           </DialogHeader>
@@ -382,6 +383,7 @@ const Projects = () => {
                               {project.fullDescription}
                             </div>
                           )}
+                          </div>
                         </DialogContent>
                       </Dialog>
                     )}
