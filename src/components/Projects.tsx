@@ -211,7 +211,7 @@ const Projects = () => {
     },
     {
       title: "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)",
-      description: "A Python-Streamlit-based web application was developed with a modular architecture that supports multi-model selection and on-the-fly switching. The system processes user-uploaded documents, extracts relevant content locally, and injects it into LLM prompts for context-aware responses. Integration of APIs from Groq, Gemini",
+      description: "A Python-Streamlit-based web application was developed with a modular architecture that supports multi-model selection and on-the-fly switching. The system processes user-uploaded documents, extracts relevant content locally, and injects it into LLM prompts for context-aware responses. Integration of APIs from Groq, Gemini, Perplexity, and HuggingFace enabled seamless model interoperability, while the UI was designed to be clean, interactive",
       fullDescription: (
         <>
           <p className="mb-4">
