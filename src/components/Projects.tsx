@@ -32,7 +32,7 @@ const Projects = () => {
   // Helper function to determine project category label
   const getProjectCategoryLabel = (project: any) => {
     if (project.title === "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)" ||
-        project.title === "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit") {
+        project.title === "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit (Gemini, Grok & HuggingFace)") {
       return "Gen AI Project";
     }
     return project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project';
@@ -237,7 +237,7 @@ const Projects = () => {
       liveDemoUrl: "https://genai-multi-model-chat-with-doc-dheeraj-kumar-k.streamlit.app/",
     },
     {
-      title: "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit",
+      title: "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit (Gemini, Grok & HuggingFace)",
       description: "This Multi-Model RAG-Based Data Validator is an AI-powered Streamlit application that leverages Large Language Models (LLMs) — HuggingFace, Google Gemini, and Grok — to perform comprehensive data validation using Retrieval-Augmented Generation (RAG). It automatically reads and analyzes datasets from multiple formats, detects encoding, and applies over 24 validation techniques",
       fullDescription: (
         <>
@@ -382,7 +382,7 @@ const Projects = () => {
                             Read More <ExternalLink className="ml-1 h-4 w-4" />
                           </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+                        <DialogContent className="max-w-6xl w-[95vw] max-h-[95vh] md:max-h-[90vh] overflow-hidden flex flex-col">
                           <div className="overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                           <DialogHeader>
                             <DialogTitle>{project.title}</DialogTitle>
