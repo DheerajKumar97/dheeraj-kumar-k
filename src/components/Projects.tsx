@@ -31,7 +31,8 @@ const Projects = () => {
 
   // Helper function to determine project category label
   const getProjectCategoryLabel = (project: any) => {
-    if (project.title === "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)") {
+    if (project.title === "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)" ||
+        project.title === "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit") {
       return "Gen AI Project";
     }
     return project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project';
@@ -234,6 +235,32 @@ const Projects = () => {
       personalCategory: "python" as const,
       githubUrl: "https://github.com/DheerajKumar97/Generative-AI-Pocket-Project-multi-model-gemini-grok-perplexity-huggingface",
       liveDemoUrl: "https://genai-multi-model-chat-with-doc-dheeraj-kumar-k.streamlit.app/",
+    },
+    {
+      title: "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit",
+      description: "This Multi-Model RAG-Based Data Validator is an AI-powered Streamlit application that leverages Large Language Models (LLMs) — HuggingFace, Google Gemini, and Grok — to perform comprehensive data validation using Retrieval-Augmented Generation (RAG). It automatically reads and analyzes datasets from multiple formats, detects encoding, and applies over 24 validation techniques",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> In many organizations, data quality issues such as missing values, duplicates, outliers, inconsistent data types, and integrity violations often lead to inaccurate analytics and poor business decisions. Traditional data validation methods are rule-based, rigid, and often require manual intervention, which is not scalable for large, multi-source datasets. Additionally, identifying and interpreting data quality issues across various file formats (CSV, Excel, JSON, TXT) and business domains requires expert-level domain knowledge and contextual understanding. There is a growing need for an intelligent, automated system that can evaluate data quality holistically and provide actionable insights—bridging the gap between data engineers, analysts, and business users.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> This Multi-Model RAG-Based Data Validator is an AI-powered Streamlit application that leverages Large Language Models (LLMs) — HuggingFace, Google Gemini, and Grok — to perform comprehensive data validation using Retrieval-Augmented Generation (RAG). It automatically reads and analyzes datasets from multiple formats, detects encoding, and applies over 24 validation techniques such as data type analysis, range checks, null detection, duplicate identification, outlier detection, and overall quality scoring. The solution builds a dynamic knowledge base from schema information and custom domain rules, allowing semantic search and context retrieval using FAISS embeddings. Each validation is summarized and interpreted by an LLM, producing human-like insights, severity assessments, and remediation recommendations. The application provides interactive dashboards, AI analysis reports, and downloadable summaries in JSON, CSV, and TXT formats—making it a powerful, enterprise-grade data quality assurance tool.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Developing this project required overcoming several technical and architectural challenges. One major challenge was handling multiple file formats with different encodings and inconsistent schemas, which was resolved using intelligent encoding detection and flexible parsing logic. Integrating multiple LLM providers with a unified API layer required designing a robust abstraction that could handle variations in response structures and rate limits. Building an efficient semantic retrieval mechanism for the RAG pipeline using FAISS and SentenceTransformers was critical to ensure fast and relevant context generation for validation prompts. Another challenge involved balancing performance and explainability, as large models can be resource-intensive, especially when processing large datasets. Finally, ensuring consistent UI/UX in Streamlit while handling asynchronous LLM responses and generating detailed yet interpretable validation reports required careful optimization and thoughtful design.
+          </p>
+        </>
+      ),
+      impact: "Automated AI-powered data quality validation",
+      tools: ["Python", "Streamlit", "HuggingFace", "Google Gemini", "Grok", "FAISS", "RAG"],
+      icon: Database,
+      metric: "AI",
+      color: "from-primary to-secondary",
+      projectType: "personal",
+      personalCategory: "python" as const,
+      githubUrl: "https://github.com/DheerajKumar97/Generative-AI-Pocket-Project-Automated-Data-Validator-HuggingFace-Gemini-Grok",
+      liveDemoUrl: "https://gen-ai-multi-modal-automated-data-validator-huggingface-grok.streamlit.app/",
     },
   ];
 
