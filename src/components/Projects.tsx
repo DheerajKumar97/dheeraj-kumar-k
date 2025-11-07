@@ -238,7 +238,7 @@ const Projects = () => {
     },
     {
       title: "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit (Gemini, Grok & HuggingFace)",
-      description: "This Multi-Model RAG-Based Data Validator is an AI-powered Streamlit application that leverages Large Language Models (LLMs) — HuggingFace, Google Gemini, and Grok — to perform comprehensive data validation using Retrieval-Augmented Generation (RAG). It automatically reads and analyzes datasets from multiple formats, detects encoding, and applies over 24 validation techniques",
+      description: "This Multi-Model RAG-Based Data Validator is an AI-powered Streamlit application that leverages Large Language Models (LLMs) — HuggingFace, Google Gemini, and Grok — to perform comprehensive data validation using Retrieval-Augmented Generation (RAG). It automatically reads and analyzes datasets from multiple formats, detects encoding, and applies over 24 validation techniques such as data type analysis, range checks, null detection ...",
       fullDescription: (
         <>
           <p className="mb-4">
