@@ -186,31 +186,6 @@ const Projects = () => {
       personalCategory: "bi" as const,
     },
     {
-      title: "Automated Exploratory Data Analysis Framework using Python and Streamlit",
-      description: "This project offers a Streamlit-based web application that automates exploratory data analysis and basic machine learning model building. Users simply upload their CSV, and the app provides tools for inspecting data types, handling missing values, plotting various graphs, performing feature analysis, and running classification models (including Logistic Regression, Decision Tree, Random Forest, Naive Bayes, and XGBoost) — all from an interactive interface, without any coding required.",
-      fullDescription: (
-        <>
-          <p className="mb-4">
-            <strong>Business Problem:</strong> Data analysts and business users often spend excessive time on repetitive data exploration and initial model development. This manual process of cleaning data, checking types, visualizing patterns, and quickly building models increases the time to actionable insights and makes diagnostics prone to error.
-          </p>
-          <p className="mb-4">
-            <strong>Solution Approach:</strong> This project offers a Streamlit-based web application that automates exploratory data analysis and basic machine learning model building. Users simply upload their CSV, and the app provides tools for inspecting data types, handling missing values, plotting various graphs, performing feature analysis, and running classification models (including Logistic Regression, Decision Tree, Random Forest, Naive Bayes, and XGBoost) — all from an interactive interface, without any coding required.
-          </p>
-          <p className="mb-4">
-            <strong>Challenges Faced:</strong> Major challenges included robust type conversion for diverse data, dynamic data validation to prevent errors in plotting or modeling when columns are missing or unsuitable, and integrating matplotlib/Seaborn figures smoothly with Streamlit's interface. Additional considerations involved delivering a simple, informative user experience and clear feedback when operations couldn't be performed (such as with invalid feature selection or empty columns).
-          </p>
-        </>
-      ),
-      impact: "Automated EDA workflow reducing analysis time significantly",
-      tools: ["Python", "Streamlit", "Pandas", "Scikit-learn", "XGBoost", "Matplotlib", "Seaborn"],
-      icon: BarChart3,
-      metric: "EDA",
-      color: "from-primary to-secondary",
-      projectType: "personal",
-      personalCategory: "python" as const,
-      liveDemoUrl: "https://python-automated-eda-dheeraj-kumar-konidala.streamlit.app/",
-    },
-    {
       title: "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)",
       description: "A Python-Streamlit-based web application was developed with a modular architecture that supports multi-model selection and on-the-fly switching. The system processes user-uploaded documents, extracts relevant content locally, and injects it into LLM prompts for context-aware responses. Integration of APIs from Groq, Gemini, Perplexity, and HuggingFace enabled seamless model interoperability, while the UI was designed to be clean, interactive ...",
       fullDescription: (
@@ -261,6 +236,31 @@ const Projects = () => {
       personalCategory: "python" as const,
       githubUrl: "https://github.com/DheerajKumar97/Generative-AI-Pocket-Project-Automated-Data-Validator-HuggingFace-Gemini-Grok",
       liveDemoUrl: "https://gen-ai-multi-modal-automated-data-validator-huggingface-grok.streamlit.app/",
+    },
+    {
+      title: "Automated Exploratory Data Analysis Framework using Python and Streamlit",
+      description: "This project offers a Streamlit-based web application that automates exploratory data analysis and basic machine learning model building. Users simply upload their CSV, and the app provides tools for inspecting data types, handling missing values, plotting various graphs, performing feature analysis, and running classification models (including Logistic Regression, Decision Tree, Random Forest, Naive Bayes, and XGBoost) — all from an interactive interface, without any coding required.",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> Data analysts and business users often spend excessive time on repetitive data exploration and initial model development. This manual process of cleaning data, checking types, visualizing patterns, and quickly building models increases the time to actionable insights and makes diagnostics prone to error.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> This project offers a Streamlit-based web application that automates exploratory data analysis and basic machine learning model building. Users simply upload their CSV, and the app provides tools for inspecting data types, handling missing values, plotting various graphs, performing feature analysis, and running classification models (including Logistic Regression, Decision Tree, Random Forest, Naive Bayes, and XGBoost) — all from an interactive interface, without any coding required.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Major challenges included robust type conversion for diverse data, dynamic data validation to prevent errors in plotting or modeling when columns are missing or unsuitable, and integrating matplotlib/Seaborn figures smoothly with Streamlit's interface. Additional considerations involved delivering a simple, informative user experience and clear feedback when operations couldn't be performed (such as with invalid feature selection or empty columns).
+          </p>
+        </>
+      ),
+      impact: "Automated EDA workflow reducing analysis time significantly",
+      tools: ["Python", "Streamlit", "Pandas", "Scikit-learn", "XGBoost", "Matplotlib", "Seaborn"],
+      icon: BarChart3,
+      metric: "EDA",
+      color: "from-primary to-secondary",
+      projectType: "personal",
+      personalCategory: "python" as const,
+      liveDemoUrl: "https://python-automated-eda-dheeraj-kumar-konidala.streamlit.app/",
     },
   ];
 
@@ -337,7 +337,7 @@ const Projects = () => {
         >
           <CarouselContent className="-ml-4">
             {filteredProjects.map((project, index) => (
-              <CarouselItem key={index} className={`pl-4 ${selectedFilter === "personal" && personalProjectFilter === "python" ? "lg:basis-full" : "lg:basis-1/2"}`}>
+              <CarouselItem key={index} className="pl-4 lg:basis-1/2">
                 <Card
                   className="p-8 shadow-card hover:shadow-hover transition-smooth group animate-fade-in overflow-hidden relative h-full"
                   style={{ animationDelay: `${index * 100}ms` }}
