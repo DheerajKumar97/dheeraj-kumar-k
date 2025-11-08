@@ -261,6 +261,7 @@ const Projects = () => {
       projectType: "personal",
       personalCategory: "python" as const,
       liveDemoUrl: "https://python-automated-eda-dheeraj-kumar-konidala.streamlit.app/",
+      githubUrl: "https://github.com/DheerajKumar97/Automated-ML-Application-for-EDA-Streamlit-Deployment/tree/main",
     },
   ];
 
