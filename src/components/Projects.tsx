@@ -27,12 +27,12 @@ import { useState } from "react";
 const Projects = () => {
   const [openDialog, setOpenDialog] = useState<number | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<"all" | "personal" | "organization">("organization");
-  const [personalProjectFilter, setPersonalProjectFilter] = useState<"python" | "bi">("bi");
+  const [personalProjectFilter, setPersonalProjectFilter] = useState<"python" | "bi">("python");
 
   // Helper function to determine project category label
   const getProjectCategoryLabel = (project: any) => {
     if (project.title === "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)" ||
-        project.title === "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit (Gemini, Grok & HuggingFace)") {
+        project.title === "RAG (Retrieval-Augmented Generation) Based LLM Powered Automated Data Quality Validator with Python and Streamlit (Gemini, Grok & HuggingFace)") {
       return "Gen AI Project";
     }
     return project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project';
@@ -237,7 +237,7 @@ const Projects = () => {
       liveDemoUrl: "https://genai-multi-model-chat-with-doc-dheeraj-kumar-k.streamlit.app/",
     },
     {
-      title: "LLM Powered Multi-Model Based Automated Data Validator with Python and Streamlit (Gemini, Grok & HuggingFace)",
+      title: "RAG (Retrieval-Augmented Generation) Based LLM Powered Automated Data Quality Validator with Python and Streamlit (Gemini, Grok & HuggingFace)",
       description: "This Multi-Model RAG-Based Data Validator is an AI-powered Streamlit application that leverages Large Language Models (LLMs) — HuggingFace, Google Gemini, and Grok — to perform comprehensive data validation using Retrieval-Augmented Generation (RAG). It automatically reads and analyzes datasets from multiple formats, detects encoding, and applies over 24 validation techniques such as data type analysis, range checks, null detection ...",
       fullDescription: (
         <>
@@ -337,7 +337,7 @@ const Projects = () => {
         >
           <CarouselContent className="-ml-4">
             {filteredProjects.map((project, index) => (
-              <CarouselItem key={index} className="pl-4 lg:basis-1/2">
+              <CarouselItem key={index} className={`pl-4 ${selectedFilter === "personal" && personalProjectFilter === "python" ? "lg:basis-full" : "lg:basis-1/2"}`}>
                 <Card
                   className="p-8 shadow-card hover:shadow-hover transition-smooth group animate-fade-in overflow-hidden relative h-full"
                   style={{ animationDelay: `${index * 100}ms` }}
