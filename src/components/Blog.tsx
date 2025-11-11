@@ -21,6 +21,14 @@ const Blog = () => {
       link: "https://medium.com/@engineerdheeraj97/mastering-dax-advanced-calculations-in-power-bi-fd30ff2a6a5b",
     },
     {
+      title: "𝐋𝐋𝐌 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐌𝐮𝐥𝐭𝐢-𝐌𝐨𝐝𝐞𝐥 𝐃𝐨𝐜𝐮𝐦𝐞𝐧𝐭 𝐂𝐡𝐚𝐭𝐛𝐨𝐭 (𝐆𝐞𝐦𝐢𝐧𝐢, 𝐆𝐫𝐨𝐤, 𝐏𝐞𝐫𝐩𝐥𝐞𝐱𝐢𝐭𝐲, 𝐇𝐮𝐠𝐠𝐢𝐧𝐅𝐚𝐜𝐞)",
+      excerpt: "A complete guide to building a Gen AI based multi-model document chat application powered by LLM technology.",
+      date: "2025-11-06",
+      category: "Gen AI",
+      readTime: "12 min read",
+      link: "https://medium.com/datadriveninvestor/building-a-gen-ai-based-multi-model-document-chat-application-a-complete-guide-to-llm-powered-0f7976f20ea8",
+    },
+    {
       title: "Mastering the Art and Science of BI Dashboards Design Principles With Supply Chain Domain",
       excerpt: "Learn the art of transforming complex data into compelling narratives that drive business decisions.",
       date: "2025-10-23",
