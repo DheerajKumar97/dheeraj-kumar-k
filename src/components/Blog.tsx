@@ -21,7 +21,7 @@ const Blog = () => {
       link: "https://medium.com/@engineerdheeraj97/mastering-dax-advanced-calculations-in-power-bi-fd30ff2a6a5b",
     },
     {
-      title: "𝐋𝐋𝐌 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐌𝐮𝐥𝐭𝐢-𝐌𝐨𝐝𝐞𝐥 𝐃𝐨𝐜𝐮𝐦𝐞𝐧𝐭 𝐂𝐡𝐚𝐭𝐛𝐨𝐭 (𝐆𝐞𝐦𝐢𝐧𝐢, 𝐆𝐫𝐨𝐤, 𝐏𝐞𝐫𝐩𝐥𝐞𝐱𝐢𝐭𝐲, 𝐇𝐮𝐠𝐠𝐢𝐧𝐅𝐚𝐜𝐞)",
+      title: "LLM Powered Multi-Model Document Chatbot (Gemini, Grok, Perplexity, HuggingFace)",
       excerpt: "A complete guide to building a Gen AI based multi-model document chat application powered by LLM technology.",
       date: "2025-11-06",
       category: "Gen AI",
