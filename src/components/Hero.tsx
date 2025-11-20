@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import heroBackground from "@/assets/hero-bg-new.jpg";
+import heroBackground from "@/assets/hero-bg.jpg";
 import profilePhoto from "@/assets/dheeraj-profile.jpg";
 
 const Hero = () => {
