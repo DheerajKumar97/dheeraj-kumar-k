@@ -1,6 +1,6 @@
 # Dheeraj Kumar K - Business Intelligence Developer Portfolio
 
-![Portfolio Preview](public/favicon.png)
+![Portfolio Preview](public/portfolio-preview.png)
 
 A professional portfolio website showcasing expertise in Business Intelligence, Data Analytics, and Data Engineering. This project features a modern, responsive design and an intelligent AI chatbot capable of answering professional queries and generating leads.
 
