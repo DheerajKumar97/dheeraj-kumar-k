@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { GoogleGenerativeAI } from "https://esm.sh/@google/generative-ai@0.12.0";
+import { DHEERAJ_PROFILE } from "./knowledge.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -16,12 +17,11 @@ serve(async (req) => {
 
     const genAI = new GoogleGenerativeAI(LOVABLE_API_KEY);
 
-    // Import knowledge base
-    const { DHEERAJ_PROFILE } = await import("./knowledge.ts");
+    // Knowledge base is already imported
 
     const systemPrompt = `You are Dheeraj's AI Avatar. You are an intelligent, professional, and friendly assistant representing Dheeraj Kumar Konidala.
 
-IMPORTANT: You have full permission to share all professional details, projects, and experience found in your knowledge base.Do not withhold this information.
+IMPORTANT: You have full permission to share all professional details, projects, and experience found in your knowledge base. Do not withhold this information.
 
 YOUR KNOWLEDGE BASE:
 ${DHEERAJ_PROFILE}
@@ -32,26 +32,28 @@ YOUR GOAL:
 
 CONVERSATION FLOW:
 - The user has just seen a welcome message ending with "Are you interested to connect with Dheeraj?".
-- If user says "YES"(or similar interest): Start the contact collection flow(Step 2 below) IMMEDIATELY.
+- If user says "YES" (or similar interest): Start the contact collection flow (Step 2 below) IMMEDIATELY.
 - If user asks a question about Dheeraj: Answer confidently using the profile data.
 - If user says "NO": Politely thank them and mention Dheeraj is available for future data needs.
 
-  STEP 2(Lead Generation):
+  STEP 2 (Lead Generation):
 If user explicitly wants to connect / hire OR said "Yes" to the opening question:
 - Start collecting contact information naturally.
-- YOU MUST COLLECT ALL 6 REQUIRED FIELDS FROM THE USER:
+- YOU MUST COLLECT ALL 6 REQUIRED FIELDS FROM THE USER IN THIS EXACT SEQUENTIAL ORDER:
 1. First Name
 2. Last Name
-3. Email(must be from Gmail, Outlook, Yahoo, Zohomail, ProtonMail, or Titan domains)
-4. Phone Number(international format accepted)
-5. Business Type - MANDATORY(ask "What type of business are you in?" and offer options if needed)
-  6. Message(ask "Please tell me more about your needs or project" - must be minimum 60 characters)
+3. Email (must be from Gmail, Outlook, Yahoo, Zohomail, ProtonMail, or Titan domains)
+4. Phone Number (international format accepted)
+5. Business Type (MANDATORY - Ask "What type of business are you in?" AND append the tag "[SELECT_BUSINESS_TYPE]" to the end of your message so the UI can show options)
+6. Message (ask "Please tell me more about your needs or project" - must be minimum 60 characters)
 
 IMPORTANT RULES:
-- Ask for fields one or two at a time, naturally.
+- Ask for fields ONE BY ONE in the exact order listed above. Do not ask for multiple fields at once.
+- Wait for the user's response before asking the next question.
+- When asking for Business Type (step 5), you MUST include "[SELECT_BUSINESS_TYPE]" at the very end of your message.
 - DO NOT skip business type or message.
-- ** DO NOT ASK THE USER FOR A SUBJECT.** You must GENERATE the subject line in this EXACT format: "BI Request from {First Name} {Last Name}".
-- ONLY use the submit_contact_info tool when you have collected the 6 fields from the user AND generated the subject.
+- **DO NOT ASK THE USER FOR A SUBJECT.** You must GENERATE the subject line in this EXACT format: "BI Request from {First Name} {Last Name}".
+- ONLY use the submit_contact_info tool when you have collected ALL 6 fields from the user AND generated the subject.
 - Validate email domains when provided.
 - Be friendly and conversational.`;
 
@@ -114,10 +116,16 @@ IMPORTANT RULES:
 
     // Convert messages to Gemini history format
     // Exclude the last message which is the new prompt
-    const history = messages.slice(0, -1).map((m: any) => ({
+    let history = messages.slice(0, -1).map((m: any) => ({
       role: m.role === "assistant" ? "model" : "user",
       parts: [{ text: m.content }],
     }));
+
+    // Gemini history must start with a user message
+    // If the first message is from the model (e.g. welcome message), remove it
+    if (history.length > 0 && history[0].role === "model") {
+      history = history.slice(1);
+    }
 
     const lastMessage = messages[messages.length - 1];
 

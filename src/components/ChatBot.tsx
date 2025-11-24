@@ -6,11 +6,21 @@ import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
-
 interface Message {
   role: "user" | "assistant";
   content: string | JSX.Element;
 }
+
+type ChatState =
+  | "IDLE"
+  | "ASK_INTEREST"
+  | "ASK_FIRST_NAME"
+  | "ASK_LAST_NAME"
+  | "ASK_EMAIL"
+  | "ASK_PHONE"
+  | "ASK_BUSINESS_TYPE"
+  | "ASK_MESSAGE"
+  | "COMPLETED";
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +29,7 @@ const ChatBot = () => {
       role: "assistant",
       content: (
         <>
-          <span className="font-bold">Hi there! I'm Dheeraj’s AI Assistant.</span>
+          <span className="font-bold">Hi there! I'm Dheeraj’s Assistant.</span>
           {"\n\n"}
           Dheeraj is a Business Intelligence and Data Analytics professional who helps organizations unlock growth by turning complex data into clear, actionable insights. Through intuitive BI dashboards and robust data systems, he empowers business leaders to:
           {"\n\n"}
@@ -55,6 +65,26 @@ const ChatBot = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
+  const [chatState, setChatState] = useState<ChatState>("ASK_INTEREST");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    businessType: "",
+    message: ""
+  });
+
+  const [showBusinessOptions, setShowBusinessOptions] = useState(false);
+
+  const businessOptions = [
+    "Telecom Industry", "E-commerce", "IT Industry", "Sales & Marketing",
+    "Media & Entertainment", "Travel & Tourism", "Finance and Banking",
+    "Supply Chain Logistics", "Health Care", "Fitness & Recreation",
+    "Gaming Industry", "Education Industry", "Manufacturing",
+    "Procurement Management", "Social Media Analysis", "Other"
+  ];
+
   // Auto-open chatbot after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -70,84 +100,202 @@ const ChatBot = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, showBusinessOptions]);
 
-  const handleSendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+  const addAssistantMessage = (text: string) => {
+    setMessages(prev => [...prev, { role: "assistant", content: text }]);
+  };
 
-    const userMessage = input.trim();
-    setInput("");
-
-    // Add user message
-    const newMessages: Message[] = [...messages, { role: "user", content: userMessage }];
-    setMessages(newMessages);
+  const processUserInput = async (text: string) => {
+    // Simulate thinking delay
     setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 600));
+    setIsLoading(false);
 
-    try {
-      // Check if we should try to collect info (after several exchanges)
-      const shouldCollectInfo = newMessages.length > 12;
+    switch (chatState) {
+      case "ASK_INTEREST":
+        if (text.toLowerCase().includes("yes") || text.toLowerCase().includes("sure") || text.toLowerCase().includes("ok")) {
+          addAssistantMessage("Great! Let's get you connected. First, what is your First Name?");
+          setChatState("ASK_FIRST_NAME");
+        } else {
+          addAssistantMessage("No problem! Feel free to reach out later if you change your mind.");
+          setChatState("IDLE");
+        }
+        break;
 
-      const { data, error } = await supabase.functions.invoke("chat-bot", {
-        body: {
-          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
-          collectInfo: shouldCollectInfo
-        },
-      });
+      case "ASK_FIRST_NAME":
+        setFormData(prev => ({ ...prev, firstName: text }));
+        addAssistantMessage("Thanks! What is your Last Name?");
+        setChatState("ASK_LAST_NAME");
+        break;
 
-      if (error) throw error;
+      case "ASK_LAST_NAME":
+        setFormData(prev => ({ ...prev, lastName: text }));
+        addAssistantMessage("Got it. What is your Email Address?");
+        setChatState("ASK_EMAIL");
+        break;
 
-      console.log("Response from chat-bot:", data);
+      case "ASK_EMAIL":
+        // Strict Email Validation
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const [localPart, domainPart] = text.split('@');
 
-      // Check if AI used a tool (submitted contact info)
-      if (data.choices?.[0]?.message?.tool_calls?.length > 0) {
-        const toolCall = data.choices[0].message.tool_calls[0];
-        if (toolCall.function.name === "submit_contact_info") {
-          const contactInfo = JSON.parse(toolCall.function.arguments);
-          console.log("Contact info extracted:", contactInfo);
+        let emailError = "";
+        if (!text.includes('@')) {
+          emailError = "Email must contain an '@' symbol.";
+        } else if (!emailRegex.test(text)) {
+          emailError = "Invalid email format.";
+        } else if (text.includes('..')) {
+          emailError = "Email cannot contain consecutive dots (..).";
+        } else if (localPart.startsWith('.') || localPart.endsWith('.') || localPart.startsWith('-') || localPart.endsWith('-') || localPart.startsWith('_') || localPart.endsWith('_')) {
+          emailError = "Local part cannot start or end with '.', '-', or '_'.";
+        } else if (domainPart.startsWith('-') || domainPart.endsWith('-')) {
+          emailError = "Domain cannot start or end with a hyphen.";
+        }
 
-          // Send email
-          const { data: emailData, error: emailError } = await supabase.functions.invoke(
-            "send-to-whatsapp",
-            { body: contactInfo }
-          );
+        if (emailError) {
+          addAssistantMessage(`Invalid Email: ${emailError} Please try again (e.g., john.doe@gmail.com).`);
+          return;
+        }
 
-          if (emailError) throw emailError;
+        setFormData(prev => ({ ...prev, email: text }));
+        addAssistantMessage("Perfect. What is your Phone Number? (Must start with + followed by country code, e.g., +91 9876543210)");
+        setChatState("ASK_PHONE");
+        break;
 
-          setMessages([
-            ...newMessages,
-            {
-              role: "assistant",
-              content: "Perfect! I've sent your information to Dheeraj via email. He'll get back to you soon. Thank you for reaching out!",
-            },
-          ]);
+      case "ASK_PHONE":
+        // Strict Phone Validation
+        let phoneError = "";
+        const phoneTrimmed = text.trim();
 
+        if (!phoneTrimmed.startsWith('+')) {
+          phoneError = "Phone number must start with a country code (e.g., +1, +44, +91).";
+        } else if (/[a-zA-Z]/.test(phoneTrimmed)) {
+          phoneError = "Phone number cannot contain alphabets.";
+        } else {
+          // Check characters allowed after +
+          const content = phoneTrimmed.slice(1);
+          if (!/^[0-9\s-]+$/.test(content)) {
+            phoneError = "Phone number contains invalid characters. Only digits, spaces, and hyphens are allowed.";
+          } else {
+            // Check digit count
+            const digits = phoneTrimmed.replace(/\D/g, '');
+            if (digits.length < 8 || digits.length > 15) {
+              phoneError = `Phone number must be between 8 and 15 digits. You entered ${digits.length}.`;
+            }
+          }
+        }
+
+        if (phoneError) {
+          addAssistantMessage(`Invalid Phone Number: ${phoneError} Please try again.`);
+          return;
+        }
+
+        setFormData(prev => ({ ...prev, phone: phoneTrimmed }));
+        addAssistantMessage("What type of business are you in? Please select an option below:");
+        setShowBusinessOptions(true);
+        setChatState("ASK_BUSINESS_TYPE");
+        break;
+
+      case "ASK_BUSINESS_TYPE":
+        // This case is handled by handleOptionClick usually, but if they type it:
+        setFormData(prev => ({ ...prev, businessType: text }));
+        setShowBusinessOptions(false);
+        addAssistantMessage("Almost done! Please tell me more about your needs or project.");
+        setChatState("ASK_MESSAGE");
+        break;
+
+      case "ASK_MESSAGE":
+        setFormData(prev => ({ ...prev, message: text }));
+        setIsLoading(true);
+
+        // Prepare data for submission
+        const finalData = {
+          ...formData,
+          message: text,
+          subject: `BI Request from ${formData.firstName} ${formData.lastName}`
+        };
+
+        try {
+          const { error } = await supabase.functions.invoke("send-to-whatsapp", {
+            body: finalData
+          });
+
+          if (error) {
+            console.error("Supabase Function Error:", error);
+            // Try to parse the error body if it exists
+            let errorMessage = error.message;
+            if (error instanceof Error && 'context' in error) {
+              // @ts-ignore
+              const context = error.context;
+              try {
+                const body = await context.json();
+                if (body && body.error) {
+                  errorMessage = body.error;
+                }
+              } catch (e) {
+                const text = await context.text().catch(() => "No body");
+                errorMessage = `Server Error: ${text.slice(0, 100)}`;
+              }
+            }
+            throw new Error(errorMessage);
+          }
+
+          addAssistantMessage("Perfect! I've sent your information to Dheeraj via email. He'll get back to you soon. Thank you for reaching out!");
           toast({
             title: "Message Sent",
             description: "Your information has been sent to Dheeraj via email.",
           });
+          setChatState("COMPLETED");
+        } catch (error: any) {
+          console.error("Error sending email:", error);
+          addAssistantMessage(`Error: ${error.message || "Unknown error occurred"}. Please try again.`);
+          toast({
+            title: "Error",
+            description: error.message || "Failed to send message. Please try again.",
+            variant: "destructive",
+          });
+        } finally {
+          setIsLoading(false);
         }
-      } else {
-        // Regular message response
-        const assistantMessage = data.choices?.[0]?.message?.content || "I'm sorry, I didn't understand that.";
-        setMessages([...newMessages, { role: "assistant", content: assistantMessage }]);
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-      setMessages([
-        ...newMessages,
-        {
-          role: "assistant",
-          content: "I'm sorry, something went wrong. Please try again.",
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
+        break;
+
+      case "COMPLETED":
+        addAssistantMessage("I have already sent your message. Dheeraj will contact you shortly!");
+        break;
+
+      default:
+        addAssistantMessage("I'm here if you need anything else.");
+        break;
     }
+  };
+
+  const handleSendMessage = async (customMessage?: string) => {
+    if ((!input.trim() && !customMessage) || isLoading) return;
+
+    const userMessage = customMessage || input.trim();
+    setInput("");
+
+    // Add user message
+    setMessages(prev => [...prev, { role: "user", content: userMessage }]);
+
+    // Process the input based on state
+    await processUserInput(userMessage);
+  };
+
+  const handleOptionClick = (option: string) => {
+    setShowBusinessOptions(false);
+    // Manually trigger the state transition for business type
+    setFormData(prev => ({ ...prev, businessType: option }));
+
+    // Add user message visually
+    setMessages(prev => [...prev, { role: "user", content: option }]);
+
+    // Move to next step
+    setTimeout(() => {
+      addAssistantMessage("Almost done! Please tell me more about your needs or project.");
+      setChatState("ASK_MESSAGE");
+    }, 500);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -177,7 +325,7 @@ const ChatBot = () => {
           <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex justify-between items-center">
             <div>
               <h3 className="font-bold text-lg">Chat with Dheeraj</h3>
-              <p className="text-xs opacity-90">AI Assistant</p>
+              <p className="text-xs opacity-90">Assistant</p>
             </div>
             <Button
               variant="ghost"
@@ -208,6 +356,24 @@ const ChatBot = () => {
                 </div>
               </div>
             ))}
+
+            {/* Business Type Options */}
+            {showBusinessOptions && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {businessOptions.map((option) => (
+                  <Button
+                    key={option}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleOptionClick(option)}
+                    className="text-xs bg-background hover:bg-primary hover:text-primary-foreground transition-colors"
+                  >
+                    {option}
+                  </Button>
+                ))}
+              </div>
+            )}
+
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-background border shadow-sm p-3 rounded-lg">
@@ -226,12 +392,12 @@ const ChatBot = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                disabled={isLoading}
+                disabled={isLoading || showBusinessOptions}
                 className="flex-1"
               />
               <Button
-                onClick={handleSendMessage}
-                disabled={!input.trim() || isLoading}
+                onClick={() => handleSendMessage()}
+                disabled={!input.trim() || isLoading || showBusinessOptions}
                 size="icon"
               >
                 <Send className="h-4 w-4" />
