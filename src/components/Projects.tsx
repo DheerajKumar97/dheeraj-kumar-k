@@ -32,13 +32,40 @@ const Projects = () => {
   // Helper function to determine project category label
   const getProjectCategoryLabel = (project: any) => {
     if (project.title === "LLM-Powered Multi-Model Document Chatbot with Python and Streamlit (Gemini, Grok, Perplexity & HuggingFace)" ||
-        project.title === "RAG (Retrieval-Augmented Generation) Based LLM Powered Automated Data Quality Validator with Python and Streamlit (Gemini, Grok & HuggingFace)") {
+      project.title === "RAG (Retrieval-Augmented Generation) Based LLM Powered Automated Data Quality Validator with Python and Streamlit (Gemini, Grok & HuggingFace)" ||
+      project.title === "Interview Vault -- A Full Stack based LLM Powered SaaS Application") {
       return "Gen AI Project";
     }
     return project.personalCategory === 'python' ? 'Python Project' : 'Business Intelligence Project';
   };
 
   const projects = [
+    {
+      title: "Interview Vault -- A Full Stack based LLM Powered SaaS Application",
+      description: "Interview Vault is an end-to-end AI-powered interview tracking platform that helps users manage job applications, monitor interview stages, and maintain detailed timelines across more than 600+ companies. It includes an advanced BI Dashboard with 10+ analytics visualizations such as KPI cards, trend charts, funnels, and heatmaps to help users make data-driven decisions. The platform features Gemini AI–based skill analysis that compares the user's resume with job descriptions to identify existing, missing, extra, and priority missing skills, along with generating detailed, role-specific project suggestions. It also provides an AI interview preparation ...",
+      fullDescription: (
+        <>
+          <p className="mb-4">
+            <strong>Business Problem:</strong> Job seekers often struggle to track multiple job applications, interview stages, recruiter interactions, and follow-up schedules across different platforms like email, LinkedIn, portals, and spreadsheets. This scattered information leads to missed interviews, forgotten updates, poor preparation, and lack of visibility into overall progress. Additionally, candidates find it difficult to analyze whether their resume matches job descriptions, identify skill gaps, prepare relevant interview questions, or build the right projects aligned with the roles they apply for. The absence of centralized analytics, automated reminders, and AI-driven insights makes the entire job search process inefficient, stressful, and time-consuming.
+          </p>
+          <p className="mb-4">
+            <strong>Solution Approach:</strong> Interview Vault was designed as a centralized, AI-powered platform that streamlines the entire job search and interview lifecycle in one place. It enables users to track applications across 600+ companies, monitor interview stages through detailed timelines, and analyze progress using a BI Dashboard equipped with 10+ charts including KPIs, funnels, trends, and heatmaps. The Gemini AI–driven skill analysis compares resumes with job descriptions to identify existing, missing, extra, and priority skills while also generating detailed, role-specific project suggestions to strengthen the user's portfolio. The system further includes an interview preparation engine that creates 20+ tailored questions with deep, structured answers and real-world examples. With added features such as Excel import/export, PDF reporting, resume parsing, automated email notifications, and a secure full-stack architecture powered by React, Vite, Tailwind, Supabase, Node.js, and Gemini AI, the platform ensures high performance, real-time updates, and a seamless user experience.
+          </p>
+          <p className="mb-4">
+            <strong>Challenges Faced:</strong> Building accurate AI-driven skill matching required implementing custom fuzzy matching algorithms to handle synonyms, variations, and context-based skill extraction. Managing Gemini API rate limits and ensuring uninterrupted AI responses demanded the creation of a 10-key fallback rotation system. Handling large datasets for analytics with real-time updates posed challenges in database structuring, indexing, and optimization within Supabase. Ensuring reliable resume parsing across different PDF formats required extensive testing and custom text-cleaning logic. Delivering a smooth user experience with complex features such as event timelines, multi-stage interview flows, bulk import/export, and responsive dashboards required careful UI/UX design, component optimization, error handling, and continuous performance tuning.
+          </p>
+        </>
+      ),
+      impact: "80% precision in managing job applications and enhancing interview readiness",
+      tools: ["React", "Node JS", "Gemini", "Claude Code", "Google Antigravity", "VS Code"],
+      icon: Database,
+      metric: "AI",
+      color: "from-primary to-secondary",
+      projectType: "personal",
+      personalCategory: "python" as const,
+      liveDemoUrl: "https://dheerajkumar-k-interview-vault.netlify.app/",
+      githubUrl: "https://github.com/DheerajKumar97/interview-compass",
+    },
     {
       title: "Udemy Course Analysis Report",
       description: "The project began with developing Python scripts to systematically scrape extensive course-level data from the Udemy website, capturing attributes such as total students, price points, subject category, number of lectures, and user reviews. This raw information was cleaned, validated, and loaded into SQL Server to create a centralized, queryable data mart.",
@@ -284,7 +311,7 @@ const Projects = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
             Transforming business challenges into data-driven solutions with measurable impact
           </p>
-          
+
           <div className="flex gap-3 justify-center">
             <Button
               variant={selectedFilter === "all" ? "default" : "outline"}
@@ -385,32 +412,32 @@ const Projects = () => {
                         </DialogTrigger>
                         <DialogContent className="max-w-6xl w-[95vw] max-h-[95vh] md:max-h-[90vh] overflow-hidden flex flex-col">
                           <div className="overflow-y-auto pr-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                          <DialogHeader>
-                            <DialogTitle>{project.title}</DialogTitle>
-                          </DialogHeader>
-                          {project.title === "Udemy Course Analysis Report" ? (
-                            <TableauDashboardTabs 
-                              description={project.fullDescription} 
-                              title="Udemy Course Analysis Dashboard"
-                              tableauUrl="https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport?:language=en-US&:display_count=n&:origin=viz_share_link"
-                            />
-                          ) : project.title === "LoginPulse Analytics Dashboard" ? (
-                            <TableauDashboardTabs 
-                              description={project.fullDescription} 
-                              title="LoginPulse Analytics Dashboard"
-                              tableauUrl="https://public.tableau.com/app/profile/dheeraj.kumar.k3358/viz/AppHealthMetricsKPI/AppHealthMetrics"
-                            />
-                          ) : project.liveDemoUrl ? (
-                            <LiveDemoTabs 
-                              description={project.fullDescription} 
-                              liveDemoUrl={project.liveDemoUrl}
-                              githubUrl={project.githubUrl}
-                            />
-                          ) : (
-                            <div className="text-foreground/80 leading-relaxed">
-                              {project.fullDescription}
-                            </div>
-                          )}
+                            <DialogHeader>
+                              <DialogTitle>{project.title}</DialogTitle>
+                            </DialogHeader>
+                            {project.title === "Udemy Course Analysis Report" ? (
+                              <TableauDashboardTabs
+                                description={project.fullDescription}
+                                title="Udemy Course Analysis Dashboard"
+                                tableauUrl="https://public.tableau.com/views/UdemyCourseAnalysisDashboard_17614589055810/CourseandStudentAnalysisReport?:language=en-US&:display_count=n&:origin=viz_share_link"
+                              />
+                            ) : project.title === "LoginPulse Analytics Dashboard" ? (
+                              <TableauDashboardTabs
+                                description={project.fullDescription}
+                                title="LoginPulse Analytics Dashboard"
+                                tableauUrl="https://public.tableau.com/app/profile/dheeraj.kumar.k3358/viz/AppHealthMetricsKPI/AppHealthMetrics"
+                              />
+                            ) : project.liveDemoUrl ? (
+                              <LiveDemoTabs
+                                description={project.fullDescription}
+                                liveDemoUrl={project.liveDemoUrl}
+                                githubUrl={project.githubUrl}
+                              />
+                            ) : (
+                              <div className="text-foreground/80 leading-relaxed">
+                                {project.fullDescription}
+                              </div>
+                            )}
                           </div>
                         </DialogContent>
                       </Dialog>
